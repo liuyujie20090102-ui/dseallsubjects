@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>唐玄宗 · 補充筆記</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f7f4ed;
+            --text-primary: #2c2416;
+            --text-secondary: #5c5347;
+            --text-muted: #a09880;
+            --gold: #8b6914;
+            --gold-light: #c4a97d;
+            --ink-light: rgba(60,40,20,0.06);
+            --mountain-far: rgba(120,100,70,0.12);
+            --mountain-mid: rgba(100,80,55,0.16);
+            --mountain-near: rgba(80,60,40,0.2);
+            --cloud: rgba(255,252,245,0.7);
+            --card-bg: rgba(255,253,248,0.8);
+            --font-cn: "Noto Serif TC","PingFang SC","Microsoft YaHei","KaiTi",serif;
+            --font-en: "Inter","Helvetica Neue",sans-serif;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{
+            background-color:var(--bg);
+            font-family:var(--font-cn);
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            padding:32px 20px 48px;
+            position:relative;
+            overflow-x:hidden;
+            -webkit-font-smoothing:antialiased;
+        }
+        body::before{
+            content:"";
+            position:fixed;top:0;left:0;
+            width:100%;height:100%;
+            pointer-events:none;z-index:0;
+            background-image:
+                repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(139,119,80,0.012) 3px,rgba(139,119,80,0.012) 4px),
+                repeating-linear-gradient(90deg,transparent,transparent 5px,rgba(139,119,80,0.008) 5px,rgba(139,119,80,0.008) 6px);
+            opacity:0.7;
+        }
+        .mountains{position:fixed;bottom:0;left:0;width:100%;height:30%;pointer-events:none;z-index:0}
+        .mountain{position:absolute;bottom:0}
+        .mountain.m1{left:-8%;width:45%;height:55%;background:var(--mountain-far);border-radius:55% 55% 0 0}
+        .mountain.m2{left:22%;width:50%;height:68%;background:var(--mountain-mid);border-radius:50% 48% 0 0}
+        .mountain.m3{right:-8%;width:42%;height:60%;background:var(--mountain-near);border-radius:52% 52% 0 0}
+        .clouds{position:fixed;bottom:12%;left:0;width:100%;height:18%;pointer-events:none;z-index:0}
+        .cloud{position:absolute;background:var(--cloud);border-radius:50%;filter:blur(28px)}
+        .cloud.c1{width:260px;height:50px;left:8%;bottom:30px;opacity:0.5}
+        .cloud.c2{width:220px;height:42px;right:12%;bottom:15px;opacity:0.4}
+        .cloud.c3{width:180px;height:35px;left:50%;bottom:8px;opacity:0.35;transform:translateX(-50%)}
+        .birds{position:fixed;top:12%;right:12%;pointer-events:none;z-index:0;opacity:0.3}
+        .bird{display:inline-block;font-size:13px;margin:0 5px;animation:birdFloat 6s ease-in-out infinite}
+        .bird:nth-child(2){animation-delay:1.5s;font-size:9px}
+        .bird:nth-child(3){animation-delay:3s;font-size:11px}
+        @keyframes birdFloat{
+            0%,100%{transform:translateY(0) translateX(0)}
+            25%{transform:translateY(-7px) translateX(3px)}
+            50%{transform:translateY(-2px) translateX(8px)}
+            75%{transform:translateY(-9px) translateX(3px)}
+        }
+
+        .container{position:relative;z-index:1;width:100%;max-width:650px}
+        .top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px}
+        .back-link{color:var(--text-muted);text-decoration:none;font-size:14px;letter-spacing:1px;transition:color 0.3s}
+        .back-link:hover{color:var(--text-primary)}
+        .page-indicator{font-family:var(--font-en);font-size:13px;color:var(--text-muted);letter-spacing:1px}
+
+        .page-card{
+            background:var(--card-bg);
+            backdrop-filter:blur(8px);
+            -webkit-backdrop-filter:blur(8px);
+            border:1px solid rgba(180,160,130,0.2);
+            border-radius:16px;
+            padding:40px 32px;
+            box-shadow:0 2px 20px rgba(60,40,20,0.04);
+        }
+
+        .section-label{text-align:center;font-size:16px;font-weight:600;color:var(--text-muted);letter-spacing:3px;margin-bottom:20px}
+        .item-title{font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:14px;letter-spacing:1px}
+        .content{font-size:16px;color:var(--text-secondary);line-height:2.1;letter-spacing:0.5px}
+        .content p{margin-bottom:8px}
+        .content ul{list-style:none;padding-left:0;margin-bottom:12px}
+        .content ul li{padding:4px 0 4px 20px;position:relative;line-height:2}
+        .content ul li::before{content:"·";position:absolute;left:4px;color:var(--gold-light);font-weight:bold;font-size:18px}
+        .content ul li.sub{padding-left:36px}
+        .content ul li.sub::before{content:"·";left:18px;color:var(--text-muted);font-size:14px}
+        .content ul li.sub2{padding-left:48px}
+        .content ul li.sub2::before{content:"·";left:32px;color:var(--text-muted);font-size:12px}
+        .content strong{color:var(--text-primary);font-weight:600}
+
+        .nav-bar{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:12px}
+        .nav-btn{padding:10px 22px;background:rgba(255,253,248,0.7);border:1px solid rgba(180,160,130,0.25);border-radius:20px;cursor:pointer;font-family:var(--font-cn);font-size:14px;color:var(--text-secondary);letter-spacing:1px;transition:all 0.3s}
+        .nav-btn:hover{background:rgba(180,160,130,0.12);color:var(--text-primary)}
+        .nav-btn:disabled{opacity:0.3;cursor:default;pointer-events:none}
+        .nav-dots{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;max-width:180px}
+        .nav-dot{width:5px;height:5px;border-radius:50%;background:var(--text-muted);opacity:0.3;cursor:pointer;transition:all 0.3s}
+        .nav-dot.active{opacity:1;background:var(--gold);width:16px;border-radius:3px}
+
+        .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:24px}
+
+        @media(max-width:480px){
+            .page-card{padding:24px 16px}
+            .item-title{font-size:16px}
+            .content{font-size:15px}
+            .nav-btn{padding:8px 14px;font-size:13px}
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mountains">
+        <div class="mountain m1"></div>
+        <div class="mountain m2"></div>
+        <div class="mountain m3"></div>
+    </div>
+    <div class="clouds">
+        <div class="cloud c1"></div>
+        <div class="cloud c2"></div>
+        <div class="cloud c3"></div>
+    </div>
+    <div class="birds">
+        <span class="bird">⩳</span>
+        <span class="bird">⩳</span>
+        <span class="bird">⩳</span>
+    </div>
+
+    <div class="container">
+        <div class="top-bar">
+            <a href="唐玄宗.html" class="back-link">← 返回唐玄宗</a>
+            <span class="page-indicator" id="page-indicator">1 / 9</span>
+        </div>
+        <div class="page-card"><div id="page-content"></div></div>
+        <div class="nav-bar">
+            <button class="nav-btn" id="prev-btn" onclick="prevPage()">← 上一頁</button>
+            <div class="nav-dots" id="nav-dots"></div>
+            <button class="nav-btn" id="next-btn" onclick="nextPage()">下一頁 →</button>
+        </div>
+        <div class="footer">── Shelly Liu ──</div>
+    </div>
+
+    <script>
+        const pages = [
+            // 1. 藩镇之祸（形成原因+发展过程）
+            `<div class="section-label">── 一、藩鎮之禍 ──</div>
+             <div class="item-title">1. 形成原因與背景</div>
+             <div class="content">
+             <ul>
+             <li><strong>安撫降將：</strong>代宗為求和平，封安史舊將<strong>田承嗣</strong>為魏博節度使、<strong>李懷仙</strong>為幽州節度使</li>
+             <li><strong>酬謝平叛有功的將領：</strong>封平亂有功者如<strong>郭子儀</strong>等為節度使，導致全國藩鎮林立</li>
+             </ul>
+             </div>
+             <div class="item-title" style="margin-top:16px">2. 發展過程</div>
+             <div class="content">
+             <ul>
+             <li><strong>擁兵世襲：</strong>河北三鎮（魏博、盧龍、成德）自行委任官員，不繳稅，父死子繼</li>
+             <li><strong>反抗中央：</strong>德宗時爆發<strong>「涇原兵變」</strong>，叛軍攻陷長安，皇帝被迫逃往奉天</li>
+             </ul>
+             </div>`,
+
+            // 2. 藩镇之祸（影响+延续原因）
+            `<div class="section-label">── 一、藩鎮之禍 ──</div>
+             <div class="item-title">3. 影響</div>
+             <div class="content">
+             <ul>
+             <li><strong>外重內輕：</strong>形成「強臣弱君」的局面，中央無法有效控制地方</li>
+             <li>最終由藩鎮將領<strong>朱溫</strong>篡位滅唐</li>
+             </ul>
+             </div>
+             <div class="item-title" style="margin-top:16px">4. 為何能令唐朝延續百多年國祚？</div>
+             <div class="content">
+             <ul>
+             <li><strong>藩鎮互控：</strong>藩鎮之間利益不一，互相猜忌，使中央可玩弄「以藩制藩」的策略</li>
+             <li><strong>經濟命脈：</strong>江淮地區的財賦型藩鎮仍聽命中央，透過大運河供應糧食與錢財</li>
+             </ul>
+             </div>`,
+
+            // 3. 宦官专权（形成原因+发展过程）
+            `<div class="section-label">── 二、宦官專權 ──</div>
+             <div class="item-title">1. 形成背景與原因</div>
+             <div class="content">
+             <ul>
+             <li><strong>擁立之功：</strong><strong>李輔國</strong>在靈武擁立肅宗有功，開啟宦官掌政先河</li>
+             <li><strong>掌兵背景：</strong>代宗後，宦官掌握<strong>神策軍</strong>（中央禁軍），使皇帝在武力上依賴宦官</li>
+             </ul>
+             </div>
+             <div class="item-title" style="margin-top:16px">2. 發展過程</div>
+             <div class="content">
+             <ul>
+             <li>權力膨脹至可<strong>廢立皇帝</strong>，如王守澄、陳弘志弒憲宗</li>
+             <li><strong>甘露之變：</strong>文宗欲剷除宦官不成，反被仇士良等殺害大量朝臣，皇帝淪為傀儡</li>
+             </ul>
+             </div>`,
+
+            // 4. 宦官专权（影响+延续原因）
+            `<div class="section-label">── 二、宦官專權 ──</div>
+             <div class="item-title">3. 影響</div>
+             <div class="content">
+             <ul>
+             <li><strong>政治黑暗：</strong>宦官手握大權，結黨營私，導致朝政敗壞，君權旁落。朝臣動輒得咎，政治風氣極度敗壞</li>
+             </ul>
+             </div>
+             <div class="item-title" style="margin-top:16px">4. 為何能令唐朝延續百多年國祚？</div>
+             <div class="content">
+             <ul>
+             <li><strong>依附皇權與維護中央：</strong></li>
+             <li class="sub">皇權延伸：宦官權力源於皇權（家奴），雖能廢立皇帝，但絕不會推翻唐朝，反而維護唐室正統以自保</li>
+             <li class="sub">震懾藩鎮：宦官控制的神策軍是中央唯一武力，曾多次討伐不聽命的藩鎮</li>
+             </ul>
+             </div>`,
+
+            // 5. 牛李党争（形成原因+发展过程）
+            `<div class="section-label">── 三、牛李黨爭 ──</div>
+             <div class="item-title">1. 形成原因與背景</div>
+             <div class="content">
+             <ul>
+             <li><strong>出身與政見：</strong>以<strong>牛僧孺</strong>（科舉出身）與<strong>李德裕</strong>（世族出身）為首，對待藩鎮（李主戰、牛主和）及宦官態度對立</li>
+             <li><strong>考試糾紛：</strong>憲宗時，牛僧孺在科舉中議論時政，觸怒宰相李吉甫（李吉甫為李德裕之父）</li>
+             </ul>
+             </div>
+             <div class="item-title" style="margin-top:16px">2. 發展過程</div>
+             <div class="content">
+             <ul>
+             <li><strong>循環排擠：</strong>歷經憲、穆、敬、文、武、宣六朝，長達<strong>四十年</strong>。每換一帝，得勢派系即將對方貶黜至偏遠地區（如嶺南）</li>
+             </ul>
+             </div>`,
+
+            // 6. 牛李党争（影响+延续原因）
+            `<div class="section-label">── 三、牛李黨爭 ──</div>
+             <div class="item-title">3. 影響</div>
+             <div class="content">
+             <ul>
+             <li><strong>朝政癱瘓：</strong>無力應對社會矛盾與藩鎮問題，賢能之士多受牽連遭貶，朝政陷入癱瘓。如詩人<strong>李商隱</strong>因捲入黨爭受排擠</li>
+             </ul>
+             </div>
+             <div class="item-title" style="margin-top:16px">4. 為何能令唐朝延續百多年國祚？</div>
+             <div class="content">
+             <ul>
+             <li><strong>體制的維持：</strong>黨爭主要在朝廷官員內部進行，雙方皆忠於唐室。李德裕執政期間（<strong>會昌中興</strong>）曾積極整頓朝政，短暫提升國力</li>
+             </ul>
+             </div>`,
+
+            // 7. 民变迭起（形成原因+发展过程）
+            `<div class="section-label">── 四、民變迭起 ──</div>
+             <div class="item-title">1. 形成原因與背景</div>
+             <div class="content">
+             <ul>
+             <li><strong>苛政與天災：</strong>晚唐懿宗、僖宗時期，藩鎮戰爭與官員壓榨，及關東大旱時地方官員仍催迫賦稅，導致百姓走投無路</li>
+             </ul>
+             </div>
+             <div class="item-title" style="margin-top:16px">2. 發展過程</div>
+             <div class="content">
+             <ul>
+             <li><strong>黃巢起義：</strong>王仙芝起義後，<strong>黃巢</strong>率軍橫行全國，攻陷長安，自稱<strong>「大齊皇帝」</strong></li>
+             <li><strong>皇帝逃亡：</strong>唐僖宗步玄宗後塵，逃往四川避難，唐室威望盡失</li>
+             </ul>
+             </div>`,
+
+            // 8. 民变迭起（影响+延续原因）
+            `<div class="section-label">── 四、民變迭起 ──</div>
+             <div class="item-title">3. 影響</div>
+             <div class="content">
+             <ul>
+             <li><strong>經濟崩潰：</strong>戰火摧毀了東南經濟及神策軍，唐室名存實亡。原平亂將領乘機壯大，最終導致唐朝滅亡</li>
+             </ul>
+             </div>
+             <div class="item-title" style="margin-top:16px">4. 為何可能令唐朝延續百多年國祚？</div>
+             <div class="content">
+             <ul>
+             <li><strong>反面影響：</strong>打破最後平衡，導致滅亡。民變雖然最終被平息，但徹底切斷了唐朝賴以維生的東南財富</li>
+             <li><strong>正面影響：</strong>雖然民變重創唐室，但在黃巢之亂前，唐朝仍有號召力。中央利用<strong>李克用</strong>平亂，顯示唐朝的名分尚存，足以支撐到朱溫出現</li>
+             </ul>
+             </div>`,
+
+            // 9. 总结
+            `<div class="section-label">── 總結：唐朝延續百多年原因 ──</div>
+             <div class="content">
+             <p><strong>1. 藩鎮 vs 藩鎮</strong></p>
+             <ul><li>藩鎮互相制衡，沒人敢當出頭鳥篡位</li></ul>
+             <p><strong>2. 經濟的依賴</strong></p>
+             <ul><li>即使北方戰亂，但只要大運河不斷，東南物資就能源源不絕運往長安，唐朝就不會倒</li></ul>
+             <p><strong>3. 黃巢之亂是致使唐朝滅亡的根源</strong></p>
+             <ul><li>切斷了東南經濟 + 摧毀中央神策軍，讓最後的平衡崩潰</li></ul>
+             </div>`
+        ];
+
+        let currentPage = 0;
+        const totalPages = pages.length;
+
+        function renderPage() {
+            document.getElementById('page-content').innerHTML = pages[currentPage];
+            document.getElementById('page-indicator').textContent = (currentPage + 1) + ' / ' + totalPages;
+            document.getElementById('prev-btn').disabled = currentPage === 0;
+            document.getElementById('next-btn').disabled = currentPage === totalPages - 1;
+            const dots = document.getElementById('nav-dots');
+            dots.innerHTML = '';
+            for (let i = 0; i < totalPages; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'nav-dot' + (i === currentPage ? ' active' : '');
+                dot.onclick = () => { currentPage = i;
+                    renderPage();
+                    window.scrollTo({ top: 0, behavior: 'smooth' }); };
+                dots.appendChild(dot);
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function nextPage() { if (currentPage < totalPages - 1) { currentPage++;
+                renderPage(); } }
+        function prevPage() { if (currentPage > 0) { currentPage--;
+                renderPage(); } }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight') nextPage();
+            if (e.key === 'ArrowLeft') prevPage();
+        });
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; });
+        document.addEventListener('touchend', function(e) {
+            const diff = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) { if (diff > 0) nextPage();
+                else prevPage(); }
+        });
+
+        renderPage();
+    </script>
+</body>
+</html>
