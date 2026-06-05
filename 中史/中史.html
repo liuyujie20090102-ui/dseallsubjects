@@ -33,6 +33,9 @@
             padding: 0;
             box-sizing: border-box;
         }
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
             background-color: var(--bg);
@@ -76,7 +79,6 @@
         .mountain {
             position: absolute;
             bottom: 0;
-            border-radius: 50% 50% 0 0;
         }
         .mountain.m1 {
             left: -10%;
@@ -200,6 +202,12 @@
             max-width: 600px;
         }
 
+        /* 顶部锚点 */
+        #top {
+            position: absolute;
+            top: 0;
+        }
+
         /* 返回链接 */
         .back-link {
             display: inline-block;
@@ -249,7 +257,6 @@
             cursor: pointer;
             box-shadow: var(--shadow-sm);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            scroll-behavior: smooth;
         }
         .category-card:hover {
             transform: translateY(-4px);
@@ -432,6 +439,9 @@
     <!-- 主容器 -->
     <div class="container">
 
+        <!-- 顶部锚点 -->
+        <div id="top"></div>
+
         <!-- 返回 -->
         <a href="../index.html" class="back-link">← 返回主頁</a>
 
@@ -467,7 +477,7 @@
                 <div class="timeline-item">漢朝</div>
                 <div class="timeline-item">隋朝</div>
                 <div class="timeline-item active">
-                    <a href="唐朝/唐朝筆記入口.html">唐朝</a>
+                    <a href="唐朝/唐朝.html">唐朝</a>
                 </div>
                 <div class="timeline-item">宋朝</div>
                 <div class="timeline-item">元朝</div>
