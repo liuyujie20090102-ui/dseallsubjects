@@ -36,7 +36,6 @@
             position:relative;
             overflow-x:hidden;
             -webkit-font-smoothing:antialiased;
-            user-select:none;
         }
         body::before{
             content:"";
@@ -69,16 +68,12 @@
             75%{transform:translateY(-9px) translateX(2px)}
         }
 
-        /* 主容器 */
         .container{position:relative;z-index:1;width:100%;max-width:650px}
-
-        /* 顶部导航 */
         .top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px}
         .back-link{color:var(--text-muted);text-decoration:none;font-size:14px;letter-spacing:1px;transition:color 0.3s}
         .back-link:hover{color:var(--text-primary)}
         .page-indicator{font-family:var(--font-en);font-size:13px;color:var(--text-muted);letter-spacing:1px}
 
-        /* 内容卡片 */
         .page-card{
             background:var(--card-bg);
             backdrop-filter:blur(8px);
@@ -88,52 +83,47 @@
             padding:36px 32px;
             min-height:420px;
             box-shadow:0 2px 20px rgba(60,40,20,0.04);
-            position:relative;
-            overflow:hidden;
         }
-        .page-content{transition:opacity 0.25s ease,transform 0.25s ease}
-        .page-content.slide-out-left{opacity:0;transform:translateX(-20px)}
-        .page-content.slide-out-right{opacity:0;transform:translateX(20px)}
 
-        /* 笔记标题 */
-        .note-title{text-align:center;font-size:24px;font-weight:700;color:var(--text-primary);letter-spacing:3px;margin-bottom:28px}
-
-        /* 章节标题 */
-        .section-title{text-align:center;font-size:18px;font-weight:600;color:var(--text-muted);letter-spacing:3px;margin-bottom:20px}
-
-        /* 正文 */
+        .note-title{text-align:center;font-size:24px;font-weight:700;color:var(--text-primary);letter-spacing:3px;margin-bottom:24px}
+        .section-label{text-align:center;font-size:16px;font-weight:600;color:var(--text-muted);letter-spacing:3px;margin-bottom:20px}
+        .item-title{font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:12px;letter-spacing:1px}
         .content{font-size:16px;color:var(--text-secondary);line-height:2;letter-spacing:0.5px}
-        .content p{margin-bottom:10px}
-        .content .intro{color:var(--text-secondary);margin-bottom:16px}
-        .content ul{list-style:none;padding-left:0;margin-bottom:14px}
-        .content ul li{padding:4px 0 4px 20px;position:relative;line-height:1.9}
+        .content p{margin-bottom:8px}
+        .content ul{list-style:none;padding-left:0;margin-bottom:12px}
+        .content ul li{padding:3px 0 3px 20px;position:relative;line-height:1.9}
         .content ul li::before{content:"·";position:absolute;left:4px;color:var(--gold-light);font-weight:bold;font-size:18px}
         .content ul li.sub{padding-left:36px}
         .content ul li.sub::before{content:"◦";left:18px;color:var(--text-muted)}
+        .content ul li.sub2{padding-left:48px}
+        .content ul li.sub2::before{content:"▸";left:30px;color:var(--text-muted);font-size:12px}
         .content strong{color:var(--text-primary);font-weight:600}
         .content .highlight{color:var(--gold);font-weight:600}
+        .content table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+        .content table th{background:rgba(180,160,130,0.15);color:var(--text-primary);padding:8px 10px;text-align:center;font-weight:600;border:1px solid rgba(180,160,130,0.2)}
+        .content table td{padding:7px 10px;border:1px solid rgba(180,160,130,0.2);color:var(--text-secondary);line-height:1.6}
+        .content table td:first-child{font-weight:600;color:var(--text-primary);text-align:center;background:rgba(180,160,130,0.05)}
 
-        /* 引用 */
-        .quote-block{margin:16px 0;padding:14px 18px;border-left:3px solid var(--gold-light);background:rgba(196,169,125,0.06);border-radius:0 8px 8px 0;font-style:italic;color:var(--text-secondary);font-size:15px;line-height:1.9}
-        .quote-block .quote-author{display:block;text-align:right;font-style:normal;font-size:13px;color:var(--text-muted);margin-top:6px}
+        .quote-block{margin:14px 0;padding:14px 18px;border-left:3px solid var(--gold-light);background:rgba(196,169,125,0.06);border-radius:0 8px 8px 0;font-style:italic;color:var(--text-secondary);font-size:15px;line-height:1.9}
+        .quote-block .quote-author{display:block;text-align:right;font-style:normal;font-size:13px;color:var(--text-muted);margin-top:4px}
 
-        /* 底部导航 */
         .nav-bar{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:12px}
         .nav-btn{padding:10px 22px;background:rgba(255,253,248,0.7);border:1px solid rgba(180,160,130,0.25);border-radius:20px;cursor:pointer;font-family:var(--font-cn);font-size:14px;color:var(--text-secondary);letter-spacing:1px;transition:all 0.3s}
         .nav-btn:hover{background:rgba(180,160,130,0.12);color:var(--text-primary)}
         .nav-btn:disabled{opacity:0.3;cursor:default;pointer-events:none}
-        .nav-dots{display:flex;gap:6px}
-        .nav-dot{width:6px;height:6px;border-radius:50%;background:var(--text-muted);opacity:0.3;transition:all 0.3s}
-        .nav-dot.active{opacity:1;background:var(--gold);width:18px;border-radius:3px}
+        .nav-dots{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;max-width:200px}
+        .nav-dot{width:5px;height:5px;border-radius:50%;background:var(--text-muted);opacity:0.3;cursor:pointer;transition:all 0.3s}
+        .nav-dot.active{opacity:1;background:var(--gold);width:16px;border-radius:3px}
 
-        /* 页脚 */
         .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:24px}
 
         @media (max-width:480px){
-            .page-card{padding:24px 18px}
+            .page-card{padding:24px 16px}
             .note-title{font-size:20px}
+            .item-title{font-size:16px}
             .content{font-size:15px}
-            .nav-btn{padding:8px 16px;font-size:13px}
+            .content table{font-size:12px}
+            .nav-btn{padding:8px 14px;font-size:13px}
         }
     </style>
 </head>
@@ -157,18 +147,15 @@
 
     <div class="container">
 
-        <!-- 顶部 -->
         <div class="top-bar">
             <a href="1.html" class="back-link">← 返回唐朝</a>
-            <span class="page-indicator" id="page-indicator">1 / 14</span>
+            <span class="page-indicator" id="page-indicator">1 / 28</span>
         </div>
 
-        <!-- 内容卡片 -->
         <div class="page-card">
-            <div class="page-content" id="page-content"></div>
+            <div id="page-content"></div>
         </div>
 
-        <!-- 底部导航 -->
         <div class="nav-bar">
             <button class="nav-btn" id="prev-btn" onclick="prevPage()">← 上一頁</button>
             <div class="nav-dots" id="nav-dots"></div>
@@ -180,13 +167,11 @@
     </div>
 
     <script>
-        // 14页笔记内容
         const pages = [
-            // 第1页：背景
+            // 1. 背景
             `<div class="note-title">👑 唐太宗</div>
-             <div class="section-title">── 背景 ──</div>
+             <div class="section-label">── 背景 ──</div>
              <div class="content">
-             <p class="intro">隋末唐初，天下初定，百废待兴。</p>
              <ul>
              <li>户口由隋炀帝时<strong>八百九十万户</strong>下跌至<strong>两百万户</strong></li>
              <li>对外须面对<strong>突厥</strong>威胁</li>
@@ -194,23 +179,24 @@
              </ul>
              </div>`,
 
-            // 第2页：政制·改良中央政制
-            `<div class="section-title">── 政制方面 ──</div>
+            // 2. 政制·改良中央政制
+            `<div class="section-label">── 政制方面 ──</div>
+             <div class="item-title">1. 改良中央政制</div>
              <div class="content">
-             <p><strong>1. 改良中央政制</strong></p>
+             <p><strong>措施</strong></p>
              <ul>
              <li>继承隋代<strong>三省六部制</strong></li>
              <li class="sub">中书省：起草诏令</li>
              <li class="sub">门下省：审查诏令</li>
-             <li class="sub">尚书省：执行法令，下设六部</li>
-             <li>设<strong>政事堂</strong>，三省长官入内决策</li>
+             <li class="sub">尚书省：执行法令，下设六部（吏、户、礼、兵、刑、工）</li>
+             <li>设<strong>政事堂</strong>，三省长官及带衔官员入内决策</li>
              </ul>
-             <p><strong>成效：</strong>协调三省运作，提升效率</p>
-             <div class="quote-block">"不经凤阁鸾台，何名为敕？"<span class="quote-author">—— 意即未经中书起草、门下审核，不能称为诏令</span></div>
+             <p><strong>成效：</strong>协调三省运作，消除分歧，提升效率</p>
+             <div class="quote-block">「不经凤阁鸾台，何名为敕？」<span class="quote-author">→ 未经中书起草、门下审核，不能称为诏令</span></div>
              </div>`,
 
-            // 第3页：三省分立的作用
-            `<div class="section-title">── 三省分立的作用 ──</div>
+            // 3. 三省分立的作用
+            `<div class="item-title">三省分立的作用</div>
              <div class="content">
              <p><strong>好处</strong></p>
              <ul>
@@ -225,26 +211,35 @@
              </ul>
              </div>`,
 
-            // 第4页：改良地方政制 + 确立科举制
-            `<div class="content">
-             <p><strong>2. 改良地方政制</strong></p>
+            // 4. 改良地方政制
+            `<div class="section-label">── 政制方面 ──</div>
+             <div class="item-title">2. 改良地方政制</div>
+             <div class="content">
+             <p><strong>措施</strong></p>
              <ul>
              <li>沿用隋代<strong>州县二级制</strong></li>
-             <li>分全国为<strong>10道</strong>，作为监察区</li>
-             <li>不定期派遣<strong>巡察使</strong>监察地方</li>
+             <li>分全国为<strong>10道</strong>（类似汉武帝13州），作为州县之上的监察区</li>
+             <li>不定期派遣<strong>巡察使</strong>到地方监察刺史施政</li>
              </ul>
-             <p style="margin-top:14px"><strong>3. 确立科举制</strong></p>
-             <ul>
-             <li>继承科举制，以<strong>明经、进士</strong>两科最重要</li>
-             <li class="sub">明经：释经义为主，加试策论</li>
-             <li class="sub">进士：诗赋为主，加试经义、时务策</li>
-             </ul>
-             <div class="quote-block">"天下英雄，入吾彀中矣"<span class="quote-author">—— 唐太宗</span></div>
+             <p><strong>目的：</strong>了解地方民情，加强监察地方施政</p>
              </div>`,
 
-            // 第5页：科举制好处与局限
-            `<div class="content">
-             <p><strong>科举制的好处</strong></p>
+            // 5. 确立科举制
+            `<div class="item-title">3. 确立科举制</div>
+             <div class="content">
+             <p><strong>措施：</strong>继承并确立科举制，以<strong>明经、进士</strong>两科最为重要</p>
+             <ul>
+             <li class="sub">明经：以释经义为主，加试策论</li>
+             <li class="sub">进士：以诗赋为主，加试经义、时务策</li>
+             </ul>
+             <p><strong>成效：</strong>科举成为唐代选拔官员的主要途径</p>
+             <div class="quote-block">「天下英雄，入吾彀中矣」<span class="quote-author">—— 唐太宗</span></div>
+             </div>`,
+
+            // 6. 科举制好处与局限
+            `<div class="item-title">科举制 · 好处与局限</div>
+             <div class="content">
+             <p><strong>好处</strong></p>
              <ul>
              <li>平民有晋升政坛的机会</li>
              <li>促进社会阶级流动</li>
@@ -257,156 +252,426 @@
              </ul>
              </div>`,
 
-            // 第6页：选贤任能
-            `<div class="content">
-             <p><strong>4. 选贤任能</strong></p>
-             <p>原则：<strong>用人唯才，不问出身与恩怨</strong></p>
-             <ul>
-             <li><strong>房玄龄</strong>（隋朝旧臣）—— 善于谋划，人称「房谋」</li>
-             <li><strong>杜如晦</strong>（太宗旧部）—— 善于决断，人称「杜断」</li>
-             <li><strong>魏征</strong>（原为李建成旧臣）—— 直言敢谏，太宗不计前嫌</li>
-             <li><strong>李靖</strong> —— 善于用兵，曾领军对抗突厥</li>
-             <li><strong>长孙无忌</strong>（宗亲外戚）—— 策划玄武门之变</li>
-             </ul>
-             <p style="text-align:center;color:var(--gold);margin-top:10px">房玄龄 + 杜如晦 = 「房谋杜断」</p>
+            // 7. 选贤任能
+            `<div class="item-title">4. 选贤任能</div>
+             <div class="content">
+             <p><strong>原则：</strong>用人唯才，不问出身与恩怨</p>
+             <table>
+             <tr><th>人物</th><th>背景</th><th>特点</th></tr>
+             <tr><td>房玄龄</td><td>隋朝旧臣</td><td>善于谋划政令，人称「房谋」</td></tr>
+             <tr><td>杜如晦</td><td>太宗旧部</td><td>善于决断政策，人称「杜断」</td></tr>
+             <tr><td>魏征</td><td>原为李建成旧臣，昔日仇敌</td><td>直言敢谏，太宗不计前嫌重用</td></tr>
+             <tr><td>李靖</td><td>—</td><td>善于用兵，曾领军对抗突厥</td></tr>
+             <tr><td>长孙无忌</td><td>宗亲外戚</td><td>与房杜策划玄武门之变</td></tr>
+             </table>
+             <p style="text-align:center;color:var(--gold);margin-top:8px">房玄龄与杜如晦合称<strong>「房谋杜断」</strong></p>
              </div>`,
 
-            // 第7页：善于纳谏
-            `<div class="content">
-             <p><strong>5. 善于纳谏</strong></p>
-             <p>背景：以<strong>隋炀帝拒谏亡国</strong>为鉴</p>
+            // 8. 善于纳谏
+            `<div class="item-title">5. 善于纳谏</div>
+             <div class="content">
+             <p><strong>背景：</strong>太宗以<strong>隋炀帝拒谏亡国</strong>为鉴</p>
+             <p><strong>措施</strong></p>
              <ul>
-             <li>广开言路，鼓励群臣进谏</li>
-             <li>扩大谏官职权：宰相议事须有谏官陪同</li>
+             <li>即位后广开言路，鼓励群臣进谏</li>
+             <li>扩大谏官职权</li>
+             <li class="sub">→ 宰相入阁议事须有谏官陪同</li>
+             <li class="sub">→ 三品以上官员议事谏官随从左右，有错即谏</li>
              </ul>
+             <p><strong>成效：</strong>贞观朝谏臣涌现，太宗虚心纳谏，减少施政失误</p>
              <p><strong>例子</strong></p>
              <ul>
-             <li>贞观四年，下令修洛阳宫，遭<strong>张玄素</strong>谏止</li>
+             <li>贞观四年，太宗下令修洛阳宫，遭<strong>张玄素</strong>谏止</li>
              <li><strong>魏征</strong>曾犯颜直谏十次，太宗大力嘉赏</li>
              </ul>
-             <div class="quote-block">"以铜为镜，可以正衣冠；以古为镜，可以知兴替；以人为镜，可以明得失"<span class="quote-author">—— 魏征死后，太宗感叹</span></div>
+             <div class="quote-block">「以铜为镜，可以正衣冠；以古为镜，可以知兴替；以人为镜，可以明得失」<span class="quote-author">—— 魏征死后，太宗感叹</span></div>
              </div>`,
 
-            // 第8页：留心吏治 + 律法宽仁
-            `<div class="content">
-             <p><strong>6. 留心吏治</strong></p>
+            // 9. 留心吏治
+            `<div class="item-title">6. 留心吏治</div>
+             <div class="content">
+             <p><strong>措施</strong></p>
              <ul>
-             <li>命李靖等13人为<strong>黜陟大使</strong>，考察地方官</li>
-             <li>设<strong>记功过屏风</strong>，以备升贬</li>
-             <li>五品以上京官<strong>轮流值宿</strong>中书省</li>
-             <li>命房玄龄<strong>省并冗官</strong></li>
-             </ul>
-             <p style="margin-top:14px"><strong>7. 律法宽仁</strong></p>
-             <ul>
-             <li>编定<strong>《唐律》</strong>，以宽仁慎刑为宗旨</li>
-             <li>死刑须经<strong>三复奏</strong>（地方）或<strong>五复奏</strong>（京师）</li>
-             <li>设<strong>三司使</strong>会审重大案件</li>
+             <li><strong>考察地方官</strong></li>
+             <li class="sub">→ 命李靖等13人为<strong>黜陟大使</strong>，考察地方官勤惰并如实上报</li>
+             <li class="sub2">* 黜，贬退；陟，提拔</li>
+             <li><strong>记功过屏风</strong></li>
+             <li class="sub">→ 亲自挑选各州刺史，将其名字及功过记在屏风上，以备升贬</li>
+             <li><strong>轮流值宿</strong></li>
+             <li class="sub">→ 规定五品以上京官轮流值宿中书省，以便随时垂询民情</li>
+             <li><strong>省并冗官</strong></li>
+             <li class="sub">→ 命房玄龄省并冗官，以改善吏治</li>
              </ul>
              </div>`,
 
-            // 第9页：平抑门第
-            `<div class="content">
-             <p><strong>8. 平抑门第</strong></p>
-             <p>背景：旧氏族垄断政治，门第观念深厚</p>
+            // 10. 律法宽仁
+            `<div class="item-title">7. 律法宽仁</div>
+             <div class="content">
+             <p><strong>原则：</strong>以「<strong>慎刑宽简</strong>」为原则</p>
+             <p><strong>措施</strong></p>
              <ul>
-             <li>命高士廉修<strong>《氏族志》</strong>，以功臣代替世胄</li>
-             <li>打击山东士族：崔、卢、李、郑等大姓</li>
+             <li><strong>编定《唐律》</strong></li>
+             <li class="sub">→ 命长孙无忌以宽仁慎刑宗旨编定，减轻刑罚，废除酷刑</li>
+             <li><strong>死刑复奏</strong></li>
+             <li class="sub">→ 死刑须经<strong>三复奏</strong>（地方）或<strong>五复奏</strong>（京师）</li>
+             <li><strong>设三司使</strong></li>
+             <li class="sub">→ 由大理寺卿、刑部尚书侍郎、御史中丞会审重大案件</li>
+             <li><strong>以身作则</strong></li>
+             <li class="sub">→ 太宗以身作则，宗室犯法亦须受审</li>
+             <li class="sub2">如李元婴违法被削封</li>
+             </ul>
+             </div>`,
+
+            // 11. 平抑门第
+            `<div class="item-title">8. 平抑门第</div>
+             <div class="content">
+             <p><strong>背景：</strong>旧氏族垄断政治，门第观念深厚</p>
+             <p><strong>措施</strong></p>
+             <ul>
+             <li>命高士廉修<strong>《氏族志》</strong>，以功臣代替世胄，科举代替门第</li>
+             <li>打击山东士族集团，特别是<strong>崔、卢、李、郑</strong>等大姓</li>
              </ul>
              <p><strong>成效</strong></p>
              <ul>
-             <li>平民可透过科举上升，社会安定</li>
-             <li>加强寒门对国家的向心力</li>
+             <li>平民可透过科举上升，社会安定团结</li>
+             <li>加强寒门子弟对国家的向心力</li>
              </ul>
              <p><strong>局限</strong></p>
              <ul>
              <li>未彻底打破门阀观念，大族在婚姻上自矜高贵</li>
+             <li>如房玄龄等重臣仍与山东旧族联姻</li>
              </ul>
              </div>`,
 
-            // 第10页：经济方面
-            `<div class="section-title">── 經濟方面 ──</div>
+            // 12. 经济·背景 + 改良均田制
+            `<div class="section-label">── 经济方面 ──</div>
              <div class="content">
-             <p><strong>1. 改良均田制</strong></p>
+             <p><strong>背景</strong></p>
              <ul>
-             <li>按丁授田：丁男获<strong>八十亩口分田、二十亩永业田</strong></li>
-             <li>狭乡减半，鼓励迁往宽乡</li>
+             <li>隋末大兴土木、对外用兵，民变起事，民不聊生，社会经济受破坏</li>
              </ul>
-             <p><strong>2. 轻徭薄赋</strong></p>
-             <ul>
-             <li>田租约<strong>四十税一</strong>（比汉初三十税一更低）</li>
-             <li>力役每年<strong>二十天</strong>（比汉代少十天）</li>
-             </ul>
-             <p><strong>3. 重视民生</strong></p>
-             <ul>
-             <li>作<strong>《帝范》</strong>给太子李治</li>
-             <li>遣散宫女三千人，免去四方珍贡</li>
-             </ul>
-             </div>`,
-
-            // 第11页：经济·人口+贸易
-            `<div class="content">
-             <p><strong>4. 增加人口</strong></p>
-             <ul>
-             <li>招抚流民回乡垦殖</li>
-             <li>释放僧尼十余万人还俗婚配</li>
-             <li>户口由二百多万增至<strong>三百八十万户</strong></li>
-             </ul>
-             <p><strong>5. 发展对外贸易</strong></p>
-             <ul>
-             <li>长安、洛阳、扬州、广州聚集各国商人</li>
-             <li>外商运来香料、药材、珠宝</li>
-             <li>购回中国丝绸、瓷器</li>
-             </ul>
-             </div>`,
-
-            // 第12页：文化方面
-            `<div class="section-title">── 文化方面 ──</div>
-             <div class="content">
-             <p><strong>1. 兴办学校</strong></p>
-             <ul><li>京师设<strong>国子监</strong>，地方设州学、县学</li></ul>
-             <p><strong>2. 修订五经</strong></p>
-             <ul><li>颜师古校订文字，孔颖达疏解文义，完成<strong>《五经正义》</strong></li></ul>
-             <p><strong>3. 设弘文馆</strong> · 收藏图书，校理典籍</p>
-             <p><strong>4. 设文学馆与史馆</strong></p>
-             <ul><li>文学馆纳十八学士；史馆编修六朝正史</li></ul>
-             <p><strong>5. 信仰自由</strong></p>
-             <ul><li>景教、祆教等自由传教；玄奘往天竺取经</li></ul>
-             </div>`,
-
-            // 第13页：军事+盛况
-            `<div class="section-title">── 軍事方面 ──</div>
-             <div class="content">
-             <p><strong>1. 改良府兵制</strong> · 寓兵于农，关中设六百多个折冲府</p>
-             <p><strong>2. 平定突厥</strong> · 李靖、李勣出击，太宗被尊为<strong>「天可汗」</strong></p>
-             <p><strong>3. 经营西域</strong> · 设<strong>安西都护府</strong></p>
-             <p><strong>4. 和亲吐蕃</strong> · <strong>文成公主</strong>下嫁松赞干布</p>
-             <div class="quote-block">"自古皆贵中华，贱夷狄，朕独爱之如一"<span class="quote-author">—— 唐太宗</span></div>
              </div>
-             <div class="section-title" style="margin-top:16px">── 貞觀之治盛況 ──</div>
+             <div class="item-title" style="margin-top:16px">1. 改良均田制</div>
              <div class="content">
+             <p><strong>措施</strong></p>
              <ul>
-             <li>政治清明，社会安定，米价低廉</li>
-             <li>全国判死刑者不过<strong>二十九人</strong></li>
-             <li>各族共尊太宗为「天可汗」</li>
+             <li><strong>按丁授田</strong></li>
+             <li class="sub">→ 唐初沿用隋代均田制，按丁授田</li>
+             <li class="sub">→ 十八岁以上丁男获<strong>八十亩口分田、二十亩永业田</strong></li>
+             <li><strong>狭乡减半</strong></li>
+             <li class="sub">→ 狭乡授田减半，鼓励百姓迁往宽乡</li>
+             </ul>
+             <p><strong>配套规定</strong></p>
+             <ul>
+             <li>贫苦者优先有田，若荒废土地则会受罚</li>
+             <li>黄河流域地少人多，女子不再授田，亦不用服役</li>
+             </ul>
+             <p><strong>成效：</strong>土地得到妥善分配，有利恢复生产</p>
+             </div>`,
+
+            // 13. 轻徭薄赋
+            `<div class="item-title">2. 轻徭薄赋</div>
+             <div class="content">
+             <p><strong>措施</strong></p>
+             <ul>
+             <li><strong>田租</strong></li>
+             <li class="sub">→ 贞观年间田租约为<strong>四十税一</strong>，比汉初三十税一更低</li>
+             <li><strong>力役</strong></li>
+             <li class="sub">→ 每年<strong>二十天</strong>，比汉代少十天</li>
+             <li class="sub">→ 多纳租调者可免除力役</li>
+             <li><strong>禁加征</strong></li>
+             <li class="sub">→ 各州县在正赋之外，不得随便加征</li>
+             </ul>
+             <p><strong>成效：</strong>百姓负担较轻，国家收入更稳定</p>
+             </div>`,
+
+            // 14. 重视民生
+            `<div class="item-title">3. 重视民生</div>
+             <div class="content">
+             <p><strong>背景</strong></p>
+             <div class="quote-block">「为君之道，必须先存百姓。若损百姓以奉其身，犹割股以啖腹，腹饱而身毙。」<span class="quote-author">—— 唐太宗</span></div>
+             <p><strong>措施</strong></p>
+             <ul>
+             <li><strong>作《帝范》</strong></li>
+             <li class="sub">→ 给太子李治，叮嘱其体察民情</li>
+             <li><strong>改冠礼</strong></li>
+             <li class="sub">→ 将太子冠礼由二月改为十月，避免影响农民耕作</li>
+             <li><strong>赈灾减税</strong></li>
+             <li class="sub">→ 遇有饥荒时，减轻赋税，甚至开仓赈济</li>
+             <li><strong>提倡节俭</strong></li>
+             <li class="sub">→ 遣散宫女三千人，免去四方珍贡，以纾解民困</li>
              </ul>
              </div>`,
 
-            // 第14页：评价
-            `<div class="section-title">── 評價 ──</div>
+            // 15. 增加人口
+            `<div class="item-title">4. 增加人口</div>
              <div class="content">
-             <p><strong>正面</strong></p>
+             <p><strong>措施</strong></p>
              <ul>
-             <li>网罗人才：唯才是用，不问亲疏</li>
-             <li>知人善任：房谋杜断，各用其长</li>
-             <li>从谏如流：器重魏征等直谏之臣</li>
-             <li>崇尚节俭：遣散宫女，暂停纳贡</li>
+             <li><strong>招抚流民</strong></li>
+             <li class="sub">→ 招抚流民回乡垦殖</li>
+             <li><strong>助民婚配</strong></li>
+             <li class="sub">→ 州县官员协助贫困和失婚男女完婚，生男者奖励粟一石</li>
+             <li><strong>释放僧尼</strong></li>
+             <li class="sub">→ 释放僧尼十余万人，使之还俗婚配</li>
+             <li><strong>放还宫女</strong></li>
+             <li class="sub">→ 放还宫女，为卖身者赎身</li>
              </ul>
-             <p><strong>负面</strong></p>
+             <p><strong>成效：</strong>国家控制户口由二百多万增至<strong>三百八十万户</strong></p>
+             </div>`,
+
+            // 16. 发展对外贸易
+            `<div class="item-title">5. 发展对外贸易</div>
+             <div class="content">
+             <p><strong>背景：</strong>贞观年间，唐室发展中外的陆路及海路交通</p>
+             <p><strong>内容</strong></p>
              <ul>
-             <li>未能贯彻始终：后期骄傲，广建宫室</li>
-             <li>东征高丽无功：晚年好大喜功</li>
-             <li>追求长生：迷信方士，服用丹药</li>
-             <li>开宫廷斗争恶例：玄武门之变，储位之争</li>
+             <li><strong>外商云集</strong></li>
+             <li class="sub">→ 长安、洛阳、扬州、广州聚集了许多南海、中亚、西亚的商人</li>
+             <li><strong>商品交易</strong></li>
+             <li class="sub">→ 外商运来香料、药材、珊瑚、珍珠、宝石、玻璃器皿等</li>
+             <li class="sub">→ 购回中国的丝绸、瓷器等</li>
+             </ul>
+             <p><strong>成效</strong></p>
+             <ul>
+             <li>中国与波斯等国经济交流频繁</li>
+             <li>长安、洛阳成为商旅聚集之地，扬州、广州成为重要的沿海商业城市</li>
+             </ul>
+             </div>`,
+
+            // 17. 文化·兴办学校 + 修订五经
+            `<div class="section-label">── 文化方面 ──</div>
+             <div class="item-title">1. 兴办学校</div>
+             <div class="content">
+             <ul>
+             <li><strong>国子监</strong>：京师设国子监，招收官员及平民子弟入学</li>
+             <li><strong>弘文馆、崇文馆</strong>：招收皇族和宰相子弟入学</li>
+             <li><strong>州学、县学</strong>：地方设州学、县学，成绩优异者可获荐参加科举</li>
+             </ul>
+             <p><strong>成效：</strong>学校体系完善，为科举提供考生来源</p>
+             </div>
+             <div class="item-title" style="margin-top:16px">2. 修订五经</div>
+             <div class="content">
+             <ul>
+             <li><strong>校订文字</strong>：太宗命<strong>颜师古</strong>校订《五经》文字</li>
+             <li><strong>疏解文义</strong>：<strong>孔颖达</strong>疏解正统文义，统一学说</li>
+             <li>完成后颁行全国，即<strong>《五经正义》</strong></li>
+             </ul>
+             <p><strong>成效：</strong>帮助学子理解经义，提升学习效能</p>
+             <p><strong>局限：</strong>经文解释统一后，限制了独立思考的空间</p>
+             </div>`,
+
+            // 18. 弘文馆 + 文学馆史馆 + 信仰自由
+            `<div class="item-title">3. 设弘文馆</div>
+             <div class="content">
+             <ul>
+             <li><strong>收藏图书</strong>：太宗设弘文馆，收藏大量图书</li>
+             <li><strong>校理典籍</strong>：命虞世南等名儒担任学士，校理典籍</li>
+             </ul>
+             </div>
+             <div class="item-title" style="margin-top:14px">4. 设文学馆与史馆</div>
+             <div class="content">
+             <ul>
+             <li><strong>文学馆</strong>：太宗即位前开设，纳房玄龄、杜如晦等<strong>十八学士</strong></li>
+             <li class="sub">每日讨论文典，商议天下大略，亦为宫廷教师</li>
+             <li><strong>史馆</strong>：即位后开设，先后编修六朝正史</li>
+             <li class="sub">六朝正史：《晋书》《北周书》《北齐书》《梁书》《陈书》《隋书》</li>
+             </ul>
+             </div>
+             <div class="item-title" style="margin-top:14px">5. 信仰自由</div>
+             <div class="content">
+             <ul>
+             <li>唐初以<strong>道教为国教</strong></li>
+             <li>外来宗教如<strong>景教、祆教</strong>等均可自由传教，各种宗教和平共处</li>
+             <li>例子：玄奘为弘扬佛法，长途跋涉往天竺取经</li>
+             </ul>
+             </div>`,
+
+            // 19. 军事·背景 + 改良府兵制
+            `<div class="section-label">── 军事方面 ──</div>
+             <div class="content">
+             <p><strong>背景</strong></p>
+             <ul>
+             <li>隋末突厥壮大，曾于玄武门之变时乘机入侵</li>
+             <li>太宗后来与东突厥订立<strong>便桥之盟</strong>，才得以暂时缓解边患</li>
+             </ul>
+             </div>
+             <div class="item-title" style="margin-top:16px">1. 改良府兵制</div>
+             <div class="content">
+             <ul>
+             <li>从富户中征选强壮者入伍，寓兵于农</li>
+             <li>府兵有经济能力自备资粮服役，战斗力强</li>
+             <li>全国设<strong>六百多个折冲府</strong>，十分之八设于关中附近</li>
+             </ul>
+             <p><strong>优点</strong></p>
+             <ul>
+             <li>兵农合一，农时耕种，农闲训练，不影响生产，粮食自给</li>
+             <li>关中兵力占绝对优势，确保中央对地方的控制，杜绝地方割据</li>
+             <li>兵将分离：战时点兵出征，战后兵返府、将归朝，避免拥兵自重</li>
+             </ul>
+             </div>`,
+
+            // 20. 平定突厥 + 经营西域 + 和亲吐蕃
+            `<div class="item-title">2. 平定突厥</div>
+             <div class="content">
+             <ul>
+             <li>突厥经常侵扰唐朝，太宗派<strong>李靖、李勣</strong>率兵出击</li>
+             <li>东突厥降唐后，西突厥亦因连年内乱降唐，唐朝北部边患得以解除</li>
+             </ul>
+             <p><strong>成效：</strong>西北各族君长共尊太宗为<strong>「天可汗」</strong>，修筑「参天可汗道」以便朝见</p>
+             </div>
+             <div class="item-title" style="margin-top:14px">3. 经营西域</div>
+             <div class="content">
+             <ul>
+             <li>太宗先后征服吐谷浑、高昌及龟兹等西域诸国</li>
+             <li>在西域设置<strong>安西都护府</strong>，使他们相继臣服唐朝</li>
+             </ul>
+             </div>
+             <div class="item-title" style="margin-top:14px">4. 和亲吐蕃</div>
+             <div class="content">
+             <ul>
+             <li>松赞干布遣使朝贡，向唐朝请求通婚</li>
+             <li>太宗以<strong>文成公主</strong>下嫁，双方保持良好关系</li>
+             </ul>
+             <div class="quote-block">「自古皆贵中华，贱夷狄，朕独爱之如一」<span class="quote-author">—— 太宗民族政策：各民族一视同仁</span></div>
+             </div>`,
+
+            // 21. 贞观之治盛况（1-3）
+            `<div class="section-label">── 贞观之治的盛况 ──</div>
+             <div class="item-title">1. 安定繁荣</div>
+             <div class="content">
+             <ul>
+             <li>贞观年间，政治清明，社会安定，人口增长，百姓富足</li>
+             <li>治安良好，物产丰富，米价低廉</li>
+             <li>唐高宗继承贞观之世的余绪，开创永徽之世，为盛唐奠下基础</li>
+             </ul>
+             </div>
+             <div class="item-title" style="margin-top:14px">2. 经济复苏</div>
+             <div class="content">
+             <ul>
+             <li>太宗的各项措施扭转了隋末天下大乱的局面，令社会经济迅速复苏</li>
+             <li>全国连年丰收，米价每斗由四、五钱减至<strong>两钱</strong></li>
+             </ul>
+             </div>
+             <div class="item-title" style="margin-top:14px">3. 社会安定</div>
+             <div class="content">
+             <ul>
+             <li>均田制与轻徭薄赋下，社会富庶，盗贼少有，百姓夜不闭户</li>
+             <li>贞观年间，全国判死刑者不过<strong>二十九人</strong></li>
+             </ul>
+             </div>`,
+
+            // 22. 贞观之治盛况（4-6）
+            `<div class="item-title">4. 制度完善</div>
+             <div class="content">
+             <ul>
+             <li>太宗改良隋代制度，使其臻于完善，当中不少为后世师法沿用</li>
+             </ul>
+             <table>
+             <tr><th>制度</th><th>发展</th></tr>
+             <tr><td>三省六部制</td><td>分别于南宋、元、明朝撤销，六部则沿用至清末</td></tr>
+             <tr><td>科举制</td><td>一直沿用至清末才被废止</td></tr>
+             <tr><td>均田制与租庸调制</td><td>唐初沿用 → 日趋废弛，至唐德宗时彻底崩溃</td></tr>
+             <tr><td>府兵制</td><td>日趋废弛，至唐玄宗时被废除，但明太祖参照其模式设计卫所制</td></tr>
+             </table>
+             </div>
+             <div class="item-title" style="margin-top:16px">5. 四海一家</div>
+             <div class="content">
+             <ul>
+             <li>太宗先后降服周边的少数民族，又能平等对待他们，恩威并施</li>
+             <li>各族领袖相率来朝，共尊太宗为<strong>「天可汗」</strong></li>
+             </ul>
+             </div>
+             <div class="item-title" style="margin-top:14px">6. 文化大盛</div>
+             <div class="content">
+             <ul>
+             <li>日本、高丽、新罗等国派遣官员到长安求学</li>
+             <li>阿拉伯、东罗马有使者、商旅前来</li>
+             <li>丝绸之路行人往来不绝</li>
+             <li>促进了中外交通发展与文化交流</li>
+             </ul>
+             </div>`,
+
+            // 23. 对后世影响
+            `<div class="item-title">对后世影响</div>
+             <div class="content">
+             <ul>
+             <li>贞观年间确立的<strong>三省六部制、科举制</strong>，成为以后各朝的蓝本</li>
+             <li>唐朝的典章制度和文化艺术对<strong>日本、朝鲜、西域</strong>各国影响良多</li>
+             <li class="sub">日本京都、奈良，朝鲜平壤均模仿长安、洛阳而建</li>
+             <li class="sub">日本645年<strong>大化改新</strong>，效法唐制，成为中央集权国家</li>
+             <li>「<strong>唐</strong>」成为「中国」的同义词，影响至今</li>
+             </ul>
+             </div>`,
+
+            // 24. 评价·正面（1-2）
+            `<div class="section-label">── 唐太宗的评价 ──</div>
+             <div class="content">
+             <p><strong>治国理念：</strong>以民为本，社会安定。减轻赋税，让老百姓休养生息</p>
+             </div>
+             <div class="item-title" style="margin-top:16px">正面</div>
+             <div class="content">
+             <p><strong>1. 网罗人才</strong></p>
+             <ul>
+             <li>太宗唯才是用，不偏用旧部僚属</li>
+             <li>重视明经、进士等科举制度，故能广泛吸纳人才</li>
+             <li>例子：房玄龄善于谋划，杜如晦长于决断，合称「房谋杜断」</li>
+             <li class="sub">长孙无忌为外戚，魏征原为太子建成旧属、昔日仇敌，太宗不问亲疏，皆加重用</li>
+             </ul>
+             <p><strong>2. 知人善任</strong></p>
+             <ul>
+             <li>太宗对官员的优劣长短了如指掌，懂得弃其短用其长</li>
+             <li>群臣共同努力缔造了贞观之治</li>
+             </ul>
+             </div>`,
+
+            // 25. 评价·正面（3-4）
+            `<div class="item-title">正面（续）</div>
+             <div class="content">
+             <p><strong>3. 从谏如流</strong></p>
+             <ul>
+             <li>太宗器量宏大，择善而从，对犯颜直谏的官员甚为器重</li>
+             <li>魏征、马周、王珪等都是以直言进谏而知名的大臣</li>
+             </ul>
+             <p><strong>4. 崇尚节俭</strong></p>
+             <ul>
+             <li>以隋炀帝奢靡亡国为鉴</li>
+             <li>遣散宫女三千多人，下诏各地暂停纳贡</li>
+             <li>作《帝范》十二篇予太子李治，其中有《崇俭》一篇</li>
+             </ul>
+             <p style="text-align:center;color:var(--gold);margin-top:12px">→ 上述种种，令唐朝声威远播，太宗成为亚洲盟主</p>
+             </div>`,
+
+            // 26. 评价·负面（1-2）
+            `<div class="item-title">负面</div>
+             <div class="content">
+             <p><strong>1. 未能贯彻始终</strong></p>
+             <ul>
+             <li>贞观后期，太宗渐渐骄傲自满，疏远贤臣，拒纳谏言</li>
+             <li>生活奢侈，广建宫室，巡行四方，劳民伤财</li>
+             <li>例子：贞观十一年，马周上陈民间疾苦，太宗不理会，又拒绝房玄龄之谏</li>
+             </ul>
+             <p><strong>2. 东征高丽无功</strong></p>
+             <ul>
+             <li>太宗晚年好大喜功，不听群臣劝阻，亲征高丽，无功而还</li>
+             <li>命四川民众赶制战船，引发剑南道之变，令民众不堪苦役而相继起事</li>
+             </ul>
+             <div class="quote-block">「若魏征在，不使我有是事也」<span class="quote-author">—— 太宗事后感叹</span></div>
+             </div>`,
+
+            // 27. 评价·负面（3-4）
+            `<div class="item-title">负面（续）</div>
+             <div class="content">
+             <p><strong>3. 追求长生</strong></p>
+             <ul>
+             <li>太宗晚年迷信方士，服用金石丹药，追求长生不死，此为太宗短寿而卒的原因</li>
+             <li>例子：张果老</li>
+             </ul>
+             <p><strong>4. 开宫廷斗争之恶例</strong></p>
+             <ul>
+             <li>太宗发动玄武门之变，杀死李建成，逼高祖让出帝位，开唐朝宫斗先例</li>
+             <li>晚年因宠爱魏王李泰，引发储位之争，太子李承乾谋反被废，造成内耗</li>
+             <li>最终改立懦弱的晋王李治为太子</li>
              </ul>
              </div>`
         ];
@@ -420,7 +685,6 @@
             document.getElementById('prev-btn').disabled = currentPage === 0;
             document.getElementById('next-btn').disabled = currentPage === totalPages - 1;
 
-            // 更新圆点
             const dots = document.getElementById('nav-dots');
             dots.innerHTML = '';
             for (let i = 0; i < totalPages; i++) {
@@ -434,35 +698,23 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function nextPage() {
-            if (currentPage < totalPages - 1) {
-                currentPage++;
-                renderPage();
-            }
-        }
+        function nextPage() { if (currentPage < totalPages - 1) { currentPage++;
+                renderPage(); } }
 
-        function prevPage() {
-            if (currentPage > 0) {
-                currentPage--;
-                renderPage();
-            }
-        }
+        function prevPage() { if (currentPage > 0) { currentPage--;
+                renderPage(); } }
 
-        // 键盘翻页
         document.addEventListener('keydown', function(e) {
             if (e.key === 'ArrowRight') nextPage();
             if (e.key === 'ArrowLeft') prevPage();
         });
 
-        // 触摸滑动
         let touchStartX = 0;
         document.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; });
         document.addEventListener('touchend', function(e) {
             const diff = touchStartX - e.changedTouches[0].clientX;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0) nextPage();
-                else prevPage();
-            }
+            if (Math.abs(diff) > 50) { if (diff > 0) nextPage();
+                else prevPage(); }
         });
 
         renderPage();
