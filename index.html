@@ -4,518 +4,222 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DSE 學習站 · Shelly Liu</title>
-    <!-- Google Fonts: 思源宋体 + Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #faf9f6;
-            --card-bg: rgba(255, 255, 255, 0.7);
-            --card-border: rgba(255, 255, 255, 0.9);
-            --text-primary: #1a1a2e;
-            --text-secondary: #5c5c6e;
-            --text-muted: #b0a89c;
-            --gold: #c4a97d;
-            --f4-accent: #6b7b8d;
-            --f5-accent: #7a9a7e;
-            --f6-accent: #c49b6c;
-            --glow-warm: rgba(210, 180, 140, 0.15);
-            --glow-cool: rgba(160, 180, 200, 0.1);
-            --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.03);
-            --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.08);
-            --radius: 16px;
-            --font-cn: "Noto Serif TC", "PingFang SC", "Microsoft YaHei", serif;
-            --font-en: "Inter", "Helvetica Neue", sans-serif;
+            --bg-deep: #1a1a2e;
+            --bg-mid: #16213e;
+            --card-bg: rgba(255,255,255,0.06);
+            --card-border: rgba(255,255,255,0.12);
+            --card-hover-bg: rgba(255,255,255,0.1);
+            --card-hover-border: rgba(255,255,255,0.25);
+            --text-primary: #e8e4f0;
+            --text-secondary: #b8b4c8;
+            --text-muted: #7a7688;
+            --gold: #d4a853;
+            --gold-light: #e8c97a;
+            --star-color: rgba(255,255,255,0.7);
+            --font-cn: "Noto Serif TC","PingFang SC","Microsoft YaHei","KaiTi",serif;
+            --font-en: "Inter","Helvetica Neue",sans-serif;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{
+            background: linear-gradient(160deg, #1a1a2e 0%, #16213e 30%, #1a2740 60%, #1a1a2e 100%);
+            font-family:var(--font-cn);
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            padding:40px 20px;
+            position:relative;
+            overflow-x:hidden;
+            -webkit-font-smoothing:antialiased;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* 星空背景 */
+        .stars-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+        .star{position:absolute;background:var(--star-color);border-radius:50%;animation:twinkle var(--dur) ease-in-out infinite;animation-delay:var(--delay);opacity:0}
+        @keyframes twinkle{
+            0%,100%{opacity:0.2;transform:scale(1)}
+            50%{opacity:1;transform:scale(1.8)}
+        }
+        .shooting-star{position:absolute;width:2px;height:2px;background:white;border-radius:50%;animation:shoot var(--sdur) linear infinite;animation-delay:var(--sdelay);opacity:0}
+        .shooting-star::after{content:"";position:absolute;top:0;left:0;width:60px;height:1px;background:linear-gradient(90deg,rgba(255,255,255,0.8),transparent);transform:rotate(-35deg);transform-origin:left}
+        @keyframes shoot{
+            0%{opacity:0;transform:translate(0,0)}
+            5%{opacity:1}
+            15%{opacity:0;transform:translate(-300px,200px)}
+            100%{opacity:0;transform:translate(-300px,200px)}
         }
 
-        body {
-            background-color: var(--bg);
-            font-family: var(--font-cn);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 48px 24px;
-            position: relative;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
+        /* 光晕 */
+        .glow{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(100px)}
+        .glow.g1{width:400px;height:400px;background:rgba(180,150,220,0.08);top:-100px;left:50%;transform:translateX(-50%)}
+        .glow.g2{width:300px;height:300px;background:rgba(200,170,120,0.06);bottom:-80px;right:-60px}
 
-        /* 纸质纹理 */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            background-image:
-                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.008) 2px, rgba(0, 0, 0, 0.008) 3px),
-                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0, 0, 0, 0.006) 2px, rgba(0, 0, 0, 0.006) 3px);
-        }
+        .container{position:relative;z-index:1;width:100%;max-width:680px}
+        .header{text-align:center;margin-bottom:48px}
+        .header .site-title{font-size:30px;font-weight:700;color:var(--text-primary);letter-spacing:4px;margin-bottom:8px}
+        .header .site-title .star-icon{display:inline-block;color:var(--gold);animation:twinkle 2s ease-in-out infinite}
+        .header .subtitle{font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:5px;text-transform:uppercase}
+        .quote-wrapper{text-align:center;margin-bottom:44px;min-height:36px}
+        .quote-wrapper .quote-text{font-size:15px;color:var(--text-secondary);font-style:italic;letter-spacing:1px;transition:opacity 0.5s ease,transform 0.5s ease}
 
-        /* 渐变光晕 */
-        .glow {
-            position: fixed;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
-            filter: blur(120px);
-            opacity: 0.5;
-        }
-        .glow.g1 {
-            width: 500px;
-            height: 500px;
-            background: var(--glow-warm);
-            top: -150px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .glow.g2 {
-            width: 400px;
-            height: 400px;
-            background: var(--glow-cool);
-            bottom: -120px;
-            right: -100px;
-        }
-        .glow.g3 {
-            width: 350px;
-            height: 350px;
-            background: var(--glow-warm);
-            bottom: 20%;
-            left: -120px;
-            opacity: 0.35;
-        }
+        .section-label{text-align:center;font-size:13px;color:var(--text-muted);letter-spacing:4px;margin-bottom:20px}
 
-        /* 主容器 */
-        .container {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            max-width: 780px;
-        }
+        .card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:28px}
+        .card-grid.triple{grid-template-columns:repeat(3,1fr);max-width:80%;margin-left:auto;margin-right:auto}
+        .card{display:block;background:var(--card-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--card-border);border-radius:18px;padding:30px 20px;text-align:center;text-decoration:none;cursor:pointer;transition:all 0.35s ease;position:relative;overflow:hidden}
+        .card::before{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 50% 0%,rgba(255,255,255,0.05) 0%,transparent 70%);opacity:0;transition:opacity 0.35s ease}
+        .card:hover{background:var(--card-hover-bg);border-color:var(--card-hover-border);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.3),0 0 60px rgba(200,170,120,0.06)}
+        .card:hover::before{opacity:1}
+        .card .card-icon{font-size:28px;margin-bottom:8px;display:block;transition:transform 0.3s ease}
+        .card:hover .card-icon{transform:scale(1.1)}
+        .card .card-name{font-size:17px;font-weight:600;color:var(--text-primary);letter-spacing:1px}
+        .card .card-status{font-size:11px;color:var(--text-muted);margin-top:4px;letter-spacing:1px}
+        .card.available{border-color:rgba(212,168,83,0.3)}
+        .card.available:hover{border-color:rgba(212,168,83,0.6);box-shadow:0 12px 40px rgba(0,0,0,0.3),0 0 80px rgba(200,170,120,0.1)}
+        .card.available .card-name{color:var(--gold-light)}
+        .card.disabled{opacity:0.45;cursor:default;pointer-events:none}
 
-        /* 标题区 */
-        .header {
-            text-align: center;
-            margin-bottom: 36px;
-            animation: fadeInUp 0.7s ease-out;
-        }
-        .header .logo {
-            font-family: var(--font-en);
-            font-size: 11px;
-            letter-spacing: 6px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-        .header h1 {
-            font-family: var(--font-cn);
-            font-size: 34px;
-            font-weight: 700;
-            color: var(--text-primary);
-            letter-spacing: 3px;
-            margin-bottom: 6px;
-        }
-        .header .subtitle {
-            font-family: var(--font-en);
-            font-size: 12px;
-            color: var(--text-muted);
-            letter-spacing: 5px;
-            font-weight: 400;
-        }
+        .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:32px}
+        .footer .name{color:var(--text-secondary);font-weight:400}
 
-        /* 金句区 */
-        .quote-wrapper {
-            text-align: center;
-            margin-bottom: 44px;
-            min-height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: fadeInUp 0.7s ease-out 0.2s both;
-        }
-        .quote-wrapper .quote-mark {
-            font-family: var(--font-cn);
-            font-size: 44px;
-            color: var(--gold);
-            line-height: 1;
-            margin-right: 6px;
-            opacity: 0.4;
-            position: relative;
-            top: -6px;
-        }
-        .quote-wrapper .quote-text {
-            font-family: var(--font-cn);
-            font-size: 15px;
-            color: var(--text-secondary);
-            font-style: italic;
-            letter-spacing: 1px;
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        /* 年级标签 */
-        .grade-label {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-            animation: fadeInUp 0.7s ease-out 0.35s both;
-        }
-        .grade-label .grade-tag {
-            font-family: var(--font-en);
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 3px;
-            padding: 6px 16px;
-            border-radius: 20px;
-            color: #fff;
-        }
-        .grade-label .grade-tag.f4 {
-            background: var(--f4-accent);
-        }
-        .grade-label .grade-tag.f5 {
-            background: var(--f5-accent);
-        }
-        .grade-label .grade-tag.f6 {
-            background: var(--f6-accent);
-        }
-        .grade-label .grade-line {
-            flex: 1;
-            height: 1px;
-            background: #e5e0d8;
-        }
-
-        /* 卡片网格 */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 14px;
-            margin-bottom: 14px;
-        }
-        .card-grid.second-row {
-            grid-template-columns: repeat(3, 1fr);
-            max-width: 75%;
-        }
-        .card-grid:last-of-type {
-            margin-bottom: 36px;
-        }
-
-        /* 卡片 - 玻璃拟态 */
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius);
-            padding: 26px 16px 22px;
-            text-align: center;
-            cursor: pointer;
-            position: relative;
-            box-shadow: var(--shadow-sm);
-            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1.2), box-shadow 0.3s ease;
-            text-decoration: none;
-            display: block;
-            animation: fadeInUp 0.7s ease-out both;
-        }
-        .card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-lg);
-        }
-        .card:active {
-            transform: scale(0.97);
-            transition: transform 0.1s ease;
-        }
-        .card .card-icon {
-            font-size: 30px;
-            margin-bottom: 10px;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-        .card:hover .card-icon {
-            transform: scale(1.15);
-        }
-        .card .card-name {
-            font-family: var(--font-cn);
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-primary);
-            letter-spacing: 1px;
-        }
-        .card.disabled {
-            opacity: 0.5;
-            cursor: default;
-            pointer-events: none;
-        }
-
-        /* 页脚 */
-        .footer {
-            text-align: center;
-            font-family: var(--font-en);
-            font-size: 11px;
-            color: var(--text-muted);
-            letter-spacing: 2px;
-            animation: fadeInUp 0.7s ease-out 0.9s both;
-        }
-        .footer .name {
-            font-weight: 500;
-            color: var(--text-secondary);
-        }
-
-        /* 动画 */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(24px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* 响应式 */
-        @media (max-width: 768px) {
-            .card-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .card-grid.second-row {
-                grid-template-columns: repeat(2, 1fr);
-                max-width: 100%;
-            }
-            .header h1 {
-                font-size: 26px;
-            }
-            .quote-wrapper .quote-text {
-                font-size: 14px;
-            }
-            body {
-                padding: 32px 16px;
-            }
-        }
-        @media (max-width: 480px) {
-            .card-grid,
-            .card-grid.second-row {
-                grid-template-columns: repeat(2, 1fr);
-                max-width: 100%;
-            }
-            .card {
-                padding: 18px 12px;
-            }
-            .card .card-icon {
-                font-size: 24px;
-            }
-            .card .card-name {
-                font-size: 13px;
-            }
-            .header h1 {
-                font-size: 22px;
-            }
+        @media(max-width:480px){
+            .header .site-title{font-size:24px}
+            .card{padding:22px 14px}
+            .card .card-icon{font-size:22px}
+            .card .card-name{font-size:15px}
+            .card-grid{gap:10px}
+            .card-grid.triple{max-width:100%}
         }
     </style>
 </head>
 <body>
+
+    <!-- 星空 -->
+    <div class="stars-container" id="stars-container"></div>
+
     <!-- 光晕 -->
     <div class="glow g1"></div>
     <div class="glow g2"></div>
-    <div class="glow g3"></div>
 
-    <!-- 主容器 -->
     <div class="container">
-        <!-- 标题 -->
+
         <div class="header">
-            <div class="logo">DSE · 2026 — 2028</div>
-            <h1>學 習 站</h1>
-            <div class="subtitle">STUDY · REVIEW · MASTER</div>
+            <div class="site-title"><span class="star-icon">✦</span> DSE 學習站</div>
+            <div class="subtitle">Study · Review · Master</div>
         </div>
 
-        <!-- 金句 -->
         <div class="quote-wrapper">
-            <span class="quote-mark">"</span>
             <span class="quote-text" id="quote-text"></span>
         </div>
 
-        <!-- F4 -->
-        <div class="grade-label" style="animation-delay: 0.35s;">
-            <span class="grade-tag f4">F4</span>
-            <span class="grade-line"></span>
-        </div>
+        <!-- 必修科 -->
+        <div class="section-label">── 必修科 ──</div>
         <div class="card-grid">
-            <a href="#" class="card disabled" style="animation-delay: 0.4s;">
+            <a href="#" class="card disabled">
                 <span class="card-icon">📝</span>
                 <span class="card-name">中文</span>
+                <span class="card-status">待建</span>
             </a>
-            <a href="#" class="card disabled" style="animation-delay: 0.45s;">
+            <a href="#" class="card disabled">
                 <span class="card-icon">🔤</span>
                 <span class="card-name">英文</span>
+                <span class="card-status">待建</span>
             </a>
-            <a href="#" class="card disabled" style="animation-delay: 0.5s;">
+            <a href="#" class="card disabled">
                 <span class="card-icon">📐</span>
                 <span class="card-name">數學</span>
+                <span class="card-status">待建</span>
             </a>
-            <a href="#" class="card disabled" style="animation-delay: 0.55s;">
+            <a href="#" class="card disabled">
                 <span class="card-icon">🏛️</span>
                 <span class="card-name">公社</span>
-            </a>
-        </div>
-        <div class="card-grid second-row">
-            <a href="中史.html" class="card" style="animation-delay: 0.5s;">
-                <span class="card-icon">🏯</span>
-                <span class="card-name">中史</span>
-            </a>
-            <a href="#" class="card disabled" style="animation-delay: 0.55s;">
-                <span class="card-icon">📖</span>
-                <span class="card-name">歷史</span>
-            </a>
-            <a href="#" class="card disabled" style="animation-delay: 0.6s;">
-                <span class="card-icon">🏗️</span>
-                <span class="card-name">健社</span>
+                <span class="card-status">待建</span>
             </a>
         </div>
 
-        <!-- F5 -->
-        <div class="grade-label" style="animation-delay: 0.65s;">
-            <span class="grade-tag f5">F5</span>
-            <span class="grade-line"></span>
-        </div>
-        <div class="card-grid">
-            <a href="#" class="card disabled" style="animation-delay: 0.7s;">
-                <span class="card-icon">📝</span>
-                <span class="card-name">中文</span>
-            </a>
-            <a href="#" class="card disabled" style="animation-delay: 0.72s;">
-                <span class="card-icon">🔤</span>
-                <span class="card-name">英文</span>
-            </a>
-            <a href="#" class="card disabled" style="animation-delay: 0.74s;">
-                <span class="card-icon">📐</span>
-                <span class="card-name">數學</span>
-            </a>
-            <a href="#" class="card disabled" style="animation-delay: 0.76s;">
-                <span class="card-icon">🏛️</span>
-                <span class="card-name">公社</span>
-            </a>
-        </div>
-        <div class="card-grid second-row">
-            <a href="#" class="card disabled" style="animation-delay: 0.74s;">
+        <!-- 选修科 -->
+        <div class="section-label">── 選修科 ──</div>
+        <div class="card-grid triple">
+            <a href="中史.html" class="card available">
                 <span class="card-icon">🏯</span>
                 <span class="card-name">中史</span>
+                <span class="card-status">進入</span>
             </a>
-            <a href="#" class="card disabled" style="animation-delay: 0.76s;">
+            <a href="#" class="card disabled">
                 <span class="card-icon">📖</span>
                 <span class="card-name">歷史</span>
+                <span class="card-status">待建</span>
             </a>
-            <a href="#" class="card disabled" style="animation-delay: 0.78s;">
+            <a href="#" class="card disabled">
                 <span class="card-icon">🏗️</span>
                 <span class="card-name">健社</span>
+                <span class="card-status">待建</span>
             </a>
         </div>
 
-        <!-- F6 -->
-        <div class="grade-label" style="animation-delay: 0.8s;">
-            <span class="grade-tag f6">F6</span>
-            <span class="grade-line"></span>
-        </div>
-        <div class="card-grid">
-            <a href="#" class="card disabled" style="animation-delay: 0.85s;">
-                <span class="card-icon">📝</span>
-                <span class="card-name">中文</span>
-            </a>
-            <a href="#" class="card disabled" style="animation-delay: 0.87s;">
-                <span class="card-icon">🔤</span>
-                <span class="card-name">英文</span>
-            </a>
-            <a href="#" class="card disabled" style="animation-delay: 0.89s;">
-                <span class="card-icon">📐</span>
-                <span class="card-name">數學</span>
-            </a>
-            <a href="#" class="card disabled" style="animation-delay: 0.91s;">
-                <span class="card-icon">🏛️</span>
-                <span class="card-name">公社</span>
-            </a>
-        </div>
-        <div class="card-grid second-row">
-            <a href="#" class="card disabled" style="animation-delay: 0.89s;">
-                <span class="card-icon">🏯</span>
-                <span class="card-name">中史</span>
-            </a>
-            <a href="#" class="card disabled" style="animation-delay: 0.91s;">
-                <span class="card-icon">📖</span>
-                <span class="card-name">歷史</span>
-            </a>
-            <a href="#" class="card disabled" style="animation-delay: 0.93s;">
-                <span class="card-icon">🏗️</span>
-                <span class="card-name">健社</span>
-            </a>
-        </div>
-
-        <!-- 页脚 -->
         <div class="footer">
             ── <span class="name">Shelly Liu</span> ──
         </div>
+
     </div>
 
     <script>
-        // 金句库
+        // 生成星空
+        const starsContainer = document.getElementById('stars-container');
+        for (let i = 0; i < 80; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.width = (Math.random() * 3 + 1) + 'px';
+            star.style.height = star.style.width;
+            star.style.setProperty('--dur', (Math.random() * 3 + 2) + 's');
+            star.style.setProperty('--delay', (Math.random() * 5) + 's');
+            starsContainer.appendChild(star);
+        }
+        // 流星
+        for (let i = 0; i < 3; i++) {
+            const shooting = document.createElement('div');
+            shooting.className = 'shooting-star';
+            shooting.style.left = (Math.random() * 60 + 30) + '%';
+            shooting.style.top = (Math.random() * 30) + '%';
+            shooting.style.setProperty('--sdur', (Math.random() * 6 + 8) + 's');
+            shooting.style.setProperty('--sdelay', (Math.random() * 10) + 's');
+            starsContainer.appendChild(shooting);
+        }
+
+        // 金句轮播
         const quotes = [
-            "學習的痛苦是一時的，不學習的痛苦是一生的。",
             "今天的努力，是明天的底氣。",
             "每一個優秀的人，都有一段沉默的時光。",
             "DSE不是終點，而是你證明自己的舞台。",
             "知識就是力量，複習就是給力量充電。",
             "不怕慢，就怕站。每天進步一點點。",
             "你現在付出的每一分鐘，都在為未來投票。",
-            "與其仰望星空，不如腳踏實地。",
-            "成功的路上並不擁擠，因為堅持的人不多。",
-            "把每一次複習，都當作最後一次。",
             "自律的頂端是享受孤獨。",
             "你未來的樣子，藏在你現在的努力裡。",
-            "所有的一鳴驚人，都是厚積薄發。",
-            "不要假裝很努力，結果不會陪你演戲。",
-            "你背不下來的書，總有人能背下來。",
-            "堅持很苦，但後悔更苦。",
             "唯有努力，不負光陰。",
-            "心之所向，素履以往。",
-            "沒有一蹴而就的成功，只有日積月累的堅持。",
-            "全力以赴，而後順其自然。",
-            "你有多自律，就有多自由。",
-            "星光不問趕路人，時光不負有心人。",
-            "積土成山，風雨興焉；積水成淵，蛟龍生焉。",
-            "騏驥一躍，不能十步；駑馬十駕，功在不舍。",
-            "鍥而不捨，金石可鏤。",
-            "博觀而約取，厚積而薄發。",
-            "書山有路勤為徑，學海無涯苦作舟。",
-            "寶劍鋒從磨礪出，梅花香自苦寒來。",
-            "千淘萬漉雖辛苦，吹盡狂沙始到金。",
             "長風破浪會有時，直掛雲帆濟滄海。"
         ];
-
         const quoteText = document.getElementById('quote-text');
-
         function showRandomQuote() {
             const randomIndex = Math.floor(Math.random() * quotes.length);
             quoteText.style.opacity = '0';
             quoteText.style.transform = 'translateY(8px)';
             setTimeout(() => {
-                quoteText.textContent = quotes[randomIndex];
+                quoteText.textContent = '「 ' + quotes[randomIndex] + ' 」';
                 quoteText.style.opacity = '1';
                 quoteText.style.transform = 'translateY(0)';
             }, 400);
         }
-
         showRandomQuote();
-        setInterval(showRandomQuote, 8000);
+        setInterval(showRandomQuote, 7000);
     </script>
 </body>
 </html>
