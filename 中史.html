@@ -21,7 +21,6 @@
             --card-bg: rgba(255,253,248,0.75);
             --card-border: rgba(180,160,130,0.3);
             --shadow-sm: 0 2px 16px rgba(60,40,20,0.04);
-            --shadow-md: 0 8px 32px rgba(60,40,20,0.06);
             --radius: 16px;
             --font-cn: "Noto Serif TC","PingFang SC","Microsoft YaHei","KaiTi",serif;
             --font-en: "Inter","Helvetica Neue",sans-serif;
@@ -77,33 +76,32 @@
         #top{position:absolute;top:0}
         .back-link{display:inline-block;color:var(--text-muted);text-decoration:none;font-size:14px;margin-bottom:32px;letter-spacing:1px;transition:color 0.3s}
         .back-link:hover{color:var(--text-primary)}
-        .page-title{text-align:center;font-size:32px;font-weight:700;color:var(--text-primary);letter-spacing:4px;margin-bottom:40px}
+        .page-title{text-align:center;font-size:32px;font-weight:700;color:var(--text-primary);letter-spacing:4px;margin-bottom:48px}
         .page-title .icon{display:block;font-size:40px;margin-bottom:10px}
-        .category-cards{display:flex;flex-direction:column;gap:16px;margin-bottom:48px}
-        .category-card{display:block;background:var(--card-bg);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px 24px;text-align:center;text-decoration:none;cursor:pointer;box-shadow:var(--shadow-sm);transition:transform 0.3s ease,box-shadow 0.3s ease}
-        .category-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
-        .category-card .card-icon{font-size:32px;display:block;margin-bottom:8px}
-        .category-card .card-title{font-size:20px;font-weight:700;color:var(--text-primary);letter-spacing:2px;margin-bottom:4px}
-        .category-card .card-desc{font-size:13px;color:var(--text-muted);letter-spacing:1px}
-        .section{padding-top:20px;margin-bottom:48px;scroll-margin-top:40px}
-        .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;padding-bottom:12px;border-bottom:1px solid var(--ink-light)}
-        .section-header .section-title{font-size:20px;font-weight:700;color:var(--text-primary);letter-spacing:3px}
-        .section-header .top-link{font-size:13px;color:var(--text-muted);text-decoration:none;letter-spacing:1px;transition:color 0.3s}
-        .section-header .top-link:hover{color:var(--text-primary)}
+
+        /* 区域 */
+        .section{margin-bottom:40px;scroll-margin-top:40px}
+        .section-header{text-align:center;margin-bottom:24px}
+        .section-header .section-title{font-size:18px;font-weight:600;color:var(--text-muted);letter-spacing:3px}
+
+        /* 时间线 */
         .timeline{position:relative;padding-left:40px}
         .timeline::before{content:"";position:absolute;left:16px;top:0;bottom:0;width:2px;background:var(--ink-light)}
-        .timeline-item{position:relative;padding:10px 0 10px 24px;margin-bottom:4px;font-size:17px;color:var(--text-secondary);letter-spacing:2px}
+        .timeline-item{position:relative;padding:12px 0 12px 24px;font-size:17px;color:var(--text-secondary);letter-spacing:2px}
         .timeline-item::before{content:"";position:absolute;left:-28px;top:50%;transform:translateY(-50%);width:10px;height:10px;border-radius:50%;background:var(--text-muted)}
-        .placeholder{text-align:center;padding:40px 20px;color:var(--text-muted);font-size:15px;letter-spacing:2px}
+        .timeline-item a{color:var(--text-secondary);text-decoration:none;transition:color 0.3s}
+        .timeline-item a:hover{color:#8b6914}
+
+        /* 页脚 */
         .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:20px}
         .footer .name{font-weight:500;color:var(--text-secondary)}
+
         @media (max-width:480px){
             .page-title{font-size:26px}
             .timeline{padding-left:30px}
             .timeline::before{left:10px}
             .timeline-item{font-size:15px;padding-left:18px}
             .timeline-item::before{left:-22px;width:8px;height:8px}
-            .category-card{padding:22px 18px}
         }
     </style>
 </head>
@@ -138,30 +136,17 @@
             中 史
         </div>
 
-        <div class="category-cards">
-            <a href="#gudaishi" class="category-card">
-                <span class="card-icon">🏛️</span>
-                <span class="card-title">古代史</span>
-                <span class="card-desc">周 · 秦 · 漢 · 隋 · 唐 · 宋 · 元 · 明 · 清</span>
-            </a>
-            <a href="#jindaishi" class="category-card">
-                <span class="card-icon">🏙️</span>
-                <span class="card-title">近代史</span>
-                <span class="card-desc">待建</span>
-            </a>
-        </div>
-
+        <!-- 古代史 -->
         <div class="section" id="gudaishi">
             <div class="section-header">
-                <span class="section-title">🏛️ 古代史</span>
-                <a href="#top" class="top-link">↑ 返回頂部</a>
+                <span class="section-title">── 古代史 ──</span>
             </div>
             <div class="timeline">
                 <div class="timeline-item">周朝</div>
                 <div class="timeline-item">秦朝</div>
                 <div class="timeline-item">漢朝</div>
                 <div class="timeline-item">隋朝</div>
-                <div class="timeline-item">唐朝</div>
+                <div class="timeline-item"><a href="唐朝.html">唐朝</a></div>
                 <div class="timeline-item">宋朝</div>
                 <div class="timeline-item">元朝</div>
                 <div class="timeline-item">明朝</div>
@@ -169,12 +154,14 @@
             </div>
         </div>
 
+        <!-- 近代史 -->
         <div class="section" id="jindaishi">
             <div class="section-header">
-                <span class="section-title">🏙️ 近代史</span>
-                <a href="#top" class="top-link">↑ 返回頂部</a>
+                <span class="section-title">── 近代史 ──</span>
             </div>
-            <div class="placeholder">內容待建</div>
+            <div class="timeline">
+                <div class="timeline-item" style="color:var(--text-muted)">待建</div>
+            </div>
         </div>
 
         <div class="footer">
