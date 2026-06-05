@@ -20,7 +20,6 @@
             --mountain-near: rgba(100,80,55,0.18);
             --mountain-close: rgba(80,60,40,0.25);
             --cloud: rgba(255,252,245,0.55);
-            --water: rgba(180,160,140,0.1);
             --card-bg: rgba(255,253,248,0.65);
             --card-border: rgba(180,160,130,0.3);
             --card-hover-bg: rgba(255,253,248,0.85);
@@ -79,7 +78,6 @@
         }
         .pine{position:fixed;left:3%;bottom:5%;pointer-events:none;z-index:0;opacity:0.25}
         .pine .trunk{width:4px;height:50px;background:rgba(60,40,20,0.5);margin:0 auto;border-radius:2px}
-        .pine .branch{width:0;height:0;margin:0 auto}
         .pine .b1{border-left:20px solid transparent;border-right:20px solid transparent;border-bottom:30px solid rgba(60,40,20,0.4);border-radius:40%}
         .pine .b2{border-left:26px solid transparent;border-right:26px solid transparent;border-bottom:35px solid rgba(60,40,20,0.35);border-radius:40%;margin-top:-10px}
         .pine .b3{border-left:30px solid transparent;border-right:30px solid transparent;border-bottom:40px solid rgba(60,40,20,0.3);border-radius:40%;margin-top:-12px}
@@ -104,13 +102,12 @@
         .quote-wrapper .quote-text{font-size:15px;color:var(--text-secondary);font-style:italic;letter-spacing:1px;transition:opacity 0.5s ease,transform 0.5s ease}
         .section-label{text-align:center;font-size:13px;color:var(--text-muted);letter-spacing:4px;margin-bottom:18px}
         .card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:28px}
-        .card-grid.triple{grid-template-columns:repeat(2,1fr)}
-        .card-grid.triple .card:last-child{grid-column:1/-1;max-width:100%;margin:0 auto}
-        .card{display:block;background:var(--card-bg);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px 20px;text-align:center;text-decoration:none;cursor:pointer;transition:all 0.35s ease;box-shadow:var(--shadow-sm)}
+        .card-grid.triple{grid-template-columns:repeat(3,1fr)}
+        .card{display:block;background:var(--card-bg);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px 16px;text-align:center;text-decoration:none;cursor:pointer;transition:all 0.35s ease;box-shadow:var(--shadow-sm)}
         .card:hover{background:var(--card-hover-bg);transform:translateY(-4px);box-shadow:var(--shadow-md)}
-        .card .card-icon{font-size:28px;margin-bottom:6px;display:block;transition:transform 0.3s ease}
+        .card .card-icon{font-size:26px;margin-bottom:6px;display:block;transition:transform 0.3s ease}
         .card:hover .card-icon{transform:scale(1.1)}
-        .card .card-name{font-size:16px;font-weight:600;color:var(--text-primary);letter-spacing:1px}
+        .card .card-name{font-size:15px;font-weight:600;color:var(--text-primary);letter-spacing:1px}
         .card .card-status{font-size:11px;color:var(--text-muted);margin-top:3px;letter-spacing:1px}
         .card.available{border-color:rgba(139,105,20,0.25)}
         .card.available .card-name{color:#6b4e0a}
@@ -118,57 +115,36 @@
         .card.disabled{opacity:0.45;cursor:default;pointer-events:none}
         .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:28px}
         .footer .name{color:var(--text-secondary);font-weight:400}
-        @media(max-width:480px){
-            .header .site-title{font-size:24px}
-            .card{padding:22px 14px}
-            .card .card-icon{font-size:22px}
-            .card .card-name{font-size:14px}
-            .card-grid{gap:10px}
+        @media(max-width:600px){
+            .card-grid.triple{grid-template-columns:repeat(2,1fr)}
+            .card-grid.triple .card:last-child{grid-column:1/-1;max-width:100%}
+        }
+        @media(max-width:400px){
+            .header .site-title{font-size:22px}
+            .card{padding:18px 10px}
+            .card .card-icon{font-size:20px}
+            .card .card-name{font-size:13px}
+            .card-grid{gap:8px}
         }
     </style>
 </head>
 <body>
 
     <div class="moon"></div>
-    <div class="mountains-sky">
-        <div class="ms ms1"></div>
-        <div class="ms ms2"></div>
-    </div>
-    <div class="birds">
-        <span class="bird">⩳</span>
-        <span class="bird">⩳</span>
-        <span class="bird">⩳</span>
-    </div>
-    <div class="clouds">
-        <div class="cloud c1"></div>
-        <div class="cloud c2"></div>
-        <div class="cloud c3"></div>
-        <div class="cloud c4"></div>
-    </div>
-    <div class="mountains">
-        <div class="mountain m1"></div>
-        <div class="mountain m2"></div>
-        <div class="mountain m3"></div>
-        <div class="mountain m4"></div>
-    </div>
+    <div class="mountains-sky"><div class="ms ms1"></div><div class="ms ms2"></div></div>
+    <div class="birds"><span class="bird">⩳</span><span class="bird">⩳</span><span class="bird">⩳</span></div>
+    <div class="clouds"><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div><div class="cloud c4"></div></div>
+    <div class="mountains"><div class="mountain m1"></div><div class="mountain m2"></div><div class="mountain m3"></div><div class="mountain m4"></div></div>
     <div class="water-reflect"></div>
-    <div class="pine">
-        <div class="b3"></div><div class="b2"></div><div class="b1"></div>
-        <div class="trunk"></div>
-    </div>
-    <div class="pine pine2">
-        <div class="b3"></div><div class="b2"></div><div class="b1"></div>
-        <div class="trunk"></div>
-    </div>
+    <div class="pine"><div class="b3"></div><div class="b2"></div><div class="b1"></div><div class="trunk"></div></div>
+    <div class="pine pine2"><div class="b3"></div><div class="b2"></div><div class="b1"></div><div class="trunk"></div></div>
 
     <div class="container">
         <div class="header">
             <div class="site-title"><span class="star-icon">✦</span> DSE 學習站</div>
             <div class="subtitle">Study · Review · Master</div>
         </div>
-        <div class="quote-wrapper">
-            <span class="quote-text" id="quote-text"></span>
-        </div>
+        <div class="quote-wrapper"><span class="quote-text" id="quote-text"></span></div>
         <div class="section-label">── 必修科 ──</div>
         <div class="card-grid">
             <a href="#" class="card disabled"><span class="card-icon">📝</span><span class="card-name">中文</span><span class="card-status">待建</span></a>
