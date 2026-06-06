@@ -61,32 +61,37 @@
         .bird:nth-child(2){animation-delay:1.5s;font-size:9px}
         .bird:nth-child(3){animation-delay:3s;font-size:11px}
         @keyframes birdFloat{0%,100%{transform:translateY(0) translateX(0)}25%{transform:translateY(-7px) translateX(3px)}50%{transform:translateY(-2px) translateX(8px)}75%{transform:translateY(-9px) translateX(3px)}}
-        .container{position:relative;z-index:1;width:100%;max-width:650px}
-        .back-link{display:inline-block;color:var(--text-muted);text-decoration:none;font-size:14px;margin-bottom:24px;letter-spacing:1px}
+        .container{position:relative;z-index:1;width:100%;max-width:480px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh}
+        .back-link{display:inline-block;color:var(--text-muted);text-decoration:none;font-size:14px;margin-bottom:24px;letter-spacing:1px;align-self:flex-start}
         .back-link:hover{color:var(--gold)}
-        .page-title{text-align:center;font-size:28px;font-weight:700;color:var(--text-primary);letter-spacing:4px;margin-bottom:36px}
-        .section{margin-bottom:32px}
-        .section-title{font-size:16px;font-weight:600;color:var(--text-primary);letter-spacing:2px;margin-bottom:14px;padding-left:8px;border-left:3px solid var(--gold-light)}
-        .card{
-            display:block;
+        .page-title{text-align:center;font-size:28px;font-weight:700;color:var(--text-primary);letter-spacing:4px;margin-bottom:48px}
+        .menu{display:flex;flex-direction:column;gap:20px;width:100%;max-width:320px}
+        .menu a{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:12px;
             background:rgba(255,253,248,0.75);
             backdrop-filter:blur(10px);
             -webkit-backdrop-filter:blur(10px);
             border:1px solid rgba(180,160,130,0.3);
-            border-radius:14px;
-            padding:20px 22px;
+            border-radius:16px;
+            padding:28px 24px;
             text-decoration:none;
+            color:var(--text-primary);
+            font-size:18px;
+            font-weight:600;
+            letter-spacing:3px;
             cursor:pointer;
-            box-shadow:0 2px 12px rgba(60,40,20,0.04);
+            box-shadow:0 2px 16px rgba(60,40,20,0.04);
             transition:transform 0.3s ease,box-shadow 0.3s ease;
         }
-        .card:hover{transform:translateY(-3px);box-shadow:0 6px 24px rgba(60,40,20,0.06)}
-        .card-label{font-size:15px;font-weight:600;color:var(--text-primary);letter-spacing:1px;margin-bottom:4px}
-        .card-hint{font-size:12px;color:var(--text-muted);letter-spacing:0.5px;line-height:1.6}
-        .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:40px}
+        .menu a:hover{transform:translateY(-3px);box-shadow:0 6px 24px rgba(60,40,20,0.06)}
+        .menu-icon{font-size:22px}
+        .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:48px}
         @media(max-width:480px){
             .page-title{font-size:22px}
-            .card{padding:16px 18px}
+            .menu a{font-size:16px;padding:24px 20px;letter-spacing:2px}
         }
     </style>
 </head>
@@ -97,39 +102,20 @@
     <div class="container">
         <a href="../英文.html" class="back-link">← 返回英文</a>
         <div class="page-title">詞 彙 庫</div>
-
-        <div class="section">
-            <div class="section-title">按主題分類</div>
-            <a href="主题分类.html" class="card">
-                <div class="card-label">論證 · 環境 · 科技 · 情感 · 社會 · 職業 · 程度 · 教育 · 健康 · 文化 · 經濟 · 法律 · 國際</div>
-                <div class="card-hint">13個主題，按話題快速查找詞彙</div>
+        <div class="menu">
+            <a href="主题分类.html">
+                <span class="menu-icon">📂</span>按主題分類
+            </a>
+            <a href="字母分类.html">
+                <span class="menu-icon">🔤</span>按字母分類
+            </a>
+            <a href="搭配类型.html">
+                <span class="menu-icon">📋</span>短語與固定搭配
+            </a>
+            <a href="实用参考.html">
+                <span class="menu-icon">🌏</span>實用參考
             </a>
         </div>
-
-        <div class="section">
-            <div class="section-title">按字母分類</div>
-            <a href="字母分类.html" class="card">
-                <div class="card-label">A · B · C · D · E · F · G · H · I · J · K · L · M · N · O · P · Q · R · S · T · U · V · W · X · Y · Z</div>
-                <div class="card-hint">按字母順序查找詞彙</div>
-            </a>
-        </div>
-
-        <div class="section">
-            <div class="section-title">短語與固定搭配</div>
-            <a href="搭配类型.html" class="card">
-                <div class="card-label">動詞短語 · 名詞短語 · 介詞短語 · 習語</div>
-                <div class="card-hint">常見搭配與地道表達</div>
-            </a>
-        </div>
-
-        <div class="section">
-            <div class="section-title">實用參考</div>
-            <a href="实用参考.html" class="card">
-                <div class="card-label">國家與國籍 · 地名中英對照</div>
-                <div class="card-hint">DSE 常見專有名詞與工具資料</div>
-            </a>
-        </div>
-
         <div class="footer">── Shelly Liu ──</div>
     </div>
 </body>
