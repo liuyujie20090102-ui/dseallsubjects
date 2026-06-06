@@ -91,20 +91,14 @@
     <div class="clouds"><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div></div>
     <div class="birds"><span class="bird">⩳</span><span class="bird">⩳</span><span class="bird">⩳</span></div>
     <div class="container">
-        <a href="javascript:history.back()" class="back-link">← 返回列表</a>
+        <a href="论证.html" class="back-link">← 返回列表</a>
         <div id="detail-content"></div>
         <div class="footer">── Shelly Liu ──</div>
     </div>
 
     <script>
-        // ==========================================
-        // 词汇详情.html — 通用详情页（所有主题共用）
-        // 根据 URL 参数 ?id= 查找词汇数据
-        // ==========================================
-
         const params = new URLSearchParams(window.location.search);
         const wordId = params.get('id');
-
         const dataFiles = ['论证数据.js'];
 
         function findWordById(id) {
@@ -131,7 +125,6 @@
             html += '<div class="word-en">' + word.英文 + '</div>';
             html += '<div class="word-zh">' + word.中文 + '</div>';
 
-            // 家族词表格
             if (word.家族词 && word.家族词.length > 0) {
                 html += '<div class="section"><div class="section-title">家族詞</div>';
                 html += '<table><tr><th>形式</th><th>詞</th><th>中文</th></tr>';
@@ -141,7 +134,6 @@
                 html += '</table></div>';
             }
 
-            // 近义词表格
             if (word.近义词 && word.近义词.length > 0) {
                 html += '<div class="section"><div class="section-title">近義詞</div>';
                 html += '<table><tr><th>詞</th><th>中文</th><th>使用場景</th></tr>';
@@ -151,7 +143,6 @@
                 html += '</table></div>';
             }
 
-            // 反义词表格
             if (word.反义词 && word.反义词.length > 0) {
                 html += '<div class="section"><div class="section-title">反義詞</div>';
                 html += '<table><tr><th>詞</th><th>中文</th><th>使用場景</th></tr>';
@@ -161,7 +152,6 @@
                 html += '</table></div>';
             }
 
-            // 固定搭配列表
             if (word.搭配 && word.搭配.length > 0) {
                 html += '<div class="section"><div class="section-title">固定搭配</div>';
                 html += '<ul class="搭配-list">';
@@ -171,7 +161,6 @@
                 html += '</ul></div>';
             }
 
-            // 例句
             if (word.例句) {
                 html += '<div class="section"><div class="section-title">例句</div>';
                 html += '<div class="例句-box">' + word.例句 + '</div></div>';
