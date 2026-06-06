@@ -1,1 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>複習中心 · 宋朝</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f7f4ed;
+            --text-primary: #2c2416;
+            --text-secondary: #5c5347;
+            --text-muted: #a09880;
+            --gold: #8b6914;
+            --gold-light: #c4a97d;
+            --correct: #2e7d32;
+            --wrong: #c62828;
+            --today-bg: rgba(198,40,40,0.06);
+            --today-border: #c62828;
+            --ink-light: rgba(60,40,20,0.06);
+            --mountain-far: rgba(120,100,70,0.12);
+            --mountain-mid: rgba(100,80,55,0.16);
+            --mountain-near: rgba(80,60,40,0.2);
+            --cloud: rgba(255,252,245,0.7);
+            --card-bg: rgba(255,253,248,0.85);
+            --card-border: rgba(180,160,130,0.3);
+            --shadow-sm: 0 2px 16px rgba(60,40,20,0.04);
+            --shadow-md: 0 8px 32px rgba(60,40,20,0.06);
+            --radius: 16px;
+            --font-cn: "Noto Serif TC","PingFang SC","Microsoft YaHei","KaiTi",serif;
+            --font-en: "Inter","Helvetica Neue",sans-serif;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{
+            background-color:var(--bg);
+            font-family:var(--font-cn);
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            padding:40px 24px 60px;
+            position:relative;
+            overflow-x:hidden;
+            -webkit-font-smoothing:antialiased;
+        }
+        body::before{
+            content:"";
+            position:fixed;top:0;left:0;width:100%;height:100%;
+            pointer-events:none;z-index:0;
+            background-image:
+                repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(139,119,80,0.012) 3px,rgba(139,119,80,0.012) 4px),
+                repeating-linear-gradient(90deg,transparent,transparent 5px,rgba(139,119,80,0.008) 5px,rgba(139,119,80,0.008) 6px);
+            opacity:0.7;
+        }
+        .mountains{position:fixed;bottom:0;left:0;width:100%;height:30%;pointer-events:none;z-index:0}
+        .mountain{position:absolute;bottom:0}
+        .m1{left:-8%;width:45%;height:55%;background:var(--mountain-far);border-radius:55% 55% 0 0}
+        .m2{left:22%;width:50%;height:68%;background:var(--mountain-mid);border-radius:50% 48% 0 0}
+        .m3{right:-8%;width:42%;height:60%;background:var(--mountain-near);border-radius:52% 52% 0 0}
+        .clouds{position:fixed;bottom:12%;left:0;width:100%;height:18%;pointer-events:none;z-index:0}
+        .cloud{position:absolute;background:var(--cloud);border-radius:50%;filter:blur(28px)}
+        .c1{width:260px;height:50px;left:8%;bottom:30px;opacity:0.5}
+        .c2{width:220px;height:42px;right:12%;bottom:15px;opacity:0.4}
+        .c3{width:180px;height:35px;left:50%;bottom:8px;opacity:0.35;transform:translateX(-50%)}
+        .birds{position:fixed;top:12%;right:12%;pointer-events:none;z-index:0;opacity:0.3}
+        .bird{display:inline-block;font-size:13px;margin:0 5px;animation:birdFloat 6s ease-in-out infinite}
+        .bird:nth-child(2){animation-delay:1.5s;font-size:9px}
+        .bird:nth-child(3){animation-delay:3s;font-size:11px}
+        @keyframes birdFloat{0%,100%{transform:translateY(0) translateX(0)}25%{transform:translateY(-7px) translateX(3px)}50%{transform:translateY(-2px) translateX(8px)}75%{transform:translateY(-9px) translateX(3px)}}
 
+        .container{position:relative;z-index:1;width:100%;max-width:650px}
+        .back-link{display:inline-block;color:var(--text-muted);text-decoration:none;font-size:14px;margin-bottom:24px;letter-spacing:1px;transition:color 0.3s}
+        .back-link:hover{color:var(--text-primary)}
+        .page-title{text-align:center;font-size:26px;font-weight:700;color:var(--text-primary);letter-spacing:3px;margin-bottom:28px}
+        .page-title .icon{display:block;font-size:36px;margin-bottom:6px}
+
+        .section-card{background:var(--card-bg);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow-sm);margin-bottom:20px}
+
+        .section-title{font-size:17px;font-weight:700;color:var(--text-primary);letter-spacing:2px;margin-bottom:16px;text-align:center}
+
+        .btn-full{display:block;width:100%;padding:14px;background:var(--correct);color:#fff;border:none;border-radius:20px;font-size:15px;cursor:pointer;letter-spacing:2px;font-family:var(--font-cn);transition:all 0.2s}
+        .btn-full:hover{opacity:0.9}
+
+        .calendar-table{width:100%;border-collapse:collapse;font-size:13px}
+        .calendar-table th{background:rgba(180,160,130,0.1);color:var(--text-primary);padding:8px 4px;text-align:center;font-weight:600;border:1px solid rgba(180,160,130,0.15)}
+        .calendar-table td{padding:8px 4px;border:1px solid rgba(180,160,130,0.1);text-align:center;color:var(--text-secondary);vertical-align:top;line-height:1.6}
+        .calendar-table td.today{background:var(--today-bg);border:2px solid var(--today-border)}
+        .calendar-table td.has-review{background:rgba(139,105,20,0.05)}
+        .calendar-table .date-label{font-weight:600;color:var(--text-primary);font-size:14px}
+        .calendar-table .review-link{display:inline-block;margin-top:4px;padding:3px 10px;background:var(--gold);color:#fff;border-radius:10px;font-size:11px;text-decoration:none;cursor:pointer;letter-spacing:0.5px}
+        .calendar-table .review-link.done-review{background:var(--correct)}
+        .calendar-table .review-link.today-link{background:var(--wrong);animation:pulse 2s ease-in-out infinite}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
+
+        .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:24px}
+        .footer .name{font-weight:500;color:var(--text-secondary)}
+
+        @media(max-width:480px){
+            .section-card{padding:20px 14px}
+            .calendar-table{font-size:11px}
+            .calendar-table td{padding:4px 2px}
+            .calendar-table .review-link{padding:2px 8px;font-size:10px}
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mountains"><div class="mountain m1"></div><div class="mountain m2"></div><div class="mountain m3"></div></div>
+    <div class="clouds"><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div></div>
+    <div class="birds"><span class="bird">⩳</span><span class="bird">⩳</span><span class="bird">⩳</span></div>
+
+    <div class="container">
+        <a href="关键词触发-主页.html" class="back-link">← 返回主頁</a>
+        <div class="page-title">
+            <span class="icon">📝</span>
+            複習中心
+        </div>
+
+        <!-- 错题重练 -->
+        <div class="section-card">
+            <div class="section-title">📝 錯題重練</div>
+            <p style="text-align:center;color:var(--text-muted);font-size:14px;margin-bottom:12px">集中複習所有做錯過的題目</p>
+            <button class="btn-full" onclick="startWrongReview()">🚀 開始錯題重練</button>
+        </div>
+
+        <!-- 艾宾浩斯复习日历 -->
+        <div class="section-card">
+            <div class="section-title">📅 艾賓浩斯複習日曆</div>
+            <p style="text-align:center;color:var(--text-muted);font-size:13px;margin-bottom:14px">以通關日期為起點，自動計算複習時間</p>
+            <div id="calendar-container"></div>
+        </div>
+
+        <div class="footer">── <span class="name">Shelly Liu</span> ──</div>
+    </div>
+
+    <script>
+        const rounds = [
+            {name:"第一輪：中央集權原因", total:2},
+            {name:"第二輪：收中央相權", total:8},
+            {name:"第三輪：收其精兵", total:6},
+            {name:"第四輪：制其錢谷", total:2},
+            {name:"第五輪：稍奪其權+刑權", total:6}
+        ];
+
+        const ebbinghaus = [1, 3, 7, 14, 30];
+
+        function getReviewData() { try { return JSON.parse(localStorage.getItem('songKwcReview2') || '{}'); } catch(e) { return {}; } }
+        function getRoundResults() { try { return JSON.parse(localStorage.getItem('songKwcRoundResults2') || '{}'); } catch(e) { return {}; } }
+        function getCompletedRounds() { try { return JSON.parse(localStorage.getItem('songKwcRounds2') || '[]'); } catch(e) { return []; } }
+        function getReviewDone() { try { return JSON.parse(localStorage.getItem('songKwcReviewDone') || '{}'); } catch(e) { return {}; } }
+
+        function startWrongReview() {
+            const roundResults = getRoundResults();
+            const completedRounds = getCompletedRounds();
+            const allWrong = [];
+            completedRounds.forEach(i => {
+                const results = roundResults[i] || {};
+                Object.keys(results).forEach(j => {
+                    if (results[j] === 'wrong' || results[j] === 'reveal') allWrong.push({ roundIdx: parseInt(i), qIdx: parseInt(j) });
+                });
+            });
+            if (allWrong.length === 0) { alert('暫無錯題需要複習！'); return; }
+            localStorage.setItem('songKwcReviewQueue', JSON.stringify(allWrong));
+            window.location.href = '关键词触发.html?mode=review';
+        }
+
+        function startReviewForRound(roundIdx) {
+            const roundResults = getRoundResults();
+            const allWrong = [];
+            const results = roundResults[roundIdx] || {};
+            Object.keys(results).forEach(j => {
+                if (results[j] === 'wrong' || results[j] === 'reveal') allWrong.push({ roundIdx: roundIdx, qIdx: parseInt(j) });
+            });
+            if (allWrong.length === 0) { alert('該輪暫無錯題！'); return; }
+            localStorage.setItem('songKwcReviewQueue', JSON.stringify(allWrong));
+            window.location.href = '关键词触发.html?mode=review';
+        }
+
+        function renderCalendar() {
+            const reviewData = getReviewData();
+            const completedRounds = getCompletedRounds();
+            const reviewDone = getReviewDone();
+            const today = new Date();
+            const todayStr = today.toISOString().split('T')[0];
+
+            // 找到最早通关日期和30天后的日期
+            let minDate = new Date();
+            let maxDate = new Date();
+            maxDate.setDate(maxDate.getDate() + 30);
+            let hasData = false;
+
+            completedRounds.forEach(i => {
+                const data = reviewData[i];
+                if (data && data.completedDate) {
+                    hasData = true;
+                    const d = new Date(data.completedDate);
+                    if (d < minDate) minDate = d;
+                    const lastReview = new Date(d);
+                    lastReview.setDate(lastReview.getDate() + 30);
+                    if (lastReview > maxDate) maxDate = lastReview;
+                }
+            });
+
+            if (!hasData) {
+                document.getElementById('calendar-container').innerHTML = '<p style="text-align:center;color:var(--text-muted)">暫無通關記錄</p>';
+                return;
+            }
+
+            // 生成从今天往前3天到往后30天的日期列表
+            const startDate = new Date(today);
+            startDate.setDate(startDate.getDate() - 3);
+            const dates = [];
+            for (let d = new Date(startDate); d <= maxDate; d.setDate(d.getDate() + 1)) {
+                dates.push(new Date(d));
+            }
+
+            // 计算每天有哪些轮次需要复习
+            const dateMap = {};
+            dates.forEach(d => {
+                const ds = d.toISOString().split('T')[0];
+                dateMap[ds] = [];
+                completedRounds.forEach(i => {
+                    const data = reviewData[i];
+                    if (data && data.completedDate) {
+                        const completed = new Date(data.completedDate);
+                        ebbinghaus.forEach(day => {
+                            const rd = new Date(completed);
+                            rd.setDate(rd.getDate() + day);
+                            if (rd.toISOString().split('T')[0] === ds) {
+                                dateMap[ds].push({ roundIdx: i, day: day });
+                            }
+                        });
+                    }
+                });
+            });
+
+            // 按周分组
+            let html = '<table class="calendar-table"><tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr><tr>';
+            const firstDate = dates[0];
+            const startDay = firstDate.getDay();
+            for (let i = 0; i < startDay; i++) html += '<td></td>';
+
+            let dayCount = startDay;
+            dates.forEach(d => {
+                if (dayCount > 0 && dayCount % 7 === 0) html += '</tr><tr>';
+                const ds = d.toISOString().split('T')[0];
+                const isToday = ds === todayStr;
+                const reviews = dateMap[ds] || [];
+                let cellClass = '';
+                if (isToday) cellClass = 'today';
+                else if (reviews.length > 0) cellClass = 'has-review';
+
+                html += `<td class="${cellClass}"><div class="date-label">${d.getDate()}/${d.getMonth()+1}</div>`;
+                reviews.forEach(r => {
+                    const doneKey = `${r.roundIdx}_${r.day}`;
+                    const isDone = reviewDone[doneKey];
+                    let linkClass = 'review-link';
+                    if (isDone) linkClass += ' done-review';
+                    else if (isToday) linkClass += ' today-link';
+                    html +=
+                        `<a class="${linkClass}" href="javascript:void(0)" onclick="${isDone?'':'startReviewForRound('+r.roundIdx+')'}">${rounds[r.roundIdx].name.replace('：','')}${isDone?' ✅':''}</a>`;
+                });
+                html += '</td>';
+                dayCount++;
+            });
+            while (dayCount % 7 !== 0) { html += '<td></td>';
+                dayCount++; }
+            html += '</tr></table>';
+
+            document.getElementById('calendar-container').innerHTML = html;
+        }
+
+        renderCalendar();
+    </script>
+</body>
+</html>
