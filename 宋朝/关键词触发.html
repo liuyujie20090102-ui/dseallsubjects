@@ -76,19 +76,18 @@
         .back-link:hover{color:var(--text-primary)}
         .round-label{font-size:13px;color:var(--text-muted);letter-spacing:2px}
         .progress-dots{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:20px}
-        .progress-dot{width:8px;height:8px;border-radius:50%;background:#ddd;transition:all 0.3s}
+        .progress-dot{width:8px;height:8px;border-radius:50%;background:#ddd;transition:all 0.3s;cursor:pointer}
         .progress-dot.done{background:var(--correct)}
         .progress-dot.wrong-dot{background:var(--wrong)}
         .progress-dot.reveal-dot{background:var(--reveal)}
         .progress-dot.current{background:var(--gold);transform:scale(1.4)}
 
-        /* 卡片 */
         .card-container{perspective:1000px;margin-bottom:16px}
         .card-inner{position:relative;width:100%;min-height:280px;transition:transform 0.5s ease;transform-style:preserve-3d;cursor:pointer}
         .card-inner.flipped{transform:rotateY(180deg)}
         .card-face{position:absolute;width:100%;min-height:280px;backface-visibility:hidden;border-radius:16px;padding:36px 28px;background:var(--card-bg);border:1px solid rgba(180,160,130,0.2);box-shadow:0 2px 20px rgba(60,40,20,0.04);display:flex;flex-direction:column;align-items:center;justify-content:center}
         .card-back{transform:rotateY(180deg);justify-content:flex-start;align-items:stretch}
-        .card-front .keyword{font-size:28px;font-weight:700;color:var(--text-primary);letter-spacing:3px;margin-bottom:12px}
+        .card-front .keyword{font-size:28px;font-weight:700;color:var(--text-primary);letter-spacing:3px;margin-bottom:12px;text-align:center}
         .card-front .hint{font-size:15px;color:var(--text-secondary);text-align:center;line-height:1.8}
         .card-front .tap-hint{font-size:12px;color:var(--text-muted);margin-top:16px;letter-spacing:1px}
         .card-back .fill-text{font-size:16px;color:var(--text-secondary);line-height:2.2;margin-bottom:16px}
@@ -98,14 +97,14 @@
         .card-back .blank.filled-reveal{color:var(--reveal);border-bottom-color:var(--reveal);background:#e3f2fd}
 
         .options-row{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
-        .opt-btn{padding:8px 18px;background:#fff;border:2px solid rgba(180,160,130,0.3);border-radius:20px;cursor:pointer;font-size:14px;color:var(--text-secondary);transition:all 0.2s;letter-spacing:0.5px}
+        .opt-btn{padding:8px 18px;background:#fff;border:2px solid rgba(180,160,130,0.3);border-radius:20px;cursor:pointer;font-size:14px;color:var(--text-secondary);transition:all 0.2s;letter-spacing:0.5px;font-family:var(--font-cn)}
         .opt-btn:hover{border-color:var(--gold-light);background:rgba(196,169,125,0.06)}
         .opt-btn.selected{background:rgba(139,105,20,0.1);border-color:var(--gold);color:var(--gold);font-weight:600}
         .opt-btn.correct-opt{background:#e8f5e9;border-color:var(--correct);color:var(--correct)}
         .opt-btn.wrong-opt{background:#ffebee;border-color:var(--wrong);color:var(--wrong)}
 
-        .btn-row{display:flex;gap:10px;margin-top:12px}
-        .btn-row button{flex:1;padding:10px;border-radius:20px;border:none;font-size:14px;cursor:pointer;letter-spacing:1px;transition:all 0.2s;font-family:var(--font-cn)}
+        .btn-row{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+        .btn-row button{flex:1;min-width:80px;padding:10px;border-radius:20px;border:none;font-size:14px;cursor:pointer;letter-spacing:1px;transition:all 0.2s;font-family:var(--font-cn)}
         .btn-check{background:var(--correct);color:#fff}
         .btn-reveal{background:#fff;color:var(--reveal);border:2px solid var(--reveal)}
         .btn-reset{background:#fff;color:var(--text-muted);border:2px solid var(--text-muted)}
@@ -119,7 +118,6 @@
         .result-msg.correct{color:var(--correct)}
         .result-msg.wrong{color:var(--wrong)}
 
-        /* 弹窗 */
         .overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.3);z-index:30;justify-content:center;align-items:center}
         .overlay.show{display:flex}
         .popup{background:#fffdf7;border-radius:16px;padding:32px 24px;max-width:450px;width:90%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.1)}
@@ -146,11 +144,10 @@
     <div class="container">
         <div class="top-bar">
             <a href="1.html" class="back-link">← 返回練習</a>
-            <span class="round-label" id="round-label">第一輪：中央集權原因</span>
+            <span class="round-label" id="round-label"></span>
         </div>
         <div class="progress-dots" id="progress-dots"></div>
 
-        <!-- 卡片 -->
         <div class="card-container" id="card-container">
             <div class="card-inner" id="card-inner" onclick="flipCard()">
                 <div class="card-face card-front" id="card-front"></div>
@@ -158,11 +155,6 @@
             </div>
         </div>
         <div class="result-msg" id="result-msg"></div>
-        <div class="btn-row" id="action-btns" style="display:none">
-            <button class="btn-check" onclick="checkAnswer()">✅ 檢查答案</button>
-            <button class="btn-reveal" onclick="revealAnswer()">💡 我不會</button>
-            <button class="btn-reset" onclick="resetCurrent()">🔄 重新填</button>
-        </div>
 
         <div class="nav-bar">
             <button class="nav-btn" id="prev-btn" onclick="prevCard()">← 上一題</button>
@@ -171,18 +163,10 @@
         <div class="footer">── Shelly Liu ──</div>
     </div>
 
-    <!-- 轮次完成弹窗 -->
-    <div class="overlay" id="round-overlay">
-        <div class="popup" id="round-popup"></div>
-    </div>
-
-    <!-- 通关弹窗 -->
-    <div class="overlay" id="final-overlay">
-        <div class="popup" id="final-popup"></div>
-    </div>
+    <div class="overlay" id="round-overlay"><div class="popup" id="round-popup"></div></div>
+    <div class="overlay" id="final-overlay"><div class="popup" id="final-popup"></div></div>
 
     <script>
-        // 题库
         const rounds = [
             {name:"第一輪：中央集權原因", questions:[
                 {keyword:"鑑前朝之失",hint:"宋代汲取了唐末五代以來的什麼教訓？",text:'汲取唐末五代以來「<span class="blank" data-id="0"></span>」、「君弱臣強」的教訓，想政權穩定',options:["藩鎮割據","軍閥混戰","外戚專權"],answer:["藩鎮割據"]},
@@ -191,7 +175,7 @@
             {name:"第二輪：收中央相權", questions:[
                 {keyword:"加強監察",hint:"諫院與御史台合稱什麼？",text:'設諫院與御史台，直接對皇帝負責，合稱「<span class="blank" data-id="0"></span>」',options:["台諫","二府","三司"],answer:["台諫"]},
                 {keyword:"站對議事",hint:"宋代宰相奏議政務需要什麼禮儀？",text:'宋代宰相奏議政務，需要「<span class="blank" data-id="0"></span>」',options:["站對","跪對","立對"],answer:["站對"]},
-                {keyword:"分割相權·行政",hint:"宋代丞相的正式名稱是什麼？",text:'「<span class="blank" data-id="0"></span>」為丞相，僅負責行政事務','options:["同中書門下平章事","參知政事","樞密使"],answer:["同中書門下平章事"]},
+                {keyword:"分割相權·行政",hint:"宋代丞相的正式名稱是什麼？",text:'「<span class="blank" data-id="0"></span>」為丞相，僅負責行政事務',options:["同中書門下平章事","參知政事","樞密使"],answer:["同中書門下平章事"]},
                 {keyword:"分割相權·軍事",hint:"樞密院與中書省合稱什麼？",text:'樞密院管軍政，與中書省合稱「<span class="blank" data-id="0"></span>」，掌調發權',options:["二府","三司","台諫"],answer:["二府"]},
                 {keyword:"分割相權·軍事（三衙）",hint:"三衙指哪三個禁軍機構？第一個是什麼？",text:'三衙指<span class="blank" data-id="0"></span>、侍衛馬軍司、侍衛步軍司，掌禁軍管理與訓練權',options:["殿前司","侍衛親軍司","殿前侍衛司"],answer:["殿前司"]},
                 {keyword:"分割相權·財政",hint:"三司中的第三個是什麼？長官叫什麼？",text:'設三司：鹽鐵、度支、<span class="blank" data-id="0"></span>，長官為<span class="blank" data-id="1"></span>，號稱計相',options:["戶部","三司使","樞密使","鹽鐵使"],answer:["戶部","三司使"]},
@@ -225,7 +209,7 @@
         let isFlipped = false;
         let isChecked = false;
         let selections = {};
-        let roundResults = {}; // {roundIdx: {qIdx: 'correct'|'wrong'|'reveal'}}
+        let roundResults = {};
         let completedRounds = JSON.parse(localStorage.getItem('songKwcRounds')||'[]');
         let reviewData = JSON.parse(localStorage.getItem('songKwcReview')||'{}');
 
@@ -236,7 +220,6 @@
 
         function getCurrentRound() { return rounds[currentRoundIdx]; }
         function getCurrentQ() { return getCurrentRound().questions[currentQIdx]; }
-
         function shuffle(arr) { const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
 
         function renderCard() {
@@ -246,36 +229,66 @@
             isChecked = false;
             selections = {};
             document.getElementById('card-inner').classList.remove('flipped');
-            document.getElementById('action-btns').style.display = 'none';
             document.getElementById('result-msg').textContent = '';
             document.getElementById('result-msg').className = 'result-msg';
             document.getElementById('round-label').textContent = round.name;
 
             // 正面
-            document.getElementById('card-front').innerHTML = `
-                <div class="keyword">${q.keyword}</div>
-                <div class="hint">💡 ${q.hint}</div>
-                <div class="tap-hint">👆 點擊卡片翻轉查看筆記</div>`;
+            const front = document.getElementById('card-front');
+            front.innerHTML = '';
+            const kwDiv = document.createElement('div');
+            kwDiv.className = 'keyword';
+            kwDiv.textContent = q.keyword;
+            const hintDiv = document.createElement('div');
+            hintDiv.className = 'hint';
+            hintDiv.textContent = '💡 ' + q.hint;
+            const tapDiv = document.createElement('div');
+            tapDiv.className = 'tap-hint';
+            tapDiv.textContent = '👆 點擊卡片翻轉查看筆記';
+            front.appendChild(kwDiv);
+            front.appendChild(hintDiv);
+            front.appendChild(tapDiv);
 
             // 背面
-            const shuffledOpts = shuffle(q.options);
-            let backHTML = `<div class="fill-text">${q.text}</div>`;
-            q.answer.forEach((ans,i) => {
-                backHTML += `<div class="options-row" id="opts-${i}">`;
-                shuffledOpts.forEach(opt => {
-                    backHTML += `<button class="opt-btn" onclick="selectOpt(${i},'${opt}',this,event)">${opt}</button>`;
-                });
-                backHTML += `</div>`;
-            });
-            backHTML += `<div class="btn-row">
-                <button class="btn-check" onclick="checkAnswer()">✅ 檢查答案</button>
-                <button class="btn-reveal" onclick="revealAnswer()">💡 我不會</button>
-                <button class="btn-reset" onclick="resetCurrent()">🔄 重新填</button>
-            </div>`;
-            document.getElementById('card-back').innerHTML = backHTML;
-            document.getElementById('action-btns').style.display = 'none';
+            const back = document.getElementById('card-back');
+            back.innerHTML = '';
+            const fillDiv = document.createElement('div');
+            fillDiv.className = 'fill-text';
+            fillDiv.innerHTML = q.text;
+            back.appendChild(fillDiv);
 
-            // 进度点
+            q.answer.forEach((ans, i) => {
+                const row = document.createElement('div');
+                row.className = 'options-row';
+                row.id = 'opts-' + i;
+                const shuffledOpts = shuffle(q.options);
+                shuffledOpts.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = 'opt-btn';
+                    btn.textContent = opt;
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        selectOpt(i, opt, btn);
+                    });
+                    row.appendChild(btn);
+                });
+                back.appendChild(row);
+            });
+
+            const btnRow = document.createElement('div');
+            btnRow.className = 'btn-row';
+            btnRow.innerHTML = `
+                <button class="btn-check">✅ 檢查答案</button>
+                <button class="btn-reveal">💡 我不會</button>
+                <button class="btn-reset">🔄 重新填</button>`;
+            btnRow.querySelector('.btn-check').addEventListener('click', function(e) { e.stopPropagation();
+                checkAnswer(); });
+            btnRow.querySelector('.btn-reveal').addEventListener('click', function(e) { e.stopPropagation();
+                revealAnswer(); });
+            btnRow.querySelector('.btn-reset').addEventListener('click', function(e) { e.stopPropagation();
+                resetCurrent(); });
+            back.appendChild(btnRow);
+
             renderDots();
             updateNavButtons();
         }
@@ -303,30 +316,27 @@
             if (isChecked) return;
             isFlipped = true;
             document.getElementById('card-inner').classList.add('flipped');
-            document.getElementById('action-btns').style.display = 'flex';
         }
 
-        function selectOpt(blankIdx, value, btn, event) {
-            event.stopPropagation();
+        function selectOpt(blankIdx, value, btn) {
             if (isChecked) return;
-            const row = document.getElementById(`opts-${blankIdx}`);
+            const row = document.getElementById('opts-' + blankIdx);
+            if (!row) return;
             row.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
             btn.classList.add('selected');
             selections[blankIdx] = value;
-            // 更新填空显示
             const blanks = document.querySelectorAll('.card-back .blank');
             if (blanks[blankIdx]) {
                 blanks[blankIdx].textContent = value;
                 blanks[blankIdx].classList.add('filled-correct');
-                blanks[blankIdx].classList.remove('filled-wrong','filled-reveal');
+                blanks[blankIdx].classList.remove('filled-wrong', 'filled-reveal');
             }
         }
 
         function checkAnswer() {
             if (isChecked) return;
             const q = getCurrentQ();
-            const filled = Object.keys(selections).length;
-            if (filled < q.answer.length) {
+            if (Object.keys(selections).length < q.answer.length) {
                 document.getElementById('result-msg').textContent = '⚠ 請先填完所有空白再檢查';
                 document.getElementById('result-msg').className = 'result-msg wrong';
                 return;
@@ -337,18 +347,18 @@
 
             q.answer.forEach((ans, i) => {
                 const blanks = document.querySelectorAll('.card-back .blank');
-                const row = document.getElementById(`opts-${i}`);
+                const row = document.getElementById('opts-' + i);
                 if (selections[i] === ans) {
                     if (blanks[i]) { blanks[i].classList.add('filled-correct');
                         blanks[i].classList.remove('filled-wrong', 'filled-reveal'); }
-                    row.querySelectorAll('.opt-btn').forEach(b => { if (b.textContent === ans) b.classList.add(
+                    if (row) row.querySelectorAll('.opt-btn').forEach(b => { if (b.textContent === ans) b.classList.add(
                             'correct-opt'); });
                 } else {
                     allCorrect = false;
                     if (blanks[i]) { blanks[i].classList.add('filled-wrong');
                         blanks[i].classList.remove('filled-correct', 'filled-reveal');
                         blanks[i].textContent = ans; }
-                    row.querySelectorAll('.opt-btn').forEach(b => { if (b.textContent === selections[i]) b
+                    if (row) row.querySelectorAll('.opt-btn').forEach(b => { if (b.textContent === selections[i]) b
                             .classList.add('wrong-opt'); if (b.textContent === ans) b.classList.add(
                             'correct-opt'); });
                 }
@@ -380,8 +390,8 @@
                 if (blanks[i]) { blanks[i].textContent = ans;
                     blanks[i].classList.add('filled-reveal');
                     blanks[i].classList.remove('filled-correct', 'filled-wrong'); }
-                const row = document.getElementById(`opts-${i}`);
-                row.querySelectorAll('.opt-btn').forEach(b => { if (b.textContent === ans) b.classList.add(
+                const row = document.getElementById('opts-' + i);
+                if (row) row.querySelectorAll('.opt-btn').forEach(b => { if (b.textContent === ans) b.classList.add(
                         'correct-opt'); });
             });
             document.getElementById('result-msg').textContent = '💡 正確答案已顯示，請記住後進入下一題';
@@ -442,16 +452,13 @@
             }
             const rate = Math.round(correctCount / total * 100);
 
-            let popupHTML = `<h3>🎉 本輪完成！</h3>
-            <p>正確率：${correctCount}/${total}（${rate}%）</p>`;
+            let popupHTML = `<h3>🎉 本輪完成！</h3><p>正確率：${correctCount}/${total}（${rate}%）</p>`;
             if (wrongList.length > 0) {
                 popupHTML +=
                     `<p>需複習的題目：第${wrongList.join('、')}題</p><p style="color:var(--gold)">⚠ 請複習後再進入下一輪</p>`;
-                popupHTML +=
-                    `<button onclick="reviewRound()">📝 立即複習錯題</button>`;
+                popupHTML += `<button onclick="reviewRound()">📝 立即複習錯題</button>`;
             } else {
-                popupHTML += `<p>全部正確，進入下一輪！</p>`;
-                popupHTML += `<button onclick="nextRound()">▶ 進入下一輪</button>`;
+                popupHTML += `<p>全部正確，進入下一輪！</p><button onclick="nextRound()">▶ 進入下一輪</button>`;
             }
             document.getElementById('round-popup').innerHTML = popupHTML;
             document.getElementById('round-overlay').classList.add('show');
@@ -463,16 +470,11 @@
             const wrongIndices = [];
             round.questions.forEach((q, i) => {
                 if (roundResults[currentRoundIdx] && (roundResults[currentRoundIdx][i] === 'wrong' || roundResults[
-                        currentRoundIdx][i] === 'reveal')) {
-                    wrongIndices.push(i);
-                }
+                        currentRoundIdx][i] === 'reveal')) wrongIndices.push(i);
             });
-            if (wrongIndices.length > 0) {
-                currentQIdx = wrongIndices[0];
-                // 标记为复习模式
+            if (wrongIndices.length > 0) { currentQIdx = wrongIndices[0];
                 renderCard();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
+                window.scrollTo({ top: 0, behavior: 'smooth' }); }
         }
 
         function nextRound() {
@@ -481,25 +483,18 @@
             const today = new Date().toISOString().split('T')[0];
             if (!reviewData[currentRoundIdx]) reviewData[currentRoundIdx] = {};
             reviewData[currentRoundIdx].completedDate = today;
-            reviewData[currentRoundIdx].correctRate = Math.round(Object.values(roundResults[currentRoundIdx]||{}).filter(
-                v => v === 'correct').length / getCurrentRound().questions.length * 100);
             saveData();
-
             currentRoundIdx++;
             currentQIdx = 0;
-            if (currentRoundIdx >= rounds.length) {
-                showFinalStats();
-            } else {
-                renderCard();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
+            if (currentRoundIdx >= rounds.length) { showFinalStats(); } else { renderCard();
+                window.scrollTo({ top: 0, behavior: 'smooth' }); }
         }
 
         function showFinalStats() {
             document.getElementById('round-overlay').classList.remove('show');
             let html = '<h3>🏆 全部通關！</h3>';
-            let totalCorrect = 0;
-            let totalQ = 0;
+            let totalCorrect = 0,
+                totalQ = 0;
             rounds.forEach((round, i) => {
                 const t = round.questions.length;
                 const c = roundResults[i] ? Object.values(roundResults[i]).filter(v => v === 'correct').length : 0;
@@ -507,8 +502,8 @@
                 totalQ += t;
                 html += `<p>${round.name}：${c}/${t}</p>`;
             });
-            const overallRate = Math.round(totalCorrect / totalQ * 100);
-            html += `<p style="font-weight:bold">總正確率：${totalCorrect}/${totalQ}（${overallRate}%）</p>`;
+            html +=
+                `<p style="font-weight:bold">總正確率：${totalCorrect}/${totalQ}（${Math.round(totalCorrect/totalQ*100)}%）</p>`;
             html += `<p>通關日期：${new Date().toISOString().split('T')[0]}</p>`;
             html +=
                 '<p style="font-size:13px;color:var(--text-muted)">📅 建議複習：1天後、3天後、7天後、14天後、30天後</p>';
