@@ -140,12 +140,15 @@ function renderAZNav(containerId) {
         link.onmouseleave = function() { link.style.background = 'transparent'; };
         link.onclick = function(e) {
             e.preventDefault();
-            currentPage = 1;
-            renderWordList();
-            setTimeout(function() {
-                const target = document.getElementById('letter-' + letter);
-                if (target) target.scrollIntoView({ behavior: 'smooth' });
-            }, 100);
+            const index = allWordsFlat.findIndex(w => w.英文.charAt(0).toUpperCase() === letter);
+            if (index >= 0) {
+                currentPage = Math.floor(index / WORDS_PER_PAGE) + 1;
+                renderWordList();
+                setTimeout(function() {
+                    const target = document.getElementById('letter-' + letter);
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            }
         };
         container.appendChild(link);
     });
