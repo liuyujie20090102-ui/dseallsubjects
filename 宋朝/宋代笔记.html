@@ -84,49 +84,44 @@
             box-shadow:0 2px 20px rgba(60,40,20,0.04);
         }
 
-        .note-title{text-align:center;font-size:24px;font-weight:700;color:var(--text-primary);letter-spacing:3px;margin-bottom:24px}
-        .section-label{text-align:center;font-size:16px;font-weight:600;color:var(--text-muted);letter-spacing:3px;margin-bottom:20px}
-        .item-title{font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:14px;letter-spacing:1px}
-        .content{font-size:16px;color:var(--text-secondary);line-height:2.1;letter-spacing:0.5px}
-        .content p{margin-bottom:8px}
-        .content ul{list-style:none;padding-left:0;margin-bottom:12px}
-        .content ul li{padding:4px 0 4px 20px;position:relative;line-height:2}
+        .note-title{text-align:center;font-size:24px;font-weight:700;color:var(--text-primary);letter-spacing:3px;margin-bottom:28px}
+        .section-label{text-align:center;font-size:16px;font-weight:600;color:var(--text-muted);letter-spacing:3px;margin-bottom:24px}
+        .section-label-sub{text-align:center;font-size:14px;font-weight:600;color:var(--text-muted);letter-spacing:2px;margin-bottom:18px}
+        .item-title{font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:16px;letter-spacing:1px;padding-bottom:8px;border-bottom:1px solid var(--ink-light)}
+        .content{font-size:16px;color:var(--text-secondary);line-height:2.2;letter-spacing:0.5px}
+        .content p{margin-bottom:10px}
+        .content ul{list-style:none;padding-left:0;margin-bottom:14px}
+        .content ul li{padding:5px 0 5px 20px;position:relative;line-height:2.1}
         .content ul li::before{content:"·";position:absolute;left:4px;color:var(--gold-light);font-weight:bold;font-size:18px}
         .content ul li.sub{padding-left:36px}
         .content ul li.sub::before{content:"·";left:18px;color:var(--text-muted);font-size:14px}
         .content ul li.sub2{padding-left:48px}
         .content ul li.sub2::before{content:"·";left:32px;color:var(--text-muted);font-size:12px}
         .content strong{color:var(--text-primary);font-weight:600}
-        .content table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
-        .content table th{background:rgba(180,160,130,0.15);color:var(--text-primary);padding:8px 10px;text-align:center;font-weight:600;border:1px solid rgba(180,160,130,0.2)}
-        .content table td{padding:7px 10px;border:1px solid rgba(180,160,130,0.2);color:var(--text-secondary);line-height:1.6}
+        .content table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+        .content table th{background:rgba(180,160,130,0.15);color:var(--text-primary);padding:10px 12px;text-align:center;font-weight:600;border:1px solid rgba(180,160,130,0.2)}
+        .content table td{padding:9px 12px;border:1px solid rgba(180,160,130,0.2);color:var(--text-secondary);line-height:1.7}
         .content table td:first-child{font-weight:600;color:var(--text-primary);text-align:center;background:rgba(180,160,130,0.05)}
-        .content img{width:100%;max-width:500px;display:block;margin:16px auto;border-radius:12px;border:1px solid rgba(180,160,130,0.2);background:rgba(255,253,248,0.5);padding:12px}
+        .content img{width:100%;max-width:500px;display:block;margin:20px auto;border-radius:12px;border:1px solid rgba(180,160,130,0.2);background:rgba(255,253,248,0.5);padding:12px}
 
         .nav-bar{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:12px}
         .nav-btn{padding:10px 22px;background:rgba(255,253,248,0.7);border:1px solid rgba(180,160,130,0.25);border-radius:20px;cursor:pointer;font-family:var(--font-cn);font-size:14px;color:var(--text-secondary);letter-spacing:1px;transition:all 0.3s}
         .nav-btn:hover{background:rgba(180,160,130,0.12);color:var(--text-primary)}
         .nav-btn:disabled{opacity:0.3;cursor:default;pointer-events:none}
 
-        /* 浮动目录按钮 */
         .toc-btn{position:fixed;bottom:24px;right:24px;width:48px;height:48px;border-radius:50%;background:rgba(255,253,248,0.85);border:1px solid rgba(180,160,130,0.3);box-shadow:0 2px 16px rgba(60,40,20,0.1);cursor:pointer;z-index:20;font-size:22px;display:flex;align-items:center;justify-content:center;transition:all 0.3s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
         .toc-btn:hover{background:rgba(255,253,248,1);box-shadow:0 4px 24px rgba(60,40,20,0.15)}
-
-        /* 目录弹窗遮罩 */
         .toc-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.3);z-index:30;justify-content:center;align-items:flex-end}
         .toc-overlay.show{display:flex}
-
-        /* 目录弹窗 */
-        .toc-panel{background:#fffdf7;border-radius:20px 20px 0 0;width:100%;max-width:500px;max-height:60vh;overflow-y:auto;padding:20px 24px 32px;box-shadow:0 -4px 24px rgba(0,0,0,0.1);animation:slideUp 0.3s ease}
+        .toc-panel{background:#fffdf7;border-radius:20px 20px 0 0;width:100%;max-width:500px;max-height:60vh;overflow-y:auto;padding:20px 24px 32px;box-shadow:0 -4px 24px rgba(0,0,0,0.1);animation:slideUp 0.3s ease;position:relative}
         @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-        .toc-panel .toc-header{display:flex;justify-content:center;align-items:center;margin-bottom:6px}
+        .toc-panel .toc-header{display:flex;justify-content:center;margin-bottom:6px}
         .toc-panel .toc-handle{width:40px;height:4px;border-radius:2px;background:var(--text-muted);opacity:0.4}
         .toc-panel .toc-title{text-align:center;font-size:16px;font-weight:700;color:var(--text-primary);letter-spacing:2px;margin:12px 0 16px}
-        .toc-panel .toc-close{position:absolute;top:16px;right:24px;font-size:20px;color:var(--text-muted);cursor:pointer;background:none;border:none}
-        .toc-item{display:block;padding:6px 8px;font-size:14px;color:var(--text-secondary);text-decoration:none;border-radius:6px;cursor:pointer;transition:all 0.2s;letter-spacing:0.5px;line-height:1.8}
+        .toc-item{display:block;padding:7px 8px;font-size:14px;color:var(--text-secondary);text-decoration:none;border-radius:6px;cursor:pointer;transition:all 0.2s;letter-spacing:0.5px;line-height:1.8}
         .toc-item:hover{background:rgba(180,160,130,0.1);color:var(--text-primary)}
         .toc-item.active{background:rgba(139,105,20,0.1);color:var(--gold);font-weight:600}
-        .toc-item.toc-l1{font-weight:600;color:var(--text-primary);margin-top:6px;font-size:15px}
+        .toc-item.toc-l1{font-weight:600;color:var(--text-primary);margin-top:8px;font-size:15px}
         .toc-item.toc-l2{padding-left:20px}
         .toc-item.toc-l3{padding-left:36px;font-size:13px}
         .toc-item.toc-appendix{padding-left:20px;font-style:italic;color:var(--text-muted)}
@@ -165,7 +160,7 @@
     <div class="container">
         <div class="top-bar">
             <a href="1.html" class="back-link">← 返回宋朝</a>
-            <span class="page-indicator" id="page-indicator">1 / 18</span>
+            <span class="page-indicator" id="page-indicator">1 / 21</span>
         </div>
         <div class="page-card"><div id="page-content"></div></div>
         <div class="nav-bar">
@@ -175,10 +170,7 @@
         <div class="footer">── Shelly Liu ──</div>
     </div>
 
-    <!-- 浮动目录按钮 -->
     <div class="toc-btn" onclick="openToc()">📂</div>
-
-    <!-- 目录弹窗 -->
     <div class="toc-overlay" id="toc-overlay" onclick="closeToc(event)">
         <div class="toc-panel" id="toc-panel" onclick="event.stopPropagation()">
             <div class="toc-header"><div class="toc-handle"></div></div>
@@ -189,16 +181,18 @@
 
     <script>
         const pages = [
-            // 1. 鉴前朝之失 + 防止兵变
+            // 1. 鉴前朝之失
             `<div class="note-title">🏯 宋代中央集權</div>
              <div class="section-label">── 一、中央集權原因 ──</div>
-             <div class="item-title">1. 鑑前朝之失，維護國祚</div>
+             <div class="item-title">鑑前朝之失，維護國祚</div>
              <div class="content">
              <ul>
              <li>汲取唐末五代以來<strong>「藩鎮割據」、「君弱臣強」</strong>的教訓，想政權穩定</li>
              </ul>
-             </div>
-             <div class="item-title" style="margin-top:16px">2. 防止兵變</div>
+             </div>`,
+
+            // 2. 防止兵变
+            `<div class="item-title">防止兵變</div>
              <div class="content">
              <ul>
              <li>宋太祖經<strong>「陳橋兵變」</strong>得位，深恐部下效仿</li>
@@ -207,18 +201,20 @@
              </ul>
              </div>`,
 
-            // 2. 加强监察 + 站对议事
+            // 3. 加强监察
             `<div class="section-label">── 二、如何收中央相權？──</div>
              <div class="content"><p>宋宰相：<strong>趙普</strong>，核心方針：司權分立，達至加強皇權、削弱相權之效</p></div>
-             <div class="item-title" style="margin-top:16px">1. 加強監察</div>
+             <div class="item-title" style="margin-top:20px">加強監察</div>
              <div class="content">
              <ul>
              <li>設<strong>諫院與御史台</strong>，直接對皇帝負責</li>
              <li>不再諫君，改為諫宰相及官員，合稱<strong>台諫</strong></li>
              <li>宋朝重文，不殺言官，助長彈劾風氣</li>
              </ul>
-             </div>
-             <div class="item-title" style="margin-top:16px">2. 站對議事</div>
+             </div>`,
+
+            // 4. 站对议事
+            `<div class="item-title">站對議事</div>
              <div class="content">
              <ul>
              <li>宋代宰相奏議政務，需要<strong>「站對」</strong></li>
@@ -226,32 +222,48 @@
              </ul>
              </div>`,
 
-            // 3. 分割相权（行政+军事）
-            `<div class="item-title">3. 分割相權</div>
+            // 5. 分割相权·行政
+            `<div class="item-title">分割相權 · 行政</div>
              <div class="content">
              <table>
              <tr><th>方面</th><th>內容</th><th>目的</th></tr>
-             <tr><td><strong>① 行政</strong></td><td>中書省為宰相機關；「同中書門下平章事」為丞相，僅負責行政事務；「參知政事」為副相，牽制宰相</td><td>削減相權，牽制宰相</td></tr>
-             <tr><td><strong>② 軍事</strong></td><td>樞密院管軍政，與中書省合稱「二府」，掌調發權；三衙掌管理與訓練權，互相牽制，兵權分離</td><td>以文制武，防止武人擅權</td></tr>
+             <tr><td><strong>行政</strong></td><td>中書省為宰相機關；「同中書門下平章事」為丞相，僅負責行政事務；「參知政事」為副相，牽制宰相</td><td>削減相權，牽制宰相</td></tr>
              </table>
              </div>`,
 
-            // 4. 分割相权（财政+用人权+司法权）
-            `<div class="item-title">分割相權（續）</div>
+            // 6. 分割相权·军事
+            `<div class="item-title">分割相權 · 軍事</div>
              <div class="content">
              <table>
              <tr><th>方面</th><th>內容</th><th>目的</th></tr>
-             <tr><td><strong>③ 財政</strong></td><td>設三司（鹽鐵、度支、戶部），長官為三司使，號稱計相，與二府合稱「二府三司」</td><td>分割宰相財政權</td></tr>
-             <tr><td><strong>④ 用人權</strong></td><td>審官院考核京官；考課院考核地方官；三班院管低級武職</td><td>侵奪宰相選官的權力</td></tr>
-             <tr><td><strong>⑤ 司法權</strong></td><td>設審刑院，不受宰相統領，直接向君主負責</td><td>削減/架空宰相的司法管理權</td></tr>
+             <tr><td><strong>軍事</strong></td><td>樞密院管軍政，與中書省合稱「二府」，掌調發權；三衙掌管理與訓練權，互相牽制，兵權分離</td><td>以文制武，防止武人擅權</td></tr>
+             </table>
+             </div>`,
+
+            // 7. 分割相权·财政
+            `<div class="item-title">分割相權 · 財政</div>
+             <div class="content">
+             <table>
+             <tr><th>方面</th><th>內容</th><th>目的</th></tr>
+             <tr><td><strong>財政</strong></td><td>設三司（鹽鐵、度支、戶部），長官為三司使，號稱計相，與二府合稱「二府三司」</td><td>分割宰相財政權</td></tr>
+             </table>
+             </div>`,
+
+            // 8. 分割相权·用人+司法
+            `<div class="item-title">分割相權 · 用人 + 司法</div>
+             <div class="content">
+             <table>
+             <tr><th>方面</th><th>內容</th><th>目的</th></tr>
+             <tr><td><strong>用人權</strong></td><td>審官院考核京官；考課院考核地方官；三班院管低級武職</td><td>侵奪宰相選官的權力</td></tr>
+             <tr><td><strong>司法權</strong></td><td>設審刑院，不受宰相統領，直接向君主負責</td><td>削減/架空宰相的司法管理權</td></tr>
              </table>
              <p>將宰相權力一分為三（行政、軍事、財政），亦分割用人權與司法權</p>
              </div>`,
 
-            // 5. 附：二府三司制（含图片）
+            // 9. 附：二府三司制
             `<div class="item-title">附：宋代二府三司制</div>
              <div class="content">
-             <img src="二府三司制.png" alt="宋代二府三司制">
+             <img src="erfu.png" alt="宋代二府三司制">
              <table>
              <tr><th>機構</th><th>職能</th></tr>
              <tr><td>皇帝</td><td>最高統治權，直接控制和擬定決策</td></tr>
@@ -264,10 +276,11 @@
              <p>三衙（殿前司、馬軍司、步軍司）掌禁軍管理與訓練權，與樞密院互相牽制</p>
              </div>`,
 
-            // 6. 杯酒释兵权
+            // 10. 杯酒释兵权
             `<div class="section-label">── 三、如何收地方權力？──</div>
              <div class="content"><p>核心方針：<strong>稍奪其權，收其精兵，制其錢谷</strong></p></div>
-             <div class="item-title" style="margin-top:12px">收其精兵 · ① 杯酒釋兵權</div>
+             <div class="section-label-sub" style="margin-top:16px">收其精兵</div>
+             <div class="item-title">杯酒釋兵權</div>
              <div class="content">
              <ul>
              <li><strong>罷免李重進：</strong>宋太祖初即位，罷免禁軍首領李重進「殿前都點檢」一職，交由其弟趙匡義統領</li>
@@ -275,8 +288,8 @@
              </ul>
              </div>`,
 
-            // 7. 分割禁军
-            `<div class="item-title">② 分割禁軍</div>
+            // 11. 分割禁军
+            `<div class="item-title">分割禁軍</div>
              <div class="content">
              <ul>
              <li>宋太祖廢除殿前司長官<strong>「都點檢」</strong>一職，改以都指揮使為長官，降低殿前司地位</li>
@@ -285,8 +298,8 @@
              <p>→ 一舉奪回中央軍權</p>
              </div>`,
 
-            // 8. 三衙
-            `<div class="item-title">③ 三衙</div>
+            // 12. 三衙
+            `<div class="item-title">三衙</div>
              <div class="content">
              <ul>
              <li>分侍衛司為<strong>侍衛馬軍司</strong>及<strong>侍衛步軍司</strong>，與殿前司負責禁軍日常管理和訓練</li>
@@ -301,8 +314,8 @@
              </ul>
              </div>`,
 
-            // 9. 禁军与厢军
-            `<div class="item-title">④ 禁軍駐京師，廂軍駐地方</div>
+            // 13. 禁军与厢军
+            `<div class="item-title">禁軍與廂軍</div>
              <div class="content">
              <table>
              <tr><th></th><th>禁軍</th><th>廂軍</th></tr>
@@ -313,8 +326,8 @@
              <p>共約38萬兵力。宋朝無退役制度，造成冗軍</p>
              </div>`,
 
-            // 10. 更戍法
-            `<div class="item-title">⑤ 行更戍法</div>
+            // 14. 更戍法
+            `<div class="item-title">更戍法</div>
              <div class="content">
              <ul>
              <li>禁軍每三年調換防區，將領不需易防</li>
@@ -328,8 +341,8 @@
              </ul>
              </div>`,
 
-            // 11. 文人掌军事
-            `<div class="item-title">⑥ 文人掌軍事（重文輕武）</div>
+            // 15. 文人掌军事
+            `<div class="item-title">文人掌軍事（重文輕武）</div>
              <div class="content">
              <ul>
              <li>宋太祖以文制武，以文官統領樞密院及地方軍事，防止武人擅權</li>
@@ -337,8 +350,9 @@
              </ul>
              </div>`,
 
-            // 12. 设转运使
-            `<div class="item-title">制其錢谷 · ① 設轉運使</div>
+            // 16. 设转运使
+            `<div class="section-label-sub">制其錢谷</div>
+             <div class="item-title">設轉運使</div>
              <div class="content">
              <ul>
              <li>為確保地方賦稅能上供中央，朝廷特設轉運使一職，規定各州財務帳籍須按時申報給本路轉運使</li>
@@ -351,8 +365,8 @@
              </ul>
              </div>`,
 
-            // 13. 专卖制度
-            `<div class="item-title">② 專賣制度</div>
+            // 17. 专卖制度
+            `<div class="item-title">專賣制度</div>
              <div class="content">
              <ul>
              <li>宋朝統一幣制，嚴禁民間私鑄錢幣</li>
@@ -365,8 +379,9 @@
              </ul>
              </div>`,
 
-            // 14. 监控地方·四监司
-            `<div class="item-title">稍奪其權 · ① 監控地方（四監司）</div>
+            // 18. 监控地方（路州县）
+            `<div class="section-label-sub">稍奪其權</div>
+             <div class="item-title">監控地方（路州縣）</div>
              <div class="content">
              <ul>
              <li>宋朝沿用州縣兩級制，並在其上增設<strong>「路」</strong>，天下有15路</li>
@@ -379,41 +394,19 @@
              <tr><td>倉</td><td>錢谷</td></tr>
              </table>
              <p>每路設四監司，互不統屬，直接向中央負責。使地方大權收歸中央，可監控地方行政，收互相牽制之效</p>
-             </div>`,
-
-            // 15. 州
-            `<div class="item-title">監控地方 · 州</div>
-             <div class="content">
+             <p style="margin-top:10px"><strong>州</strong></p>
              <ul>
-             <li><strong>知州：</strong>主管州內行政，與通判互相監督、共掌州政</li>
-             <li class="sub">由中央文官兼任，三年一調</li>
-             <li class="sub">臨時差遣，稱「權知某州事」，簡稱知州</li>
-             <li><strong>通判：</strong>由中央派駐，代表中央直接監督地方</li>
-             <li class="sub">政令須其副署方生效</li>
+             <li><strong>知州：</strong>主管州內行政，與通判互相監督、共掌州政，由中央文官兼任，三年一調</li>
+             <li><strong>通判：</strong>由中央派駐，代表中央直接監督地方，政令須其副署方生效</li>
              </ul>
-             <p>作用：中央能監控地方行政</p>
-             </div>`,
-
-            // 16. 县 + 削弱藩镇
-            `<div class="item-title">監控地方 · 縣</div>
-             <div class="content">
+             <p style="margin-top:10px"><strong>縣</strong></p>
              <ul>
-             <li>知縣/縣令主管縣內行政</li>
-             <li>縣的地方長官稱「權知某縣事」，簡稱知縣</li>
+             <li>知縣/縣令主管縣內行政，地方長官稱「權知某縣事」，簡稱知縣</li>
              </ul>
-             </div>
-             <div class="item-title" style="margin-top:16px">② 削弱藩鎮</div>
-             <div class="content">
-             <table>
-             <tr><th>措施</th><th>內容</th></tr>
-             <tr><td>調離原地</td><td>朝廷安排節度使到其他地方執行任務，或上調京師留守，並賜給府第居住，使其失去原有地盤憑籍</td></tr>
-             <tr><td>收回領地</td><td>如果節度使死亡或退休，朝廷會收回領地，改派文官接任，使地方官吏由中央任命</td></tr>
-             </table>
-             <p>→ 達至削弱地方權力，集權中央的目的</p>
              </div>`,
 
-            // 17. 官职差遣分离
-            `<div class="item-title">③ 官、職、差遣分離</div>
+            // 19. 官职差遣分离
+            `<div class="item-title">官、職、差遣分離</div>
              <div class="content">
              <ul>
              <li>君主用人辦事不受官位之限，可按政務需要和官員才能進行調動和升降</li>
@@ -428,7 +421,18 @@
              <p><strong>壞處：</strong>官制紊亂，官員權責不明，行政效率低；官員不以官職為貴</p>
              </div>`,
 
-            // 18. 刑权集中
+            // 20. 削弱藩镇
+            `<div class="item-title">削弱藩鎮</div>
+             <div class="content">
+             <table>
+             <tr><th>措施</th><th>內容</th></tr>
+             <tr><td>調離原地</td><td>朝廷安排節度使到其他地方執行任務，或上調京師留守，並賜給府第居住，使其失去原有地盤憑籍</td></tr>
+             <tr><td>收回領地</td><td>如果節度使死亡或退休，朝廷會收回領地，改派文官接任，使地方官吏由中央任命</td></tr>
+             </table>
+             <p>→ 達至削弱地方權力，集權中央的目的</p>
+             </div>`,
+
+            // 21. 刑权集中
             `<div class="item-title">刑權集中</div>
              <div class="content">
              <ul>
@@ -440,32 +444,34 @@
              </div>`
         ];
 
-        // 目录数据
         const tocItems = [
             {label:"一、中央集權原因",level:1,page:0},
-            {label:"1.1 鑑前朝之失 + 防止兵變",level:2,page:0},
-            {label:"二、如何收中央相權",level:1,page:1},
-            {label:"2.1 加強監察 + 站對議事",level:2,page:1},
-            {label:"2.2 分割相權（行政+軍事）",level:2,page:2},
-            {label:"2.3 分割相權（財政+用人+司法）",level:2,page:3},
-            {label:"附：二府三司制",level:"appendix",page:4},
-            {label:"三、如何收地方權力",level:1,page:5},
-            {label:"收其精兵",level:2,page:5},
-            {label:"3.1 杯酒釋兵權",level:3,page:5},
-            {label:"3.2 分割禁軍",level:3,page:6},
-            {label:"3.3 三衙",level:3,page:7},
-            {label:"3.4 禁軍與廂軍",level:3,page:8},
-            {label:"3.5 更戍法",level:3,page:9},
-            {label:"3.6 文人掌軍事",level:3,page:10},
-            {label:"制其錢谷",level:2,page:11},
-            {label:"3.7 設轉運使",level:3,page:11},
-            {label:"3.8 專賣制度",level:3,page:12},
-            {label:"稍奪其權",level:2,page:13},
-            {label:"3.9 監控地方",level:3,page:13},
-            {label:"3.10 州",level:3,page:14},
-            {label:"3.11 縣 + 削弱藩鎮",level:3,page:15},
-            {label:"3.12 官職差遣分離",level:3,page:16},
-            {label:"3.13 刑權集中",level:3,page:17}
+            {label:"鑑前朝之失",level:2,page:0},
+            {label:"防止兵變",level:2,page:1},
+            {label:"二、如何收中央相權",level:1,page:2},
+            {label:"加強監察",level:2,page:2},
+            {label:"站對議事",level:2,page:3},
+            {label:"分割相權·行政",level:2,page:4},
+            {label:"分割相權·軍事",level:2,page:5},
+            {label:"分割相權·財政",level:2,page:6},
+            {label:"分割相權·用人+司法",level:2,page:7},
+            {label:"附：二府三司制",level:"appendix",page:8},
+            {label:"三、如何收地方權力",level:1,page:9},
+            {label:"收其精兵",level:2,page:9},
+            {label:"杯酒釋兵權",level:3,page:9},
+            {label:"分割禁軍",level:3,page:10},
+            {label:"三衙",level:3,page:11},
+            {label:"禁軍與廂軍",level:3,page:12},
+            {label:"更戍法",level:3,page:13},
+            {label:"文人掌軍事",level:3,page:14},
+            {label:"制其錢谷",level:2,page:15},
+            {label:"設轉運使",level:3,page:15},
+            {label:"專賣制度",level:3,page:16},
+            {label:"稍奪其權",level:2,page:17},
+            {label:"監控地方（路州縣）",level:3,page:17},
+            {label:"官職差遣分離",level:3,page:18},
+            {label:"削弱藩鎮",level:3,page:19},
+            {label:"刑權集中",level:3,page:20}
         ];
 
         let currentPage = 0;
@@ -483,7 +489,7 @@
         function renderToc() {
             const tocContent = document.getElementById('toc-content');
             tocContent.innerHTML = '';
-            tocItems.forEach((item, index) => {
+            tocItems.forEach(item => {
                 const div = document.createElement('div');
                 div.className = 'toc-item';
                 if (item.level === 1) div.classList.add('toc-l1');
