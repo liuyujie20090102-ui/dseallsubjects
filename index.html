@@ -70,12 +70,7 @@
         .c2{width:280px;height:45px;right:8%;top:45%;opacity:0.4;--drift:22s;animation-delay:-5s}
         .c3{width:400px;height:60px;left:30%;bottom:20%;opacity:0.45;--drift:20s;animation-delay:-10s}
         .c4{width:250px;height:40px;right:20%;top:15%;opacity:0.35;--drift:16s;animation-delay:-3s}
-        @keyframes cloudDrift{
-            0%,100%{transform:translateX(0)}
-            25%{transform:translateX(25px)}
-            50%{transform:translateX(-10px)}
-            75%{transform:translateX(-20px)}
-        }
+        @keyframes cloudDrift{0%,100%{transform:translateX(0)}25%{transform:translateX(25px)}50%{transform:translateX(-10px)}75%{transform:translateX(-20px)}}
         .pine{position:fixed;left:3%;bottom:5%;pointer-events:none;z-index:0;opacity:0.25}
         .pine .trunk{width:4px;height:50px;background:rgba(60,40,20,0.5);margin:0 auto;border-radius:2px}
         .pine .b1{border-left:20px solid transparent;border-right:20px solid transparent;border-bottom:30px solid rgba(60,40,20,0.4);border-radius:40%}
@@ -86,12 +81,7 @@
         .bird{display:inline-block;font-size:13px;margin:0 6px;animation:birdFloat 6s ease-in-out infinite}
         .bird:nth-child(2){animation-delay:1.5s;font-size:9px}
         .bird:nth-child(3){animation-delay:3s;font-size:11px}
-        @keyframes birdFloat{
-            0%,100%{transform:translateY(0) translateX(0)}
-            25%{transform:translateY(-7px) translateX(4px)}
-            50%{transform:translateY(-2px) translateX(8px)}
-            75%{transform:translateY(-9px) translateX(3px)}
-        }
+        @keyframes birdFloat{0%,100%{transform:translateY(0) translateX(0)}25%{transform:translateY(-7px) translateX(4px)}50%{transform:translateY(-2px) translateX(8px)}75%{transform:translateY(-9px) translateX(3px)}}
         .container{position:relative;z-index:1;width:100%;max-width:650px}
         .header{text-align:center;margin-bottom:44px}
         .header .site-title{font-size:30px;font-weight:700;color:var(--text-primary);letter-spacing:4px;margin-bottom:6px}
@@ -115,17 +105,8 @@
         .card.disabled{opacity:0.45;cursor:default;pointer-events:none}
         .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:28px}
         .footer .name{color:var(--text-secondary);font-weight:400}
-        @media(max-width:600px){
-            .card-grid.triple{grid-template-columns:repeat(2,1fr)}
-            .card-grid.triple .card:last-child{grid-column:1/-1;max-width:100%}
-        }
-        @media(max-width:400px){
-            .header .site-title{font-size:22px}
-            .card{padding:18px 10px}
-            .card .card-icon{font-size:20px}
-            .card .card-name{font-size:13px}
-            .card-grid{gap:8px}
-        }
+        @media(max-width:600px){.card-grid.triple{grid-template-columns:repeat(2,1fr)}.card-grid.triple .card:last-child{grid-column:1/-1;max-width:100%}}
+        @media(max-width:400px){.header .site-title{font-size:22px}.card{padding:18px 10px}.card .card-icon{font-size:20px}.card .card-name{font-size:13px}.card-grid{gap:8px}}
     </style>
 </head>
 <body>
@@ -148,7 +129,7 @@
         <div class="section-label">── 必修科 ──</div>
         <div class="card-grid">
             <a href="#" class="card disabled"><span class="card-icon">📝</span><span class="card-name">中文</span><span class="card-status">待建</span></a>
-            <a href="#" class="card disabled"><span class="card-icon">🔤</span><span class="card-name">英文</span><span class="card-status">待建</span></a>
+            <a href="英文/英文.html" class="card available"><span class="card-icon">🔤</span><span class="card-name">英文</span><span class="card-status">進入</span></a>
             <a href="#" class="card disabled"><span class="card-icon">📐</span><span class="card-name">數學</span><span class="card-status">待建</span></a>
             <a href="#" class="card disabled"><span class="card-icon">🏛️</span><span class="card-name">公社</span><span class="card-status">待建</span></a>
         </div>
@@ -173,4 +154,4 @@
     </script>
 </body>
 </html>
-
+```
