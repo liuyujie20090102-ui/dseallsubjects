@@ -102,10 +102,11 @@
         .opt-btn.correct-opt{background:#e8f5e9;border-color:var(--correct);color:var(--correct)}
         .opt-btn.wrong-opt{background:#ffebee;border-color:var(--wrong);color:var(--wrong)}
 
-        .btn-row{display:flex;gap:12px;margin-top:16px;justify-content:center}
-        .btn-row button{padding:12px 32px;border-radius:20px;border:none;font-size:15px;cursor:pointer;letter-spacing:1px;transition:all 0.2s;font-family:var(--font-cn)}
+        .btn-row{display:flex;gap:10px;margin-top:16px;justify-content:center;flex-wrap:wrap}
+        .btn-row button{padding:10px 22px;border-radius:20px;border:none;font-size:14px;cursor:pointer;letter-spacing:1px;transition:all 0.2s;font-family:var(--font-cn)}
         .btn-check{background:var(--correct);color:#fff}
         .btn-reveal{background:#fff;color:var(--reveal);border:2px solid var(--reveal)}
+        .btn-clear{background:#fff;color:var(--text-muted);border:2px solid var(--text-muted)}
 
         .nav-bar{display:flex;justify-content:space-between;align-items:center;margin-top:24px;gap:12px;padding-bottom:24px}
         .nav-btn{padding:12px 26px;background:rgba(255,253,248,0.85);border:2px solid rgba(180,160,130,0.3);border-radius:20px;cursor:pointer;font-family:var(--font-cn);font-size:15px;color:var(--text-secondary);letter-spacing:1px;transition:all 0.3s}
@@ -131,6 +132,7 @@
             .opt-btn{padding:6px 14px;font-size:13px}
             .nav-btn{padding:10px 20px;font-size:13px}
             .tab-btn{padding:5px 12px;font-size:12px}
+            .btn-row button{padding:8px 16px;font-size:13px}
         }
     </style>
 </head>
@@ -299,17 +301,33 @@
             btnRow.className = 'btn-row';
             btnRow.innerHTML = `
                 <button class="btn-check">✅ 檢查答案</button>
-                <button class="btn-reveal">💡 我不會</button>`;
+                <button class="btn-reveal">💡 我不會</button>
+                <button class="btn-clear">🔄 清空重填</button>`;
             btnRow.querySelector('.btn-check').addEventListener('click', function(e) { e.stopPropagation();
                 checkAnswer(); });
             btnRow.querySelector('.btn-reveal').addEventListener('click', function(e) { e.stopPropagation();
                 revealAnswer(); });
+            btnRow.querySelector('.btn-clear').addEventListener('click', function(e) { e.stopPropagation();
+                clearAll(); });
             back.appendChild(btnRow);
 
             renderTabs();
             renderDots();
             updateNavButtons();
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function clearAll() {
+            if (isChecked) return;
+            selections = {};
+            usedOptions = [];
+            const blanks = document.querySelectorAll('.card-back .blank');
+            blanks.forEach(b => {
+                b.textContent = '';
+                b.classList.remove('filled-correct', 'filled-wrong', 'filled-reveal');
+            });
+            refreshOptButtons();
+            highlightCurrentBlank();
         }
 
         function highlightCurrentBlank() {
@@ -322,7 +340,8 @@
 
         function toggleOpt(value, btn) {
             if (isChecked) return;
-            if (usedOptions.includes(value)) {
+            // 如果按钮已使用，先检查是否在usedOptions中
+            if (btn.classList.contains('used') && usedOptions.includes(value)) {
                 const blankIdx = Object.keys(selections).findIndex(k => selections[k] === value);
                 if (blankIdx >= 0) {
                     const removeKeys = Object.keys(selections).filter(k => parseInt(k) >= blankIdx);
@@ -344,6 +363,7 @@
                 }
                 return;
             }
+            // 新选择
             const blankIdx = Object.keys(selections).length;
             const q = getCurrentQ();
             if (blankIdx >= q.answer.length) return;
@@ -558,4 +578,3 @@
     </script>
 </body>
 </html>
-```
