@@ -63,18 +63,19 @@
         .bird{display:inline-block;font-size:13px;margin:0 5px;animation:birdFloat 6s ease-in-out infinite}
         .bird:nth-child(2){animation-delay:1.5s;font-size:9px}
         .bird:nth-child(3){animation-delay:3s;font-size:11px}
-        @keyframes birdFloat{
-            0%,100%{transform:translateY(0) translateX(0)}
-            25%{transform:translateY(-7px) translateX(3px)}
-            50%{transform:translateY(-2px) translateX(8px)}
-            75%{transform:translateY(-9px) translateX(3px)}
-        }
+        @keyframes birdFloat{0%,100%{transform:translateY(0) translateX(0)}25%{transform:translateY(-7px) translateX(3px)}50%{transform:translateY(-2px) translateX(8px)}75%{transform:translateY(-9px) translateX(3px)}}
 
         .container{position:relative;z-index:1;width:100%;max-width:650px}
-        .top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+        .top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px}
         .back-link{color:var(--text-muted);text-decoration:none;font-size:14px;letter-spacing:1px;transition:color 0.3s}
         .back-link:hover{color:var(--text-primary)}
-        .round-label{font-size:13px;color:var(--text-muted);letter-spacing:2px}
+
+        /* 章节标签 */
+        .tabs-bar{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;justify-content:center}
+        .tab-btn{padding:7px 16px;border-radius:20px;border:1px solid rgba(180,160,130,0.3);background:rgba(255,253,248,0.7);cursor:pointer;font-family:var(--font-cn);font-size:13px;color:var(--text-secondary);letter-spacing:1px;transition:all 0.2s;white-space:nowrap}
+        .tab-btn:hover{background:rgba(180,160,130,0.12);color:var(--text-primary)}
+        .tab-btn.active{background:var(--gold);color:#fff;border-color:var(--gold)}
+
         .progress-dots{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:20px}
         .progress-dot{width:8px;height:8px;border-radius:50%;background:#ddd;transition:all 0.3s;cursor:pointer}
         .progress-dot.done{background:var(--correct)}
@@ -86,7 +87,7 @@
         .card-inner{position:relative;width:100%;min-height:280px;transition:transform 0.5s ease;transform-style:preserve-3d;cursor:pointer}
         .card-inner.flipped{transform:rotateY(180deg)}
         .card-face{position:absolute;width:100%;min-height:280px;backface-visibility:hidden;border-radius:16px;padding:36px 28px 48px;background:var(--card-bg);border:1px solid rgba(180,160,130,0.2);box-shadow:0 2px 20px rgba(60,40,20,0.04);display:flex;flex-direction:column;align-items:center;justify-content:center}
-        .card-back{transform:rotateY(180deg);justify-content:flex-start;align-items:stretch}
+        .card-back{transform:rotateY(180deg);justify-content:flex-start;align-items:stretch;overflow-y:auto;max-height:70vh}
         .card-front .keyword{font-size:28px;font-weight:700;color:var(--text-primary);letter-spacing:3px;margin-bottom:12px;text-align:center}
         .card-front .hint{font-size:15px;color:var(--text-secondary);text-align:center;line-height:1.8}
         .card-front .tap-hint{font-size:12px;color:var(--text-muted);margin-top:16px;letter-spacing:1px}
@@ -100,7 +101,7 @@
         .options-row{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
         .opt-btn{padding:8px 18px;background:#fff;border:2px solid rgba(180,160,130,0.3);border-radius:20px;cursor:pointer;font-size:14px;color:var(--text-secondary);transition:all 0.2s;letter-spacing:0.5px;font-family:var(--font-cn)}
         .opt-btn:hover:not(.used){border-color:var(--gold-light);background:rgba(196,169,125,0.06)}
-        .opt-btn.used{opacity:0.35;cursor:default;pointer-events:none;background:#f0ece6}
+        .opt-btn.used{opacity:0.35;cursor:pointer;pointer-events:auto;background:#f0ece6}
         .opt-btn.selected{background:rgba(139,105,20,0.1);border-color:var(--gold);color:var(--gold);font-weight:600}
         .opt-btn.correct-opt{background:#e8f5e9;border-color:var(--correct);color:var(--correct)}
         .opt-btn.wrong-opt{background:#ffebee;border-color:var(--wrong);color:var(--wrong)}
@@ -134,6 +135,7 @@
             .card-front .keyword{font-size:22px}
             .opt-btn{padding:6px 14px;font-size:13px}
             .nav-btn{padding:10px 20px;font-size:13px}
+            .tab-btn{padding:5px 12px;font-size:12px}
         }
     </style>
 </head>
@@ -146,8 +148,11 @@
     <div class="container">
         <div class="top-bar">
             <a href="关键词触发-主页.html" class="back-link">← 返回主頁</a>
-            <span class="round-label" id="round-label"></span>
         </div>
+
+        <!-- 章节标签 -->
+        <div class="tabs-bar" id="tabs-bar"></div>
+
         <div class="progress-dots" id="progress-dots"></div>
 
         <div class="card-container" id="card-container">
@@ -171,11 +176,11 @@
 
     <script>
         const rounds = [
-            {name:"第一輪：中央集權原因", questions:[
+            {name:"第一輪", short:"集權原因", questions:[
                 {keyword:"鑑前朝之失",hint:"宋代汲取了唐末五代以來的什麼教訓？",text:'汲取唐末五代以來「<span class="blank" data-id="0"></span>」、「君弱臣強」的教訓，想政權穩定',options:["藩鎮割據","軍閥混戰","外戚專權"],answer:["藩鎮割據"],original:"汲取唐末五代以來「藩鎮割據」、「君弱臣強」的教訓，想政權穩定"},
                 {keyword:"防止兵變",hint:"宋太祖通過什麼事件得位，深恐部下效仿？",text:'宋太祖經「<span class="blank" data-id="0"></span>」得位，深恐部下效仿',options:["陳橋兵變","玄武門之變","靖難之變"],answer:["陳橋兵變"],original:"宋太祖經「陳橋兵變」得位，深恐部下效仿"}
             ]},
-            {name:"第二輪：收中央相權", questions:[
+            {name:"第二輪", short:"收中央相權", questions:[
                 {keyword:"加強監察",hint:"諫院與御史台合稱什麼？",text:'設諫院與御史台，直接對皇帝負責，合稱「<span class="blank" data-id="0"></span>」',options:["台諫","二府","三司"],answer:["台諫"],original:"設諫院與御史台，直接對皇帝負責，合稱「台諫」"},
                 {keyword:"站對議事",hint:"宋代宰相奏議政務需要什麼禮儀？",text:'宋代宰相奏議政務，需要「<span class="blank" data-id="0"></span>」',options:["站對","跪對","立對"],answer:["站對"],original:"宋代宰相奏議政務，需要「站對」"},
                 {keyword:"分割相權·行政",hint:"宋代丞相和副相的正式名稱是什麼？",text:'「<span class="blank" data-id="0"></span>」為丞相，僅負責行政事務。「<span class="blank" data-id="1"></span>」為副相，牽制宰相',options:["同中書門下平章事","參知政事","樞密使","三司使"],answer:["同中書門下平章事","參知政事"],original:"「同中書門下平章事」為丞相，僅負責行政事務。「參知政事」為副相，牽制宰相"},
@@ -185,7 +190,7 @@
                 {keyword:"分割相權·用人",hint:"考核京官、地方官、低級武職分別用哪三個機構？",text:'設<span class="blank" data-id="0"></span>考核京師官員與朝官，<span class="blank" data-id="1"></span>考核地方官員與縣官，<span class="blank" data-id="2"></span>管理低級武職',options:["審官院","考課院","三班院"],answer:["審官院","考課院","三班院"],original:"設審官院考核京師官員與朝官，考課院考核地方官員與縣官，三班院管理低級武職"},
                 {keyword:"分割相權·司法",hint:"哪個機構不受宰相統領，直接向君主負責？",text:'設<span class="blank" data-id="0"></span>，不受宰相統領，直接向君主負責',options:["審刑院","大理寺","刑部"],answer:["審刑院"],original:"設審刑院，不受宰相統領，直接向君主負責"}
             ]},
-            {name:"第三輪：收其精兵", questions:[
+            {name:"第三輪", short:"收其精兵", questions:[
                 {keyword:"杯酒釋兵權",hint:"宋太祖罷免了誰？又解除了哪位禁軍將領的兵權？",text:'宋太祖即位初便罷去禁軍首領<span class="blank" data-id="0"></span>「殿前都點檢」一職，交由其弟趙匡義統領。又勸服禁軍宿將交出兵權，解除<span class="blank" data-id="1"></span>、王審琦、高懷德等禁軍高級將領的兵權',options:["李重進","石守信","趙匡胤","趙普"],answer:["李重進","石守信"],original:"宋太祖即位初便罷去禁軍首領李重進「殿前都點檢」一職，交由其弟趙匡義統領。又勸服禁軍宿將交出兵權，解除石守信、王審琦、高懷德等禁軍高級將領的兵權"},
                 {keyword:"分割禁軍",hint:"廢除都點檢後，改以什麼職位為長官？",text:'宋太祖廢除殿前司長官「都點檢」一職，改以<span class="blank" data-id="0"></span>為長官，降低殿前司地位',options:["都指揮使","殿前使","侍衛使"],answer:["都指揮使"],original:"宋太祖廢除殿前司長官「都點檢」一職，改以都指揮使為長官，降低殿前司地位"},
                 {keyword:"三衙",hint:"遇戰事時誰頒發虎符？戰事結束兵歸哪裡？",text:'分侍衛司為侍衛馬軍司及侍衛步軍司，與殿前司負責禁軍日常管理和訓練。遇戰事時，由皇帝經<span class="blank" data-id="0"></span>頒發虎符，臨時派將帥統兵出征。戰事結束，兵歸<span class="blank" data-id="1"></span>，將領回朝',options:["樞密院","三衙","中書省","殿前司"],answer:["樞密院","三衙"],original:"分侍衛司為侍衛馬軍司及侍衛步軍司，與殿前司負責禁軍日常管理和訓練。遇戰事時，由皇帝經樞密院頒發虎符，臨時派將帥統兵出征。戰事結束，兵歸三衙，將領回朝"},
@@ -193,11 +198,11 @@
                 {keyword:"更戍法",hint:"禁軍每幾年調換防區？",text:'禁軍每<span class="blank" data-id="0"></span>年調換防區，將領不需易防，避免將領擁兵自重',options:["三","五","一"],answer:["三"],original:"禁軍每三年調換防區，將領不需易防，避免將領擁兵自重"},
                 {keyword:"文人掌軍事",hint:"文官統領哪個軍事機構？哪位宰相曾領兵防禦西夏？",text:'宋太祖以文制武，以文官統領<span class="blank" data-id="0"></span>及地方軍事，防止武人擅權。例子：宰相<span class="blank" data-id="1"></span>雖是文官，但曾領兵防禦西夏',options:["樞密院","趙普","中書省","石守信"],answer:["樞密院","趙普"],original:"宋太祖以文制武，以文官統領樞密院及地方軍事，防止武人擅權。例子：宰相趙普雖是文官，但曾領兵防禦西夏"}
             ]},
-            {name:"第四輪：制其錢谷", questions:[
+            {name:"第四輪", short:"制其錢谷", questions:[
                 {keyword:"設轉運使",hint:"朝廷特設什麼官職？",text:'為確保地方賦稅能上供中央，朝廷特設<span class="blank" data-id="0"></span>一職。保證各州上供的<span class="blank" data-id="1"></span>符合規定。調撥各州財賦以滿足各州的<span class="blank" data-id="2"></span>开支。稽考各州<span class="blank" data-id="3"></span>儲積，以防虛報',options:["轉運使","賦稅","軍政","帳籍","節度使","糧食","民政","兵器"],answer:["轉運使","賦稅","軍政","帳籍"],original:"為確保地方賦稅能上供中央，朝廷特設轉運使一職。保證各州上供的賦稅符合規定。調撥各州財賦以滿足各州的軍政开支。稽考各州帳籍儲積，以防虛報"},
                 {keyword:"專賣制度",hint:"宋朝統一了什麼？派遣京官監督徵收什麼稅？",text:'宋朝統一<span class="blank" data-id="0"></span>，嚴禁民間私鑄錢幣。對鹽、茶、酒等產物實行專賣制度。派遣京官到各地監督徵收<span class="blank" data-id="1"></span>',options:["幣制","專賣稅","稅制","田賦","官制","關稅"],answer:["幣制","專賣稅"],original:"宋朝統一幣制，嚴禁民間私鑄錢幣。對鹽、茶、酒等產物實行專賣制度。派遣京官到各地監督徵收專賣稅"}
             ]},
-            {name:"第五輪：稍奪其權+刑權", questions:[
+            {name:"第五輪", short:"稍奪其權+刑權", questions:[
                 {keyword:"監控地方（四監司）",hint:"州縣之上增設了什麼？四監司中掌管軍事的叫什麼？",text:'宋朝沿用州縣兩級制，並在其上增設「<span class="blank" data-id="0"></span>」，天下有15路。每路設四監司：<span class="blank" data-id="1"></span>（軍事）、漕（財政）、憲（刑獄）、倉（錢谷），互不統屬，直接向中央負責',options:["路","帥","道","兵","府","軍"],answer:["路","帥"],original:"宋朝沿用州縣兩級制，並在其上增設「路」，天下有15路。每路設四監司：帥（軍事）、漕（財政）、憲（刑獄）、倉（錢谷），互不統屬，直接向中央負責"},
                 {keyword:"監控地方（州）",hint:"主管州內行政的長官叫什麼？政令須誰副署？",text:'<span class="blank" data-id="0"></span>主管州內行政，由中央文官兼任，三年一調，與<span class="blank" data-id="1"></span>互相監督。通判由中央派駐，代表中央直接監督地方，政令須其<span class="blank" data-id="2"></span>方生效',options:["知州","通判","副署","知縣","批准","蓋章"],answer:["知州","通判","副署"],original:"知州主管州內行政，由中央文官兼任，三年一調，與通判互相監督。通判由中央派駐，代表中央直接監督地方，政令須其副署方生效"},
                 {keyword:"監控地方（縣）",hint:"主管縣內行政的長官叫什麼？",text:'<span class="blank" data-id="0"></span>主管縣內行政，地方長官稱「權知某縣事」，簡稱知縣',options:["知縣","知州","通判"],answer:["知縣"],original:"知縣主管縣內行政，地方長官稱「權知某縣事」，簡稱知縣"},
@@ -237,6 +242,21 @@
 
         function shuffle(arr) { const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
 
+        function renderTabs() {
+            const tabsBar = document.getElementById('tabs-bar');
+            tabsBar.innerHTML = '';
+            rounds.forEach((round, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'tab-btn';
+                if (i === currentRoundIdx && !isReviewMode) btn.classList.add('active');
+                btn.textContent = round.short;
+                btn.onclick = () => { currentRoundIdx = i;
+                    currentQIdx = 0;
+                    renderCard(); };
+                tabsBar.appendChild(btn);
+            });
+        }
+
         function renderCard() {
             const q = getCurrentQ();
             isFlipped = false;
@@ -248,7 +268,6 @@
             document.getElementById('result-msg').textContent = '';
             document.getElementById('result-msg').className = 'result-msg';
             document.getElementById('next-btn').disabled = true;
-            document.getElementById('round-label').textContent = isReviewMode ? '📝 錯題複習' : rounds[currentRoundIdx].name;
 
             const front = document.getElementById('card-front');
             front.innerHTML = '';
@@ -281,7 +300,7 @@
                 btn.className = 'opt-btn';
                 btn.textContent = opt;
                 btn.addEventListener('click', function(e) { e.stopPropagation();
-                    selectOpt(opt, btn); });
+                    toggleOpt(opt, btn); });
                 optsRow.appendChild(btn);
             });
             back.appendChild(optsRow);
@@ -301,6 +320,7 @@
                 showOriginal(); });
             back.appendChild(btnRow);
 
+            renderTabs();
             renderDots();
             updateNavButtons();
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -314,8 +334,32 @@
             });
         }
 
-        function selectOpt(value, btn) {
-            if (isChecked || usedOptions.includes(value)) return;
+        function toggleOpt(value, btn) {
+            if (isChecked) return;
+            if (usedOptions.includes(value)) {
+                const idx = usedOptions.indexOf(value);
+                const blankIdx = Object.keys(selections).findIndex(k => selections[k] === value);
+                if (blankIdx >= 0) {
+                    const removeKeys = Object.keys(selections).filter(k => parseInt(k) >= blankIdx);
+                    removeKeys.forEach(k => {
+                        const v = selections[k];
+                        usedOptions.splice(usedOptions.indexOf(v), 1);
+                        delete selections[k];
+                    });
+                    const blanks = document.querySelectorAll('.card-back .blank');
+                    removeKeys.forEach(k => {
+                        if (blanks[parseInt(k)]) {
+                            blanks[parseInt(k)].textContent = '';
+                            blanks[parseInt(k)].classList.remove('filled-correct', 'filled-wrong', 'filled-reveal');
+                        }
+                    });
+                    document.querySelectorAll('#shared-opts .opt-btn').forEach(b => {
+                        if (removeKeys.includes(b.textContent) || b.textContent === value) b.classList.remove('used');
+                    });
+                    highlightCurrentBlank();
+                }
+                return;
+            }
             const blankIdx = Object.keys(selections).length;
             const q = getCurrentQ();
             if (blankIdx >= q.answer.length) return;
@@ -414,21 +458,13 @@
         }
 
         function nextCard() {
-            if (isReviewMode) {
-                reviewQueueIdx++;
-                if (reviewQueueIdx >= reviewQueue.length) { finishReview(); } else { renderCard(); }
-            } else {
-                const round = rounds[currentRoundIdx];
-                if (currentQIdx < round.questions.length - 1) { currentQIdx++;
-                    renderCard(); } else { finishRound(); }
-            }
+            if (isReviewMode) { reviewQueueIdx++; if (reviewQueueIdx >= reviewQueue.length) { finishReview(); } else { renderCard(); } }
+            else { const round = rounds[currentRoundIdx]; if (currentQIdx < round.questions.length - 1) { currentQIdx++;
+                    renderCard(); } else { finishRound(); } }
         }
-
-        function prevCard() {
-            if (isReviewMode) { if (reviewQueueIdx > 0) { reviewQueueIdx--;
+        function prevCard() { if (isReviewMode) { if (reviewQueueIdx > 0) { reviewQueueIdx--;
                     renderCard(); } } else { if (currentQIdx > 0) { currentQIdx--;
-                    renderCard(); } }
-        }
+                    renderCard(); } } }
 
         function updateNavButtons() {
             document.getElementById('prev-btn').disabled = isReviewMode ? (reviewQueueIdx === 0) : (currentQIdx === 0);
@@ -469,57 +505,39 @@
             }
         }
 
-        function flipCard() {
-            if (isChecked) return;
+        function flipCard() { if (isChecked) return;
             isFlipped = true;
-            document.getElementById('card-inner').classList.add('flipped');
-            setTimeout(() => { document.getElementById('card-container').scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 350);
-        }
+            document.getElementById('card-inner').classList.add('flipped'); }
 
         function finishRound() {
             const round = rounds[currentRoundIdx];
             const total = round.questions.length;
             let correctCount = 0;
             const wrongList = [];
-            if (roundResults[currentRoundIdx]) {
-                round.questions.forEach((q, i) => {
-                    if (roundResults[currentRoundIdx][i] === 'correct') correctCount++;
-                    if (roundResults[currentRoundIdx][i] === 'wrong' || roundResults[currentRoundIdx][i] === 'reveal') wrongList.push(i + 1);
-                });
-            }
+            if (roundResults[currentRoundIdx]) { round.questions.forEach((q, i) => { if (roundResults[currentRoundIdx][i] === 'correct') correctCount++; if (roundResults[currentRoundIdx][i] === 'wrong' || roundResults[currentRoundIdx][i] === 'reveal') wrongList.push(i + 1); }); }
             const rate = Math.round(correctCount / total * 100);
             let popupHTML = `<h3>🎉 本輪完成！</h3><p>正確率：${correctCount}/${total}（${rate}%）</p>`;
-            if (wrongList.length > 0) {
-                popupHTML += `<p>錯題：第${wrongList.join('、')}題（可在複習中心重練）</p>`;
-            }
+            if (wrongList.length > 0) { popupHTML += `<p>錯題：第${wrongList.join('、')}題（可在複習中心重練）</p>`; }
             popupHTML += `<button onclick="goNextRound()">▶ 進入下一輪</button>`;
             document.getElementById('round-popup').innerHTML = popupHTML;
             document.getElementById('round-overlay').classList.add('show');
         }
 
-        function goNextRound() {
-            document.getElementById('round-overlay').classList.remove('show');
-            completedRounds.push(currentRoundIdx);
-            const today = new Date().toISOString().split('T')[0];
-            if (!reviewData[currentRoundIdx]) reviewData[currentRoundIdx] = {};
+        function goNextRound() { document.getElementById('round-overlay').classList.remove('show');
+            completedRounds.push(currentRoundIdx); const today = new Date().toISOString().split('T')[0]; if (!reviewData[currentRoundIdx]) reviewData[currentRoundIdx] = {};
             reviewData[currentRoundIdx].completedDate = today;
             saveData();
             currentRoundIdx++;
-            currentQIdx = 0;
-            if (currentRoundIdx >= rounds.length) { showFinalStats(); } else { renderCard(); }
-        }
+            currentQIdx = 0; if (currentRoundIdx >= rounds.length) { showFinalStats(); } else { renderCard(); } }
 
         function showFinalStats() {
             let html = '<h3>🏆 全部通關！</h3>';
             let totalCorrect = 0,
                 totalQ = 0;
-            rounds.forEach((round, i) => {
-                const t = round.questions.length;
-                const c = roundResults[i] ? Object.values(roundResults[i]).filter(v => v === 'correct').length : 0;
+            rounds.forEach((round, i) => { const t = round.questions.length; const c = roundResults[i] ? Object.values(roundResults[i]).filter(v => v === 'correct').length : 0;
                 totalCorrect += c;
                 totalQ += t;
-                html += `<p>${round.name}：${c}/${t}</p>`;
-            });
+                html += `<p>${round.name}：${c}/${t}</p>`; });
             html += `<p style="font-weight:bold">總正確率：${totalCorrect}/${totalQ}（${Math.round(totalCorrect/totalQ*100)}%）</p>`;
             html += `<p>通關日期：${new Date().toISOString().split('T')[0]}</p>`;
             html += '<button onclick="resetAll()">🔄 重新挑戰</button>';
@@ -528,65 +546,42 @@
             document.getElementById('final-overlay').classList.add('show');
         }
 
-        function finishReview() {
-            let correctCount = 0;
-            Object.values(reviewResults).forEach(v => { if (v === 'correct') correctCount++; });
-            const total = reviewQueue.length;
-            const rate = Math.round(correctCount / total * 100);
-            let html = `<h3>📝 錯題複習完成！</h3><p>正確率：${correctCount}/${total}（${rate}%）</p>`;
-            if (correctCount < total) {
-                html += '<p style="color:var(--gold)">仍有錯題未掌握，建議再次複習</p>';
-                html += '<button onclick="retryReview()">🔄 再次複習</button>';
-            }
+        function finishReview() { let correctCount = 0;
+            Object.values(reviewResults).forEach(v => { if (v === 'correct') correctCount++; }); const total = reviewQueue.length; const rate = Math.round(correctCount / total * 100); let html = `<h3>📝 錯題複習完成！</h3><p>正確率：${correctCount}/${total}（${rate}%）</p>`; if (correctCount < total) { html += '<p style="color:var(--gold)">仍有錯題未掌握，建議再次複習</p>';
+                html += '<button onclick="retryReview()">🔄 再次複習</button>'; }
             html += '<button onclick="window.location.href=\'关键词触发-主页.html\'" style="margin-left:8px">🏠 返回主頁</button>';
             localStorage.removeItem('songKwcReviewQueue');
             document.getElementById('final-popup').innerHTML = html;
-            document.getElementById('final-overlay').classList.add('show');
-        }
+            document.getElementById('final-overlay').classList.add('show'); }
 
-        function retryReview() {
-            document.getElementById('final-overlay').classList.remove('show');
-            const newQueue = [];
+        function retryReview() { document.getElementById('final-overlay').classList.remove('show'); const newQueue = [];
             reviewQueue.forEach((item, i) => { if (reviewResults[i] !== 'correct') newQueue.push(item); });
             reviewQueue = newQueue;
             reviewResults = {};
-            reviewQueueIdx = 0;
-            if (reviewQueue.length > 0) { renderCard(); } else { window.location.href = '关键词触发-主页.html'; }
-        }
+            reviewQueueIdx = 0; if (reviewQueue.length > 0) { renderCard(); } else { window.location.href = '关键词触发-主页.html'; } }
 
-        function resetAll() {
-            document.getElementById('final-overlay').classList.remove('show');
+        function resetAll() { document.getElementById('final-overlay').classList.remove('show');
             currentRoundIdx = 0;
             currentQIdx = 0;
             roundResults = {};
             completedRounds = [];
             reviewData = {};
             saveData();
-            renderCard();
-        }
+            renderCard(); }
 
         document.getElementById('round-overlay').addEventListener('click', function(e) { if (e.target === this) this.classList.remove('show'); });
         document.getElementById('final-overlay').addEventListener('click', function(e) { if (e.target === this) this.classList.remove('show'); });
         document.getElementById('original-overlay').addEventListener('click', function(e) { if (e.target === this) this.classList.remove('show'); });
 
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowRight' && isAnswered) nextCard();
-            if (e.key === 'ArrowLeft') prevCard();
-            if (e.key === ' ' && !isFlipped) { e.preventDefault();
-                flipCard(); }
-        });
+        document.addEventListener('keydown', function(e) { if (e.key === 'ArrowRight' && isAnswered) nextCard(); if (e.key === 'ArrowLeft') prevCard(); if (e.key === ' ' && !isFlipped) { e.preventDefault();
+                flipCard(); } });
 
-        if (isReviewMode) {
-            try { reviewQueue = JSON.parse(localStorage.getItem('songKwcReviewQueue') || '[]'); } catch(e) { reviewQueue = []; }
-            if (reviewQueue.length === 0) { alert('暫無錯題需要複習！');
+        if (isReviewMode) { try { reviewQueue = JSON.parse(localStorage.getItem('songKwcReviewQueue') || '[]'); } catch(e) { reviewQueue = []; } if (reviewQueue.length === 0) { alert('暫無錯題需要複習！');
                 window.location.href = '关键词触发-主页.html'; } else { reviewQueueIdx = 0;
                 reviewResults = {};
-                renderCard(); }
-        } else {
-            const saved = JSON.parse(localStorage.getItem('songKwcRoundResults2') || '{}');
-            if (Object.keys(saved).length > 0) roundResults = saved;
-            renderCard();
-        }
+                renderCard(); } } else { const saved = JSON.parse(localStorage.getItem('songKwcRoundResults2') || '{}'); if (Object.keys(saved).length > 0) roundResults = saved;
+            renderCard(); }
     </script>
 </body>
 </html>
+```
