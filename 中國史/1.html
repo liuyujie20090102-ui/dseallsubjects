@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-HK">
 <head>
@@ -74,16 +73,17 @@
             user-select:none;
         }
         .section-header:hover{background:rgba(180,160,130,0.08)}
+        .section-header .left{display:flex;align-items:baseline;gap:8px}
         .section-title{font-size:17px;font-weight:600;color:var(--text-primary);letter-spacing:2px}
-        .section-period{font-size:13px;color:var(--text-muted);letter-spacing:1px;margin-left:10px}
+        .section-period{font-size:13px;color:var(--text-muted);letter-spacing:1px}
         .section-arrow{font-size:14px;color:var(--text-muted);transition:transform 0.3s ease}
         .section.open .section-arrow{transform:rotate(90deg)}
-        .section-body{overflow:hidden;max-height:0;transition:max-height 0.35s ease,padding 0.35s ease}
-        .section.open .section-body{max-height:300px}
-        .section-body-inner{display:flex;flex-direction:column;gap:2px;padding:4px 18px 14px}
+        .section-body{overflow:hidden;max-height:0;transition:max-height 0.35s ease}
+        .section.open .section-body{max-height:800px}
+        .section-body-inner{padding:2px 18px 12px;display:flex;flex-direction:column;gap:1px}
         .sub-link{
             display:block;
-            padding:8px 14px;
+            padding:7px 14px;
             border-radius:8px;
             text-decoration:none;
             color:var(--text-secondary);
@@ -92,6 +92,8 @@
             transition:background 0.2s ease,color 0.2s ease;
         }
         .sub-link:hover{background:rgba(180,160,130,0.1);color:var(--text-primary)}
+        .sub-link.l2{padding-left:32px;font-size:14px}
+        .sub-link.l3{padding-left:46px;font-size:13px}
         .sub-link .dot{color:var(--gold-light);margin-right:8px}
         .divider{height:1px;background:rgba(180,160,130,0.15);margin:2px 0}
         .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:32px}
@@ -110,9 +112,10 @@
         <a href="../西史.html" class="back-link">← 返回</a>
         <div class="page-title">中國史</div>
 
+        <!-- 晚清改革 -->
         <div class="section open">
             <div class="section-header" onclick="toggleSection(this)">
-                <div>
+                <div class="left">
                     <span class="section-title">晚清改革</span>
                     <span class="section-period">1901-1911</span>
                 </div>
@@ -121,22 +124,36 @@
             <div class="section-body"><div class="section-body-inner">
                 <a href="晚清改革筆記.html#背景" class="sub-link"><span class="dot">·</span>背景</a>
                 <a href="晚清改革筆記.html#原因" class="sub-link"><span class="dot">·</span>推行原因</a>
-                <a href="晚清改革筆記.html#政治" class="sub-link"><span class="dot">·</span>政治方面措施</a>
-                <a href="晚清改革筆記.html#經濟" class="sub-link"><span class="dot">·</span>經濟方面措施</a>
+                <a href="晚清改革筆記.html#措施" class="sub-link"><span class="dot">·</span>改革措施</a>
+                <a href="晚清改革筆記.html#政治" class="sub-link l2"><span class="dot">·</span>政治方面</a>
+                <a href="晚清改革筆記.html#經濟" class="sub-link l2"><span class="dot">·</span>經濟方面</a>
+                <a href="晚清改革筆記.html#司法" class="sub-link l2"><span class="dot">·</span>司法方面</a>
+                <a href="晚清改革筆記.html#軍事" class="sub-link l2"><span class="dot">·</span>軍事方面</a>
+                <a href="晚清改革筆記.html#教育" class="sub-link l2"><span class="dot">·</span>教育方面</a>
+                <a href="晚清改革筆記.html#社會" class="sub-link l2"><span class="dot">·</span>社會方面</a>
+                <a href="晚清改革筆記.html#失敗原因" class="sub-link"><span class="dot">·</span>失敗原因</a>
             </div></div>
         </div>
 
         <div class="divider"></div>
 
+        <!-- 辛亥革命 -->
         <div class="section">
             <div class="section-header" onclick="toggleSection(this)">
-                <div>
+                <div class="left">
                     <span class="section-title">辛亥革命</span>
                     <span class="section-period">1911</span>
                 </div>
                 <span class="section-arrow">▶</span>
             </div>
             <div class="section-body"><div class="section-body-inner">
+                <a href="辛亥革命筆記.html#原因" class="sub-link"><span class="dot">·</span>出現原因</a>
+                <a href="辛亥革命筆記.html#思想轉變" class="sub-link l2"><span class="dot">·</span>思想轉變</a>
+                <a href="辛亥革命筆記.html#清政府積弱" class="sub-link l2"><span class="dot">·</span>清政府積弱</a>
+                <a href="辛亥革命筆記.html#鐵路國有化" class="sub-link l2"><span class="dot">·</span>鐵路國有化</a>
+                <a href="辛亥革命筆記.html#孫中山" class="sub-link"><span class="dot">·</span>孫中山的影響</a>
+                <a href="辛亥革命筆記.html#三民主義" class="sub-link l2"><span class="dot">·</span>三民主義</a>
+                <a href="辛亥革命筆記.html#同盟會" class="sub-link l2"><span class="dot">·</span>同盟會宣言</a>
                 <a href="辛亥革命筆記.html#政治" class="sub-link"><span class="dot">·</span>政治方面</a>
                 <a href="辛亥革命筆記.html#經濟" class="sub-link"><span class="dot">·</span>經濟方面</a>
                 <a href="辛亥革命筆記.html#社會" class="sub-link"><span class="dot">·</span>社會方面</a>
@@ -145,9 +162,10 @@
 
         <div class="divider"></div>
 
+        <!-- 五四運動 -->
         <div class="section">
             <div class="section-header" onclick="toggleSection(this)">
-                <div>
+                <div class="left">
                     <span class="section-title">五四運動</span>
                     <span class="section-period">1915-1919</span>
                 </div>
