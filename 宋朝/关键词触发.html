@@ -158,7 +158,7 @@
         </div>
         <div class="result-msg" id="result-msg"></div>
 
-        <div class="nav-bar">
+        <div class="nav-bar" id="nav-bar">
             <button class="nav-btn" id="prev-btn" onclick="prevCard()">← 上一題</button>
             <button class="nav-btn" id="next-btn" onclick="nextCard()" disabled>下一題 →</button>
         </div>
@@ -490,22 +490,11 @@
             const rate = Math.round(correctCount / total * 100);
             let popupHTML = `<h3>🎉 本輪完成！</h3><p>正確率：${correctCount}/${total}（${rate}%）</p>`;
             if (wrongList.length > 0) {
-                popupHTML += `<p>需複習的題目：第${wrongList.join('、')}題</p><p style="color:var(--gold)">⚠ 請複習後再進入下一輪</p>`;
-                popupHTML += `<button onclick="reviewCurrentRound()">📝 立即複習錯題</button>`;
-            } else {
-                popupHTML += `<p>全部正確，進入下一輪！</p><button onclick="goNextRound()">▶ 進入下一輪</button>`;
+                popupHTML += `<p>錯題：第${wrongList.join('、')}題（可在複習中心重練）</p>`;
             }
+            popupHTML += `<button onclick="goNextRound()">▶ 進入下一輪</button>`;
             document.getElementById('round-popup').innerHTML = popupHTML;
             document.getElementById('round-overlay').classList.add('show');
-        }
-
-        function reviewCurrentRound() {
-            document.getElementById('round-overlay').classList.remove('show');
-            const wrongIndices = [];
-            const round = rounds[currentRoundIdx];
-            round.questions.forEach((q, i) => { if (roundResults[currentRoundIdx] && (roundResults[currentRoundIdx][i] === 'wrong' || roundResults[currentRoundIdx][i] === 'reveal')) wrongIndices.push(i); });
-            if (wrongIndices.length > 0) { currentQIdx = wrongIndices[0];
-                renderCard(); }
         }
 
         function goNextRound() {
