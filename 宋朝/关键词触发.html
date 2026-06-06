@@ -35,7 +35,7 @@
             display:flex;
             flex-direction:column;
             align-items:center;
-            padding:24px 16px 60px;
+            padding:32px 20px 60px;
             position:relative;
             overflow-x:hidden;
             -webkit-font-smoothing:antialiased;
@@ -66,75 +66,74 @@
         @keyframes birdFloat{0%,100%{transform:translateY(0) translateX(0)}25%{transform:translateY(-7px) translateX(3px)}50%{transform:translateY(-2px) translateX(8px)}75%{transform:translateY(-9px) translateX(3px)}}
 
         .container{position:relative;z-index:1;width:100%;max-width:650px}
-        .top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+        .top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px}
         .back-link{color:var(--text-muted);text-decoration:none;font-size:14px;letter-spacing:1px;transition:color 0.3s}
         .back-link:hover{color:var(--text-primary)}
-        .tabs-bar{display:flex;gap:5px;margin-bottom:14px;flex-wrap:wrap;justify-content:center}
-        .tab-btn{padding:6px 14px;border-radius:20px;border:1px solid rgba(180,160,130,0.3);background:rgba(255,253,248,0.7);cursor:pointer;font-family:var(--font-cn);font-size:13px;color:var(--text-secondary);letter-spacing:1px;transition:all 0.2s;white-space:nowrap}
+        .tabs-bar{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;justify-content:center}
+        .tab-btn{padding:7px 16px;border-radius:20px;border:1px solid rgba(180,160,130,0.3);background:rgba(255,253,248,0.7);cursor:pointer;font-family:var(--font-cn);font-size:13px;color:var(--text-secondary);letter-spacing:1px;transition:all 0.2s;white-space:nowrap}
         .tab-btn:hover{background:rgba(180,160,130,0.12);color:var(--text-primary)}
         .tab-btn.active{background:var(--gold);color:#fff;border-color:var(--gold)}
-        .progress-dots{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:16px}
+        .progress-dots{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:20px}
         .progress-dot{width:8px;height:8px;border-radius:50%;background:#ddd;transition:all 0.3s;cursor:pointer}
         .progress-dot.done{background:var(--correct)}
         .progress-dot.wrong-dot{background:var(--wrong)}
         .progress-dot.reveal-dot{background:var(--reveal)}
         .progress-dot.current{background:var(--gold);transform:scale(1.4)}
 
-        .card-container{perspective:1000px;margin-bottom:14px}
-        .card-inner{position:relative;width:100%;min-height:200px;transition:transform 0.5s ease;transform-style:preserve-3d;cursor:pointer}
+        .card-container{perspective:1000px;margin-bottom:24px}
+        .card-inner{position:relative;width:100%;min-height:280px;transition:transform 0.5s ease;transform-style:preserve-3d;cursor:pointer}
         .card-inner.flipped{transform:rotateY(180deg)}
-        .card-face{position:absolute;width:100%;min-height:200px;backface-visibility:hidden;border-radius:16px;padding:24px 20px;background:var(--card-bg);border:1px solid rgba(180,160,130,0.2);box-shadow:0 2px 20px rgba(60,40,20,0.04);display:flex;flex-direction:column;align-items:center;justify-content:center}
-        .card-back{transform:rotateY(180deg);justify-content:flex-start;align-items:stretch;overflow-y:auto;max-height:50vh}
-        .card-front .keyword{font-size:26px;font-weight:700;color:var(--text-primary);letter-spacing:3px;margin-bottom:10px;text-align:center}
-        .card-front .hint{font-size:14px;color:var(--text-secondary);text-align:center;line-height:1.7}
-        .card-front .tap-hint{font-size:12px;color:var(--text-muted);margin-top:12px;letter-spacing:1px}
-        .card-back .fill-text{font-size:15px;color:var(--text-secondary);line-height:2.1;margin-bottom:12px}
-        .card-back .blank{display:inline-block;min-width:45px;border-bottom:2px dashed var(--gold);padding:2px 8px;margin:0 4px;color:var(--gold);font-weight:600;text-align:center;transition:all 0.3s}
+        .card-face{position:absolute;width:100%;min-height:280px;backface-visibility:hidden;border-radius:16px;padding:36px 28px 48px;background:var(--card-bg);border:1px solid rgba(180,160,130,0.2);box-shadow:0 2px 20px rgba(60,40,20,0.04);display:flex;flex-direction:column;align-items:center;justify-content:center}
+        .card-back{transform:rotateY(180deg);justify-content:flex-start;align-items:stretch;overflow-y:auto;max-height:70vh}
+        .card-front .keyword{font-size:28px;font-weight:700;color:var(--text-primary);letter-spacing:3px;margin-bottom:12px;text-align:center}
+        .card-front .hint{font-size:15px;color:var(--text-secondary);text-align:center;line-height:1.8}
+        .card-front .tap-hint{font-size:12px;color:var(--text-muted);margin-top:16px;letter-spacing:1px}
+        .card-back .fill-text{font-size:16px;color:var(--text-secondary);line-height:2.2;margin-bottom:16px}
+        .card-back .blank{display:inline-block;min-width:50px;border-bottom:2px dashed var(--gold);padding:2px 8px;margin:0 4px;color:var(--gold);font-weight:600;text-align:center;transition:all 0.3s}
         .card-back .blank.filled-correct{color:var(--correct);border-bottom-color:var(--correct);background:#e8f5e9}
         .card-back .blank.filled-wrong{color:var(--wrong);border-bottom-color:var(--wrong);background:#ffebee}
         .card-back .blank.filled-reveal{color:var(--reveal);border-bottom-color:var(--reveal);background:#e3f2fd}
         .card-back .blank.current-blank{background:rgba(139,105,20,0.1);box-shadow:0 0 0 3px rgba(139,105,20,0.15)}
 
-        .options-row{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
-        .opt-btn{padding:7px 14px;background:#fff;border:2px solid rgba(180,160,130,0.3);border-radius:20px;cursor:pointer;font-size:13px;color:var(--text-secondary);transition:all 0.2s;letter-spacing:0.5px;font-family:var(--font-cn)}
+        .options-row{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+        .opt-btn{padding:8px 18px;background:#fff;border:2px solid rgba(180,160,130,0.3);border-radius:20px;cursor:pointer;font-size:14px;color:var(--text-secondary);transition:all 0.2s;letter-spacing:0.5px;font-family:var(--font-cn)}
         .opt-btn:hover:not(.used){border-color:var(--gold-light);background:rgba(196,169,125,0.06)}
         .opt-btn.used{opacity:0.35;cursor:pointer;background:#f0ece6}
         .opt-btn.correct-opt{background:#e8f5e9;border-color:var(--correct);color:var(--correct)}
         .opt-btn.wrong-opt{background:#ffebee;border-color:var(--wrong);color:var(--wrong)}
 
-        .action-bar{display:none;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:10px}
-        .action-bar button{padding:9px 18px;border-radius:20px;border:none;font-size:13px;cursor:pointer;letter-spacing:1px;transition:all 0.2s;font-family:var(--font-cn)}
+        .btn-row{display:flex;gap:10px;margin-top:16px;justify-content:center;flex-wrap:wrap}
+        .btn-row button{padding:10px 22px;border-radius:20px;border:none;font-size:14px;cursor:pointer;letter-spacing:1px;transition:all 0.2s;font-family:var(--font-cn)}
         .btn-submit{background:var(--correct);color:#fff}
         .btn-reveal{background:#fff;color:var(--reveal);border:2px solid var(--reveal)}
         .btn-clear{background:#fff;color:var(--text-muted);border:2px solid var(--text-muted)}
 
-        .result-msg{text-align:center;font-size:13px;min-height:18px;margin-bottom:8px;font-weight:600}
-        .result-msg.correct{color:var(--correct)}
-        .result-msg.wrong{color:var(--wrong)}
-
-        .nav-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:16px}
-        .nav-btn{padding:10px 20px;background:rgba(255,253,248,0.85);border:2px solid rgba(180,160,130,0.3);border-radius:20px;cursor:pointer;font-family:var(--font-cn);font-size:14px;color:var(--text-secondary);letter-spacing:1px;transition:all 0.3s}
+        .nav-bar{display:flex;justify-content:space-between;align-items:center;margin-top:24px;gap:12px;padding-bottom:24px}
+        .nav-btn{padding:12px 26px;background:rgba(255,253,248,0.85);border:2px solid rgba(180,160,130,0.3);border-radius:20px;cursor:pointer;font-family:var(--font-cn);font-size:15px;color:var(--text-secondary);letter-spacing:1px;transition:all 0.3s}
         .nav-btn:hover:not(:disabled){background:rgba(180,160,130,0.15);color:var(--text-primary)}
         .nav-btn:disabled{opacity:0.3;cursor:default;pointer-events:none}
 
+        .result-msg{text-align:center;font-size:14px;min-height:20px;margin-top:8px;font-weight:600}
+        .result-msg.correct{color:var(--correct)}
+        .result-msg.wrong{color:var(--wrong)}
+
         .overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.3);z-index:30;justify-content:center;align-items:center}
         .overlay.show{display:flex}
-        .popup{background:#fffdf7;border-radius:16px;padding:28px 22px;max-width:460px;width:90%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.1);max-height:70vh;overflow-y:auto}
-        .popup h3{color:var(--text-primary);margin-bottom:10px;letter-spacing:2px}
-        .popup p{color:var(--text-secondary);line-height:1.7;margin-bottom:6px;font-size:14px;text-align:left}
-        .popup button{margin-top:14px;padding:10px 26px;background:var(--gold);color:#fff;border:none;border-radius:20px;font-size:14px;cursor:pointer;letter-spacing:1px;font-family:var(--font-cn)}
+        .popup{background:#fffdf7;border-radius:16px;padding:32px 24px;max-width:500px;width:90%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.1);max-height:70vh;overflow-y:auto}
+        .popup h3{color:var(--text-primary);margin-bottom:12px;letter-spacing:2px}
+        .popup p{color:var(--text-secondary);line-height:1.8;margin-bottom:8px;font-size:15px;text-align:left}
+        .popup button{margin-top:16px;padding:10px 28px;background:var(--gold);color:#fff;border:none;border-radius:20px;font-size:14px;cursor:pointer;letter-spacing:1px;font-family:var(--font-cn)}
 
-        .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:16px}
+        .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:24px}
 
         @media(max-width:480px){
-            .card-face{padding:18px 14px;min-height:180px}
-            .card-back{max-height:42vh}
+            .card-face{padding:20px 14px 36px;min-height:220px}
+            .card-back{max-height:60vh}
             .card-front .keyword{font-size:22px}
-            .card-back .fill-text{font-size:14px;line-height:1.9}
-            .opt-btn{padding:6px 10px;font-size:12px}
-            .action-bar button{padding:8px 14px;font-size:12px}
-            .nav-btn{padding:8px 16px;font-size:13px}
-            .tab-btn{padding:5px 10px;font-size:11px}
+            .opt-btn{padding:6px 14px;font-size:13px}
+            .nav-btn{padding:10px 20px;font-size:13px}
+            .tab-btn{padding:5px 12px;font-size:12px}
+            .btn-row button{padding:8px 14px;font-size:13px}
         }
     </style>
 </head>
@@ -157,15 +156,9 @@
                 <div class="card-face card-back" id="card-back"></div>
             </div>
         </div>
-
-        <div class="action-bar" id="action-bar">
-            <button class="btn-submit" id="btn-submit">✅ 提交答案</button>
-            <button class="btn-reveal" id="btn-reveal">💡 我不會</button>
-            <button class="btn-clear" id="btn-clear">🔄 清空重填</button>
-        </div>
         <div class="result-msg" id="result-msg"></div>
 
-        <div class="nav-bar">
+        <div class="nav-bar" id="nav-bar">
             <button class="nav-btn" id="prev-btn" onclick="prevCard()">← 上一題</button>
             <button class="nav-btn" id="next-btn" onclick="nextCard()" disabled>下一題 →</button>
         </div>
@@ -256,7 +249,6 @@
             selections = {};
             usedOptions = [];
             document.getElementById('card-inner').classList.remove('flipped');
-            document.getElementById('action-bar').style.display = 'none';
             document.getElementById('result-msg').textContent = '';
             document.getElementById('result-msg').className = 'result-msg';
             document.getElementById('next-btn').disabled = true;
@@ -298,12 +290,19 @@
             back.appendChild(optsRow);
             highlightCurrentBlank();
 
-            document.getElementById('btn-submit').onclick = function(e) { e.stopPropagation();
-                checkAnswer(); };
-            document.getElementById('btn-reveal').onclick = function(e) { e.stopPropagation();
-                revealAnswer(); };
-            document.getElementById('btn-clear').onclick = function(e) { e.stopPropagation();
-                clearAll(); };
+            const btnRow = document.createElement('div');
+            btnRow.className = 'btn-row';
+            btnRow.innerHTML = `
+                <button class="btn-submit">✅ 提交答案</button>
+                <button class="btn-reveal">💡 我不會</button>
+                <button class="btn-clear">🔄 清空重填</button>`;
+            btnRow.querySelector('.btn-submit').addEventListener('click', function(e) { e.stopPropagation();
+                checkAnswer(); });
+            btnRow.querySelector('.btn-reveal').addEventListener('click', function(e) { e.stopPropagation();
+                revealAnswer(); });
+            btnRow.querySelector('.btn-clear').addEventListener('click', function(e) { e.stopPropagation();
+                clearAll(); });
+            back.appendChild(btnRow);
 
             renderTabs();
             renderDots();
@@ -376,4 +375,212 @@
                     const oldIdx = usedOptions.indexOf(oldVal);
                     if (oldIdx >= 0) usedOptions.splice(oldIdx, 1);
                     selections[lastKey] = value;
-                    usedOptions.push
+                    usedOptions.push(value);
+                    btn.classList.add('used');
+                    const blanks = document.querySelectorAll('.card-back .blank');
+                    if (blanks[parseInt(lastKey)]) {
+                        blanks[parseInt(lastKey)].textContent = value;
+                        blanks[parseInt(lastKey)].classList.add('filled-correct');
+                        blanks[parseInt(lastKey)].classList.remove('filled-wrong', 'filled-reveal');
+                    }
+                    document.querySelectorAll('#shared-opts .opt-btn').forEach(b => {
+                        if (b.textContent === oldVal) b.classList.remove('used');
+                    });
+                }
+            }
+            highlightCurrentBlank();
+        }
+
+        function checkAnswer() {
+            if (isChecked) return;
+            const q = getCurrentQ();
+            if (Object.keys(selections).length < q.answer.length) {
+                document.getElementById('result-msg').textContent = '⚠ 請先填完所有空白再提交';
+                document.getElementById('result-msg').className = 'result-msg wrong';
+                return;
+            }
+            isChecked = true;
+            isAnswered = true;
+            let allCorrect = true;
+            const blanks = document.querySelectorAll('.card-back .blank');
+            const optsRow = document.getElementById('shared-opts');
+            q.answer.forEach((ans, i) => {
+                if (selections[i] === ans) {
+                    if (blanks[i]) { blanks[i].classList.add('filled-correct');
+                        blanks[i].classList.remove('filled-wrong', 'filled-reveal', 'current-blank'); }
+                    if (optsRow) optsRow.querySelectorAll('.opt-btn').forEach(b => { if (b.textContent === ans) b.classList.add('correct-opt'); });
+                } else {
+                    allCorrect = false;
+                    if (blanks[i]) { blanks[i].classList.add('filled-wrong');
+                        blanks[i].classList.remove('filled-correct', 'filled-reveal', 'current-blank');
+                        blanks[i].textContent = ans; }
+                    if (optsRow) optsRow.querySelectorAll('.opt-btn').forEach(b => {
+                        if (b.textContent === selections[i]) b.classList.add('wrong-opt');
+                        if (b.textContent === ans) b.classList.add('correct-opt');
+                    });
+                }
+            });
+            const msg = document.getElementById('result-msg');
+            if (allCorrect) {
+                msg.textContent = '✅ 全部正確！';
+                msg.className = 'result-msg correct';
+                if (isReviewMode) reviewResults[reviewQueueIdx] = 'correct';
+                else { if (!roundResults[currentRoundIdx]) roundResults[currentRoundIdx] = {};
+                    roundResults[currentRoundIdx][currentQIdx] = 'correct'; }
+            } else {
+                msg.textContent = '❌ 有錯誤，正確答案已顯示';
+                msg.className = 'result-msg wrong';
+                if (isReviewMode) reviewResults[reviewQueueIdx] = 'wrong';
+                else { if (!roundResults[currentRoundIdx]) roundResults[currentRoundIdx] = {};
+                    roundResults[currentRoundIdx][currentQIdx] = 'wrong'; }
+            }
+            document.getElementById('next-btn').disabled = false;
+            updateNavButtons();
+            renderDots();
+            setTimeout(() => { document.getElementById('nav-bar').scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 300);
+        }
+
+        function revealAnswer() {
+            if (isChecked) return;
+            isChecked = true;
+            isAnswered = true;
+            const q = getCurrentQ();
+            const blanks = document.querySelectorAll('.card-back .blank');
+            const optsRow = document.getElementById('shared-opts');
+            q.answer.forEach((ans, i) => {
+                if (blanks[i]) { blanks[i].textContent = ans;
+                    blanks[i].classList.add('filled-reveal');
+                    blanks[i].classList.remove('filled-correct', 'filled-wrong', 'current-blank'); }
+                if (optsRow) optsRow.querySelectorAll('.opt-btn').forEach(b => { if (b.textContent === ans) b.classList.add('correct-opt'); });
+            });
+            document.getElementById('result-msg').textContent = '💡 正確答案已顯示，請記住後進入下一題';
+            document.getElementById('result-msg').className = 'result-msg';
+            if (isReviewMode) reviewResults[reviewQueueIdx] = 'reveal';
+            else { if (!roundResults[currentRoundIdx]) roundResults[currentRoundIdx] = {};
+                roundResults[currentRoundIdx][currentQIdx] = 'reveal'; }
+            document.getElementById('next-btn').disabled = false;
+            updateNavButtons();
+            renderDots();
+            setTimeout(() => { document.getElementById('nav-bar').scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 200);
+        }
+
+        function nextCard() {
+            if (isReviewMode) { reviewQueueIdx++; if (reviewQueueIdx >= reviewQueue.length) { finishReview(); } else { renderCard(); } }
+            else { const round = rounds[currentRoundIdx]; if (currentQIdx < round.questions.length - 1) { currentQIdx++;
+                    renderCard(); } else { finishRound(); } }
+        }
+        function prevCard() { if (isReviewMode) { if (reviewQueueIdx > 0) { reviewQueueIdx--;
+                    renderCard(); } } else { if (currentQIdx > 0) { currentQIdx--;
+                    renderCard(); } } }
+
+        function updateNavButtons() {
+            document.getElementById('prev-btn').disabled = isReviewMode ? (reviewQueueIdx === 0) : (currentQIdx === 0);
+            const nextBtn = document.getElementById('next-btn');
+            const isLast = isReviewMode ? (reviewQueueIdx >= reviewQueue.length - 1) : (currentQIdx >= rounds[currentRoundIdx].questions.length - 1);
+            nextBtn.textContent = isLast ? '完成 →' : '下一題 →';
+            nextBtn.disabled = !isAnswered;
+        }
+
+        function renderDots() {
+            const dots = document.getElementById('progress-dots');
+            dots.innerHTML = '';
+            if (isReviewMode) {
+                reviewQueue.forEach((item, i) => {
+                    const dot = document.createElement('div');
+                    dot.className = 'progress-dot';
+                    if (i === reviewQueueIdx) dot.classList.add('current');
+                    if (reviewResults[i] === 'correct') dot.classList.add('done');
+                    if (reviewResults[i] === 'wrong') dot.classList.add('wrong-dot');
+                    if (reviewResults[i] === 'reveal') dot.classList.add('reveal-dot');
+                    dot.onclick = () => { reviewQueueIdx = i;
+                        renderCard(); };
+                    dots.appendChild(dot);
+                });
+            } else {
+                const round = rounds[currentRoundIdx];
+                round.questions.forEach((q, i) => {
+                    const dot = document.createElement('div');
+                    dot.className = 'progress-dot';
+                    if (i === currentQIdx) dot.classList.add('current');
+                    if (roundResults[currentRoundIdx] && roundResults[currentRoundIdx][i] === 'correct') dot.classList.add('done');
+                    if (roundResults[currentRoundIdx] && roundResults[currentRoundIdx][i] === 'wrong') dot.classList.add('wrong-dot');
+                    if (roundResults[currentRoundIdx] && roundResults[currentRoundIdx][i] === 'reveal') dot.classList.add('reveal-dot');
+                    dot.onclick = () => { currentQIdx = i;
+                        renderCard(); };
+                    dots.appendChild(dot);
+                });
+            }
+        }
+
+        function flipCard() { if (isChecked) return;
+            isFlipped = true;
+            document.getElementById('card-inner').classList.add('flipped');
+            setTimeout(() => { document.getElementById('card-back').scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 400); }
+
+        function finishRound() {
+            const round = rounds[currentRoundIdx];
+            const total = round.questions.length;
+            let correctCount = 0;
+            const wrongList = [];
+            if (roundResults[currentRoundIdx]) { round.questions.forEach((q, i) => { if (roundResults[currentRoundIdx][i] === 'correct') correctCount++; if (roundResults[currentRoundIdx][i] === 'wrong' || roundResults[currentRoundIdx][i] === 'reveal') wrongList.push(i + 1); }); }
+            const rate = Math.round(correctCount / total * 100);
+            let popupHTML = `<h3>🎉 本輪完成！</h3><p>正確率：${correctCount}/${total}（${rate}%）</p>`;
+            popupHTML += `<button onclick="goNextRound()">▶ 進入下一輪</button>`;
+            document.getElementById('round-popup').innerHTML = popupHTML;
+            document.getElementById('round-overlay').classList.add('show');
+        }
+
+        function goNextRound() { document.getElementById('round-overlay').classList.remove('show');
+            currentRoundIdx++;
+            currentQIdx = 0; if (currentRoundIdx >= rounds.length) { showFinalStats(); } else { renderCard(); } }
+
+        function showFinalStats() {
+            let html = '<h3>🏆 全部通關！</h3>';
+            let totalCorrect = 0,
+                totalQ = 0;
+            rounds.forEach((round, i) => { const t = round.questions.length; const c = roundResults[i] ? Object.values(roundResults[i]).filter(v => v === 'correct').length : 0;
+                totalCorrect += c;
+                totalQ += t;
+                html += `<p>${round.name}：${c}/${t}</p>`; });
+            html += `<p style="font-weight:bold">總正確率：${totalCorrect}/${totalQ}（${Math.round(totalCorrect/totalQ*100)}%）</p>`;
+            html += '<button onclick="resetAll()">🔄 重新挑戰</button>';
+            html += '<button onclick="window.location.href=\'1.html\'" style="margin-left:8px">🏠 返回練習</button>';
+            document.getElementById('final-popup').innerHTML = html;
+            document.getElementById('final-overlay').classList.add('show');
+        }
+
+        function finishReview() { let correctCount = 0;
+            Object.values(reviewResults).forEach(v => { if (v === 'correct') correctCount++; }); const total = reviewQueue.length; const rate = Math.round(correctCount / total * 100); let html = `<h3>📝 複習完成！</h3><p>正確率：${correctCount}/${total}（${rate}%）</p>`; if (correctCount < total) { html += '<p style="color:var(--gold)">仍有錯題未掌握</p>';
+                html += '<button onclick="retryReview()">🔄 再次複習</button>'; }
+            html += '<button onclick="window.location.href=\'1.html\'" style="margin-left:8px">🏠 返回練習</button>';
+            localStorage.removeItem('songKwcReviewQueue');
+            document.getElementById('final-popup').innerHTML = html;
+            document.getElementById('final-overlay').classList.add('show'); }
+
+        function retryReview() { document.getElementById('final-overlay').classList.remove('show'); const newQueue = [];
+            reviewQueue.forEach((item, i) => { if (reviewResults[i] !== 'correct') newQueue.push(item); });
+            reviewQueue = newQueue;
+            reviewResults = {};
+            reviewQueueIdx = 0; if (reviewQueue.length > 0) { renderCard(); } else { window.location.href = '1.html'; } }
+
+        function resetAll() { document.getElementById('final-overlay').classList.remove('show');
+            currentRoundIdx = 0;
+            currentQIdx = 0;
+            roundResults = {};
+            renderCard(); }
+
+        document.getElementById('round-overlay').addEventListener('click', function(e) { if (e.target === this) this.classList.remove('show'); });
+        document.getElementById('final-overlay').addEventListener('click', function(e) { if (e.target === this) this.classList.remove('show'); });
+
+        document.addEventListener('keydown', function(e) { if (e.key === 'ArrowRight' && isAnswered) nextCard(); if (e.key === 'ArrowLeft') prevCard(); if (e.key === ' ' && !isFlipped) { e.preventDefault();
+                flipCard(); } });
+
+        if (isReviewMode) { try { reviewQueue = JSON.parse(localStorage.getItem('songKwcReviewQueue') || '[]'); } catch(e) { reviewQueue = []; } if (reviewQueue.length === 0) { alert('暫無錯題需要複習！');
+                window.location.href = '1.html'; } else { reviewQueueIdx = 0;
+                reviewResults = {};
+                renderCard(); } } else { const saved = JSON.parse(localStorage.getItem('songKwcRoundResults2') || '{}'); if (Object.keys(saved).length > 0) roundResults = saved;
+            renderCard(); }
+    </script>
+</body>
+</html>
+```
