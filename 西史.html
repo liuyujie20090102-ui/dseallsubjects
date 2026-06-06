@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-HK">
 <head>
@@ -15,7 +16,8 @@
             --text-muted: #a09880;
             --gold: #8b6914;
             --gold-light: #c4a97d;
-            --card-bg: rgba(255,253,248,0.8);
+            --card-bg: rgba(255,253,248,0.75);
+            --card-border: rgba(180,160,130,0.3);
             --font-cn: "Noto Serif TC","PingFang SC","Microsoft YaHei","KaiTi",serif;
             --font-en: "Inter","Helvetica Neue",sans-serif;
         }
@@ -57,36 +59,45 @@
         .bird:nth-child(3){animation-delay:3s;font-size:11px}
         @keyframes birdFloat{0%,100%{transform:translateY(0) translateX(0)}25%{transform:translateY(-7px) translateX(3px)}50%{transform:translateY(-2px) translateX(8px)}75%{transform:translateY(-9px) translateX(3px)}}
         .container{position:relative;z-index:1;width:100%;max-width:650px}
-        .back-link{display:inline-block;color:var(--text-muted);text-decoration:none;font-size:14px;margin-bottom:24px;letter-spacing:1px}
-        .page-title{text-align:center;font-size:28px;font-weight:700;color:var(--text-primary);letter-spacing:4px;margin-bottom:8px}
-        .page-subtitle{text-align:center;font-size:14px;color:var(--text-muted);letter-spacing:2px;margin-bottom:32px}
+        .back-link{display:inline-block;color:var(--text-muted);text-decoration:none;font-size:14px;margin-bottom:24px;letter-spacing:1px;transition:color 0.3s}
+        .back-link:hover{color:var(--gold)}
+        .page-title{text-align:center;font-size:28px;font-weight:700;color:var(--text-primary);letter-spacing:4px;margin-bottom:32px}
         .card-list{display:flex;flex-direction:column;gap:16px}
         .card{
-            display:block;
-            background:rgba(255,253,248,0.75);
+            display:flex;
+            align-items:center;
+            gap:16px;
+            background:var(--card-bg);
             backdrop-filter:blur(10px);
             -webkit-backdrop-filter:blur(10px);
-            border:1px solid rgba(180,160,130,0.3);
+            border:1px solid var(--card-border);
             border-radius:16px;
-            padding:24px 24px;
+            padding:24px 22px;
             text-decoration:none;
             cursor:pointer;
             box-shadow:0 2px 16px rgba(60,40,20,0.04);
             transition:transform 0.3s ease,box-shadow 0.3s ease;
-            color:var(--text-primary);
-            font-size:18px;
-            letter-spacing:2px;
         }
-        .card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(60,40,20,0.06)}
+        .card:hover:not(.disabled){
+            transform:translateY(-3px);
+            box-shadow:0 8px 32px rgba(60,40,20,0.06);
+        }
         .card.disabled{
-            opacity:0.5;
-            cursor:not-allowed;
+            opacity:0.45;
+            cursor:default;
             pointer-events:none;
         }
-        .card.disabled:hover{transform:none;box-shadow:0 2px 16px rgba(60,40,20,0.04)}
-        .card-subtitle{font-size:13px;color:var(--text-muted);letter-spacing:1px;margin-top:4px}
-        .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:24px}
-        @media(max-width:480px){.page-title{font-size:22px}.card{font-size:16px;padding:20px 18px}}
+        .card-icon{font-size:28px;flex-shrink:0}
+        .card-info{display:flex;flex-direction:column;gap:2px}
+        .card-name{font-size:18px;font-weight:600;color:var(--text-primary);letter-spacing:2px}
+        .card-status{font-size:13px;color:var(--text-muted);letter-spacing:1px}
+        .card:not(.disabled) .card-status{color:var(--gold)}
+        .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:32px}
+        @media(max-width:480px){
+            .page-title{font-size:22px}
+            .card{padding:18px 16px}
+            .card-name{font-size:16px}
+        }
     </style>
 </head>
 <body>
@@ -94,26 +105,33 @@
     <div class="clouds"><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div></div>
     <div class="birds"><span class="bird">⩳</span><span class="bird">⩳</span><span class="bird">⩳</span></div>
     <div class="container">
-        <a href="#" class="back-link">← 返回</a>
+        <a href="index.html" class="back-link">← 返回</a>
         <div class="page-title">西史</div>
-        <div class="page-subtitle">Form 4</div>
         <div class="card-list">
-            <a class="card disabled">
-                日本史
-                <div class="card-subtitle">待建</div>
-            </a>
+            <div class="card disabled">
+                <span class="card-icon">🏯</span>
+                <div class="card-info">
+                    <span class="card-name">日本史</span>
+                    <span class="card-status">待建</span>
+                </div>
+            </div>
             <a href="香港史/1.html" class="card">
-                香港史
+                <span class="card-icon">🇭🇰</span>
+                <div class="card-info">
+                    <span class="card-name">香港史</span>
+                    <span class="card-status">進入</span>
+                </div>
             </a>
             <a href="中國史/1.html" class="card">
-                中國史
-            </a>
-            <a class="card disabled">
-                歐洲史
-                <div class="card-subtitle">待建</div>
+                <span class="card-icon">🇨🇳</span>
+                <div class="card-info">
+                    <span class="card-name">中國史</span>
+                    <span class="card-status">進入</span>
+                </div>
             </a>
         </div>
         <div class="footer">── Shelly Liu ──</div>
     </div>
 </body>
 </html>
+       
