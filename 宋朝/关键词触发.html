@@ -98,7 +98,7 @@
         .options-row{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
         .opt-btn{padding:8px 18px;background:#fff;border:2px solid rgba(180,160,130,0.3);border-radius:20px;cursor:pointer;font-size:14px;color:var(--text-secondary);transition:all 0.2s;letter-spacing:0.5px;font-family:var(--font-cn)}
         .opt-btn:hover:not(.used){border-color:var(--gold-light);background:rgba(196,169,125,0.06)}
-        .opt-btn.used{opacity:0.35;cursor:pointer;pointer-events:auto;background:#f0ece6}
+        .opt-btn.used{opacity:0.35;cursor:pointer;background:#f0ece6}
         .opt-btn.correct-opt{background:#e8f5e9;border-color:var(--correct);color:var(--correct)}
         .opt-btn.wrong-opt{background:#ffebee;border-color:var(--wrong);color:var(--wrong)}
 
@@ -205,20 +205,11 @@
 
         const urlParams = new URLSearchParams(window.location.search);
         const isReviewMode = urlParams.get('mode') === 'review';
-
-        let currentRoundIdx = 0;
-        let currentQIdx = 0;
-        let isFlipped = false;
-        let isChecked = false;
-        let isAnswered = false;
-        let selections = {};
-        let usedOptions = [];
-        let roundResults = {};
+        let currentRoundIdx = 0, currentQIdx = 0, isFlipped = false, isChecked = false, isAnswered = false;
+        let selections = {}, usedOptions = [], roundResults = {};
         let completedRounds = JSON.parse(localStorage.getItem('songKwcRounds2')||'[]');
         let reviewData = JSON.parse(localStorage.getItem('songKwcReview2')||'{}');
-        let reviewQueue = [];
-        let reviewQueueIdx = 0;
-        let reviewResults = {};
+        let reviewQueue = [], reviewQueueIdx = 0, reviewResults = {};
 
         function saveData() {
             localStorage.setItem('songKwcRounds2',JSON.stringify(completedRounds));
@@ -232,6 +223,13 @@
         }
 
         function shuffle(arr) { const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+
+        function refreshOptButtons() {
+            document.querySelectorAll('#shared-opts .opt-btn').forEach(b => {
+                if (usedOptions.includes(b.textContent)) b.classList.add('used');
+                else b.classList.remove('used');
+            });
+        }
 
         function renderTabs() {
             const tabsBar = document.getElementById('tabs-bar');
@@ -341,15 +339,7 @@
                             blanks[parseInt(k)].classList.remove('filled-correct', 'filled-wrong', 'filled-reveal');
                         }
                     });
-                    document.querySelectorAll('#shared-opts .opt-btn').forEach(b => {
-                        if (removeKeys.includes(selections[parseInt(b.textContent)] || b.textContent) || b.textContent === value) {
-                            b.classList.remove('used');
-                        }
-                    });
-                    // 修复：正确恢复所有按钮
-                    document.querySelectorAll('#shared-opts .opt-btn').forEach(b => {
-                        if (!usedOptions.includes(b.textContent)) b.classList.remove('used');
-                    });
+                    refreshOptButtons();
                     highlightCurrentBlank();
                 }
                 return;
