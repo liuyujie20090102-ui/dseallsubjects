@@ -35,7 +35,7 @@
             display:flex;
             flex-direction:column;
             align-items:center;
-            padding:32px 20px 48px;
+            padding:32px 20px 60px;
             position:relative;
             overflow-x:hidden;
             -webkit-font-smoothing:antialiased;
@@ -82,10 +82,10 @@
         .progress-dot.reveal-dot{background:var(--reveal)}
         .progress-dot.current{background:var(--gold);transform:scale(1.4)}
 
-        .card-container{perspective:1000px;margin-bottom:16px}
+        .card-container{perspective:1000px;margin-bottom:24px}
         .card-inner{position:relative;width:100%;min-height:280px;transition:transform 0.5s ease;transform-style:preserve-3d;cursor:pointer}
         .card-inner.flipped{transform:rotateY(180deg)}
-        .card-face{position:absolute;width:100%;min-height:280px;backface-visibility:hidden;border-radius:16px;padding:36px 28px;background:var(--card-bg);border:1px solid rgba(180,160,130,0.2);box-shadow:0 2px 20px rgba(60,40,20,0.04);display:flex;flex-direction:column;align-items:center;justify-content:center}
+        .card-face{position:absolute;width:100%;min-height:280px;backface-visibility:hidden;border-radius:16px;padding:36px 28px 48px;background:var(--card-bg);border:1px solid rgba(180,160,130,0.2);box-shadow:0 2px 20px rgba(60,40,20,0.04);display:flex;flex-direction:column;align-items:center;justify-content:center}
         .card-back{transform:rotateY(180deg);justify-content:flex-start;align-items:stretch}
         .card-front .keyword{font-size:28px;font-weight:700;color:var(--text-primary);letter-spacing:3px;margin-bottom:12px;text-align:center}
         .card-front .hint{font-size:15px;color:var(--text-secondary);text-align:center;line-height:1.8}
@@ -111,9 +111,9 @@
         .btn-reveal{background:#fff;color:var(--reveal);border:2px solid var(--reveal)}
         .btn-original{background:#fff;color:var(--gold);border:2px solid var(--gold-light)}
 
-        .nav-bar{display:flex;justify-content:space-between;align-items:center;margin-top:16px;gap:12px}
-        .nav-btn{padding:10px 22px;background:rgba(255,253,248,0.7);border:1px solid rgba(180,160,130,0.25);border-radius:20px;cursor:pointer;font-family:var(--font-cn);font-size:14px;color:var(--text-secondary);letter-spacing:1px;transition:all 0.3s}
-        .nav-btn:hover:not(:disabled){background:rgba(180,160,130,0.12);color:var(--text-primary)}
+        .nav-bar{display:flex;justify-content:space-between;align-items:center;margin-top:24px;gap:12px;padding-bottom:24px}
+        .nav-btn{padding:12px 26px;background:rgba(255,253,248,0.85);border:2px solid rgba(180,160,130,0.3);border-radius:20px;cursor:pointer;font-family:var(--font-cn);font-size:15px;color:var(--text-secondary);letter-spacing:1px;transition:all 0.3s}
+        .nav-btn:hover:not(:disabled){background:rgba(180,160,130,0.15);color:var(--text-primary)}
         .nav-btn:disabled{opacity:0.3;cursor:default;pointer-events:none}
 
         .result-msg{text-align:center;font-size:14px;min-height:20px;margin-top:8px;font-weight:600}
@@ -130,10 +130,10 @@
         .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:24px}
 
         @media(max-width:480px){
-            .card-face{padding:24px 16px;min-height:240px}
+            .card-face{padding:24px 16px 40px;min-height:240px}
             .card-front .keyword{font-size:22px}
             .opt-btn{padding:6px 14px;font-size:13px}
-            .nav-btn{padding:8px 14px;font-size:13px}
+            .nav-btn{padding:10px 20px;font-size:13px}
         }
     </style>
 </head>
@@ -227,13 +227,11 @@
         function saveData() {
             localStorage.setItem('songKwcRounds2',JSON.stringify(completedRounds));
             localStorage.setItem('songKwcReview2',JSON.stringify(reviewData));
+            localStorage.setItem('songKwcRoundResults2',JSON.stringify(roundResults));
         }
 
         function getCurrentQ() {
-            if (isReviewMode) {
-                const item = reviewQueue[reviewQueueIdx];
-                return rounds[item.roundIdx].questions[item.qIdx];
-            }
+            if (isReviewMode) { const item = reviewQueue[reviewQueueIdx]; return rounds[item.roundIdx].questions[item.qIdx]; }
             return rounds[currentRoundIdx].questions[currentQIdx];
         }
 
@@ -250,12 +248,7 @@
             document.getElementById('result-msg').textContent = '';
             document.getElementById('result-msg').className = 'result-msg';
             document.getElementById('next-btn').disabled = true;
-
-            if (isReviewMode) {
-                document.getElementById('round-label').textContent = '📝 錯題複習';
-            } else {
-                document.getElementById('round-label').textContent = rounds[currentRoundIdx].name;
-            }
+            document.getElementById('round-label').textContent = isReviewMode ? '📝 錯題複習' : rounds[currentRoundIdx].name;
 
             const front = document.getElementById('card-front');
             front.innerHTML = '';
@@ -310,6 +303,7 @@
 
             renderDots();
             updateNavButtons();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function highlightCurrentBlank() {
@@ -349,7 +343,6 @@
             let allCorrect = true;
             const blanks = document.querySelectorAll('.card-back .blank');
             const optsRow = document.getElementById('shared-opts');
-
             q.answer.forEach((ans, i) => {
                 if (selections[i] === ans) {
                     if (blanks[i]) { blanks[i].classList.add('filled-correct');
@@ -366,28 +359,25 @@
                     });
                 }
             });
-
             const msg = document.getElementById('result-msg');
             if (allCorrect) {
                 msg.textContent = '✅ 全部正確！';
                 msg.className = 'result-msg correct';
                 if (isReviewMode) reviewResults[reviewQueueIdx] = 'correct';
-                else {
-                    if (!roundResults[currentRoundIdx]) roundResults[currentRoundIdx] = {};
-                    roundResults[currentRoundIdx][currentQIdx] = 'correct';
-                }
+                else { if (!roundResults[currentRoundIdx]) roundResults[currentRoundIdx] = {};
+                    roundResults[currentRoundIdx][currentQIdx] = 'correct'; }
             } else {
                 msg.textContent = '❌ 有錯誤，正確答案已顯示';
                 msg.className = 'result-msg wrong';
                 if (isReviewMode) reviewResults[reviewQueueIdx] = 'wrong';
-                else {
-                    if (!roundResults[currentRoundIdx]) roundResults[currentRoundIdx] = {};
-                    roundResults[currentRoundIdx][currentQIdx] = 'wrong';
-                }
+                else { if (!roundResults[currentRoundIdx]) roundResults[currentRoundIdx] = {};
+                    roundResults[currentRoundIdx][currentQIdx] = 'wrong'; }
             }
+            saveData();
             document.getElementById('next-btn').disabled = false;
             updateNavButtons();
             renderDots();
+            setTimeout(() => { document.getElementById('nav-bar').scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 200);
         }
 
         function revealAnswer() {
@@ -406,10 +396,9 @@
             document.getElementById('result-msg').textContent = '💡 正確答案已顯示，請記住後進入下一題';
             document.getElementById('result-msg').className = 'result-msg';
             if (isReviewMode) reviewResults[reviewQueueIdx] = 'reveal';
-            else {
-                if (!roundResults[currentRoundIdx]) roundResults[currentRoundIdx] = {};
-                roundResults[currentRoundIdx][currentQIdx] = 'reveal';
-            }
+            else { if (!roundResults[currentRoundIdx]) roundResults[currentRoundIdx] = {};
+                roundResults[currentRoundIdx][currentQIdx] = 'reveal'; }
+            saveData();
             document.getElementById('next-btn').disabled = false;
             updateNavButtons();
             renderDots();
@@ -427,34 +416,18 @@
         function nextCard() {
             if (isReviewMode) {
                 reviewQueueIdx++;
-                if (reviewQueueIdx >= reviewQueue.length) {
-                    finishReview();
-                } else {
-                    renderCard();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
+                if (reviewQueueIdx >= reviewQueue.length) { finishReview(); } else { renderCard(); }
             } else {
                 const round = rounds[currentRoundIdx];
-                if (currentQIdx < round.questions.length - 1) {
-                    currentQIdx++;
-                    renderCard();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                } else {
-                    finishRound();
-                }
+                if (currentQIdx < round.questions.length - 1) { currentQIdx++;
+                    renderCard(); } else { finishRound(); }
             }
         }
 
         function prevCard() {
-            if (isReviewMode) {
-                if (reviewQueueIdx > 0) { reviewQueueIdx--;
-                    renderCard();
-                    window.scrollTo({ top: 0, behavior: 'smooth' }); }
-            } else {
-                if (currentQIdx > 0) { currentQIdx--;
-                    renderCard();
-                    window.scrollTo({ top: 0, behavior: 'smooth' }); }
-            }
+            if (isReviewMode) { if (reviewQueueIdx > 0) { reviewQueueIdx--;
+                    renderCard(); } } else { if (currentQIdx > 0) { currentQIdx--;
+                    renderCard(); } }
         }
 
         function updateNavButtons() {
@@ -477,8 +450,7 @@
                     if (reviewResults[i] === 'wrong') dot.classList.add('wrong-dot');
                     if (reviewResults[i] === 'reveal') dot.classList.add('reveal-dot');
                     dot.onclick = () => { reviewQueueIdx = i;
-                        renderCard();
-                        window.scrollTo({ top: 0, behavior: 'smooth' }); };
+                        renderCard(); };
                     dots.appendChild(dot);
                 });
             } else {
@@ -491,8 +463,7 @@
                     if (roundResults[currentRoundIdx] && roundResults[currentRoundIdx][i] === 'wrong') dot.classList.add('wrong-dot');
                     if (roundResults[currentRoundIdx] && roundResults[currentRoundIdx][i] === 'reveal') dot.classList.add('reveal-dot');
                     dot.onclick = () => { currentQIdx = i;
-                        renderCard();
-                        window.scrollTo({ top: 0, behavior: 'smooth' }); };
+                        renderCard(); };
                     dots.appendChild(dot);
                 });
             }
@@ -502,6 +473,7 @@
             if (isChecked) return;
             isFlipped = true;
             document.getElementById('card-inner').classList.add('flipped');
+            setTimeout(() => { document.getElementById('card-container').scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 350);
         }
 
         function finishRound() {
@@ -531,12 +503,9 @@
             document.getElementById('round-overlay').classList.remove('show');
             const wrongIndices = [];
             const round = rounds[currentRoundIdx];
-            round.questions.forEach((q, i) => {
-                if (roundResults[currentRoundIdx] && (roundResults[currentRoundIdx][i] === 'wrong' || roundResults[currentRoundIdx][i] === 'reveal')) wrongIndices.push(i);
-            });
+            round.questions.forEach((q, i) => { if (roundResults[currentRoundIdx] && (roundResults[currentRoundIdx][i] === 'wrong' || roundResults[currentRoundIdx][i] === 'reveal')) wrongIndices.push(i); });
             if (wrongIndices.length > 0) { currentQIdx = wrongIndices[0];
-                renderCard();
-                window.scrollTo({ top: 0, behavior: 'smooth' }); }
+                renderCard(); }
         }
 
         function goNextRound() {
@@ -548,8 +517,7 @@
             saveData();
             currentRoundIdx++;
             currentQIdx = 0;
-            if (currentRoundIdx >= rounds.length) { showFinalStats(); } else { renderCard();
-                window.scrollTo({ top: 0, behavior: 'smooth' }); }
+            if (currentRoundIdx >= rounds.length) { showFinalStats(); } else { renderCard(); }
         }
 
         function showFinalStats() {
@@ -594,9 +562,7 @@
             reviewQueue = newQueue;
             reviewResults = {};
             reviewQueueIdx = 0;
-            if (reviewQueue.length > 0) { renderCard();
-                window.scrollTo({ top: 0, behavior: 'smooth' }); } else { window.location.href =
-                    '关键词触发-主页.html'; }
+            if (reviewQueue.length > 0) { renderCard(); } else { window.location.href = '关键词触发-主页.html'; }
         }
 
         function resetAll() {
@@ -608,7 +574,6 @@
             reviewData = {};
             saveData();
             renderCard();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         document.getElementById('round-overlay').addEventListener('click', function(e) { if (e.target === this) this.classList.remove('show'); });
@@ -622,7 +587,6 @@
                 flipCard(); }
         });
 
-        // 初始化
         if (isReviewMode) {
             try { reviewQueue = JSON.parse(localStorage.getItem('songKwcReviewQueue') || '[]'); } catch(e) { reviewQueue = []; }
             if (reviewQueue.length === 0) { alert('暫無錯題需要複習！');
@@ -630,6 +594,8 @@
                 reviewResults = {};
                 renderCard(); }
         } else {
+            const saved = JSON.parse(localStorage.getItem('songKwcRoundResults2') || '{}');
+            if (Object.keys(saved).length > 0) roundResults = saved;
             renderCard();
         }
     </script>
