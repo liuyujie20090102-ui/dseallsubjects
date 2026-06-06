@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>關鍵詞觸發 · 宋朝</title>
+    <title>翻卡答題 · 宋朝</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
@@ -15,8 +15,6 @@
             --text-muted: #a09880;
             --gold: #8b6914;
             --gold-light: #c4a97d;
-            --correct: #2e7d32;
-            --wrong: #c62828;
             --ink-light: rgba(60,40,20,0.06);
             --mountain-far: rgba(120,100,70,0.12);
             --mountain-mid: rgba(100,80,55,0.16);
@@ -78,18 +76,8 @@
         .card .card-icon{font-size:30px;display:block;margin-bottom:6px}
         .card .card-name{font-size:18px;font-weight:600;color:var(--text-primary);letter-spacing:2px}
         .card .card-desc{font-size:13px;color:var(--text-muted);margin-top:3px;letter-spacing:1px}
-        .review-badge{display:inline-block;background:var(--wrong);color:#fff;font-size:11px;padding:2px 10px;border-radius:10px;margin-left:6px;animation:pulse 2s ease-in-out infinite}
-        @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
         .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:20px}
         .footer .name{font-weight:500;color:var(--text-secondary)}
-        .overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.3);z-index:30;justify-content:center;align-items:center}
-        .overlay.show{display:flex}
-        .popup{background:#fffdf7;border-radius:16px;padding:28px 22px;max-width:500px;width:90%;max-height:70vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,0.1)}
-        .popup h3{color:var(--text-primary);margin-bottom:12px;letter-spacing:2px;text-align:center}
-        .popup .stat-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--ink-light);font-size:14px;color:var(--text-secondary)}
-        .popup .stat-row .stat-name{font-weight:600;color:var(--text-primary)}
-        .popup button{margin-top:14px;padding:10px 24px;background:var(--gold);color:#fff;border:none;border-radius:20px;font-size:14px;cursor:pointer;letter-spacing:1px;font-family:var(--font-cn)}
-        .popup .btn-close{background:#fff;color:var(--text-muted);border:1px solid var(--text-muted);margin-left:8px}
         @media(max-width:480px){.page-title{font-size:24px}.card{padding:20px 16px}.card .card-name{font-size:16px}}
     </style>
 </head>
@@ -99,58 +87,16 @@
     <div class="birds"><span class="bird">⩳</span><span class="bird">⩳</span><span class="bird">⩳</span></div>
     <div class="container">
         <a href="1.html" class="back-link">← 返回練習</a>
-        <div class="page-title"><span class="icon">🎯</span>關鍵詞觸發</div>
+        <div class="page-title"><span class="icon">🎯</span>翻卡答題</div>
         <div class="card-list">
             <a href="关键词触发.html" class="card">
                 <span class="card-icon">▶️</span>
                 <span class="card-name">開始練習</span>
-                <span class="card-desc">自由選擇章節挑戰</span>
-            </a>
-            <div class="card" onclick="showStats()">
-                <span class="card-icon">📊</span>
-                <span class="card-name">學習統計</span>
-                <span class="card-desc">查看各輪正確率與通關記錄</span>
-            </div>
-            <a href="关键词触发-复习.html" class="card" id="review-card">
-                <span class="card-icon">📝</span>
-                <span class="card-name">複習中心</span>
-                <span class="card-desc">錯題重練 · 艾賓浩斯複習日曆</span>
+                <span class="card-desc">自由選擇章節</span>
             </a>
         </div>
         <div class="footer">── <span class="name">Shelly Liu</span> ──</div>
     </div>
-    <div class="overlay" id="stats-overlay"><div class="popup" id="stats-popup"></div></div>
-    <script>
-        const rounds=[{name:"第一輪：中央集權原因",total:2},{name:"第二輪：收中央相權",total:8},{name:"第三輪：收其精兵",total:6},{name:"第四輪：制其錢谷",total:2},{name:"第五輪：稍奪其權+刑權",total:6}];
-        function getReviewData(){try{return JSON.parse(localStorage.getItem('songKwcReview2')||'{}');}catch(e){return{};}}
-        function getRoundResults(){try{return JSON.parse(localStorage.getItem('songKwcRoundResults2')||'{}');}catch(e){return{};}}
-        function getCompletedRounds(){try{return JSON.parse(localStorage.getItem('songKwcRounds2')||'[]');}catch(e){return[];}}
-        function showStats(){
-            const reviewData=getReviewData(),roundResults=getRoundResults(),completedRounds=getCompletedRounds();
-            let html='<h3>📊 學習統計</h3>';
-            rounds.forEach((round,i)=>{
-                const data=reviewData[i];
-                if(data&&completedRounds.includes(i)){
-                    const results=roundResults[i]||{};let correct=0;const wrongList=[];
-                    Object.keys(results).forEach(j=>{if(results[j]==='correct')correct++;if(results[j]==='wrong'||results[j]==='reveal')wrongList.push(parseInt(j)+1);});
-                    const rate=Math.round(correct/round.total*100);
-                    html+=`<div class="stat-row"><span class="stat-name">${round.name}</span><span>${correct}/${round.total}（${rate}%）</span></div>`;
-                    if(data.completedDate)html+=`<div class="stat-row" style="font-size:12px;color:var(--text-muted);border:none">通關日期：${data.completedDate}</div>`;
-                    if(wrongList.length>0)html+=`<div class="stat-row" style="font-size:12px;color:var(--wrong);border:none">錯題：第${wrongList.join('、')}題</div>`;
-                }else{html+=`<div class="stat-row"><span class="stat-name">${round.name}</span><span style="color:var(--text-muted)">未通關</span></div>`;}
-            });
-            html+='<button class="btn-close" onclick="closeStats()">關閉</button>';
-            document.getElementById('stats-popup').innerHTML=html;
-            document.getElementById('stats-overlay').classList.add('show');
-        }
-        function closeStats(){document.getElementById('stats-overlay').classList.remove('show');}
-        document.getElementById('stats-overlay').addEventListener('click',function(e){if(e.target===this)closeStats();});
-        (function(){
-            const reviewData=getReviewData(),completedRounds=getCompletedRounds(),today=new Date().toISOString().split('T')[0],ebbinghaus=[1,3,7,14,30];let count=0;
-            completedRounds.forEach(i=>{const data=reviewData[i];if(data&&data.completedDate){const completed=new Date(data.completedDate);const reviewDates=ebbinghaus.map(d=>{const rd=new Date(completed);rd.setDate(rd.getDate()+d);return rd.toISOString().split('T')[0];});if(reviewDates.includes(today))count++;}});
-            if(count>0){const badge=document.createElement('span');badge.className='review-badge';badge.textContent=count+'輪待複習';document.getElementById('review-card').querySelector('.card-name').appendChild(badge);}
-        })();
-    </script>
 </body>
 </html>
 ```
