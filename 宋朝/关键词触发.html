@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>關鍵詞觸發 · 遊戲</title>
+    <title>翻卡答題 · 宋朝</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
@@ -104,7 +104,7 @@
 
         .btn-row{display:flex;gap:10px;margin-top:16px;justify-content:center;flex-wrap:wrap}
         .btn-row button{padding:10px 22px;border-radius:20px;border:none;font-size:14px;cursor:pointer;letter-spacing:1px;transition:all 0.2s;font-family:var(--font-cn)}
-        .btn-check{background:var(--correct);color:#fff}
+        .btn-submit{background:var(--correct);color:#fff}
         .btn-reveal{background:#fff;color:var(--reveal);border:2px solid var(--reveal)}
         .btn-clear{background:#fff;color:var(--text-muted);border:2px solid var(--text-muted)}
 
@@ -144,7 +144,7 @@
 
     <div class="container">
         <div class="top-bar">
-            <a href="关键词触发-主页.html" class="back-link">← 返回主頁</a>
+            <a href="1.html" class="back-link">← 返回練習</a>
         </div>
         <div class="tabs-bar" id="tabs-bar"></div>
         <div class="progress-dots" id="progress-dots"></div>
@@ -209,15 +209,7 @@
         const isReviewMode = urlParams.get('mode') === 'review';
         let currentRoundIdx = 0, currentQIdx = 0, isFlipped = false, isChecked = false, isAnswered = false;
         let selections = {}, usedOptions = [], roundResults = {};
-        let completedRounds = JSON.parse(localStorage.getItem('songKwcRounds2')||'[]');
-        let reviewData = JSON.parse(localStorage.getItem('songKwcReview2')||'{}');
         let reviewQueue = [], reviewQueueIdx = 0, reviewResults = {};
-
-        function saveData() {
-            localStorage.setItem('songKwcRounds2',JSON.stringify(completedRounds));
-            localStorage.setItem('songKwcReview2',JSON.stringify(reviewData));
-            localStorage.setItem('songKwcRoundResults2',JSON.stringify(roundResults));
-        }
 
         function getCurrentQ() {
             if (isReviewMode) { const item = reviewQueue[reviewQueueIdx]; return rounds[item.roundIdx].questions[item.qIdx]; }
@@ -300,10 +292,10 @@
             const btnRow = document.createElement('div');
             btnRow.className = 'btn-row';
             btnRow.innerHTML = `
-                <button class="btn-check">✅ 檢查答案</button>
+                <button class="btn-submit">✅ 提交答案</button>
                 <button class="btn-reveal">💡 我不會</button>
                 <button class="btn-clear">🔄 清空重填</button>`;
-            btnRow.querySelector('.btn-check').addEventListener('click', function(e) { e.stopPropagation();
+            btnRow.querySelector('.btn-submit').addEventListener('click', function(e) { e.stopPropagation();
                 checkAnswer(); });
             btnRow.querySelector('.btn-reveal').addEventListener('click', function(e) { e.stopPropagation();
                 revealAnswer(); });
@@ -340,7 +332,6 @@
 
         function toggleOpt(value, btn) {
             if (isChecked) return;
-            // 如果按钮已使用，先检查是否在usedOptions中
             if (btn.classList.contains('used') && usedOptions.includes(value)) {
                 const blankIdx = Object.keys(selections).findIndex(k => selections[k] === value);
                 if (blankIdx >= 0) {
@@ -363,17 +354,38 @@
                 }
                 return;
             }
-            // 新选择
             const blankIdx = Object.keys(selections).length;
             const q = getCurrentQ();
-            if (blankIdx >= q.answer.length) return;
-            selections[blankIdx] = value;
-            usedOptions.push(value);
-            btn.classList.add('used');
-            const blanks = document.querySelectorAll('.card-back .blank');
-            if (blanks[blankIdx]) {
-                blanks[blankIdx].textContent = value;
-                blanks[blankIdx].classList.add('filled-correct');
+            if (blankIdx < q.answer.length) {
+                if (!usedOptions.includes(value)) {
+                    selections[blankIdx] = value;
+                    usedOptions.push(value);
+                    btn.classList.add('used');
+                    const blanks = document.querySelectorAll('.card-back .blank');
+                    if (blanks[blankIdx]) {
+                        blanks[blankIdx].textContent = value;
+                        blanks[blankIdx].classList.add('filled-correct');
+                    }
+                }
+            } else {
+                const lastKey = String(q.answer.length - 1);
+                const oldVal = selections[lastKey];
+                if (oldVal && oldVal !== value && !usedOptions.includes(value)) {
+                    const oldIdx = usedOptions.indexOf(oldVal);
+                    if (oldIdx >= 0) usedOptions.splice(oldIdx, 1);
+                    selections[lastKey] = value;
+                    usedOptions.push(value);
+                    btn.classList.add('used');
+                    const blanks = document.querySelectorAll('.card-back .blank');
+                    if (blanks[parseInt(lastKey)]) {
+                        blanks[parseInt(lastKey)].textContent = value;
+                        blanks[parseInt(lastKey)].classList.add('filled-correct');
+                        blanks[parseInt(lastKey)].classList.remove('filled-wrong', 'filled-reveal');
+                    }
+                    document.querySelectorAll('#shared-opts .opt-btn').forEach(b => {
+                        if (b.textContent === oldVal) b.classList.remove('used');
+                    });
+                }
             }
             highlightCurrentBlank();
         }
@@ -382,7 +394,7 @@
             if (isChecked) return;
             const q = getCurrentQ();
             if (Object.keys(selections).length < q.answer.length) {
-                document.getElementById('result-msg').textContent = '⚠ 請先填完所有空白再檢查';
+                document.getElementById('result-msg').textContent = '⚠ 請先填完所有空白再提交';
                 document.getElementById('result-msg').className = 'result-msg wrong';
                 return;
             }
@@ -421,11 +433,10 @@
                 else { if (!roundResults[currentRoundIdx]) roundResults[currentRoundIdx] = {};
                     roundResults[currentRoundIdx][currentQIdx] = 'wrong'; }
             }
-            saveData();
             document.getElementById('next-btn').disabled = false;
             updateNavButtons();
             renderDots();
-            setTimeout(() => { document.getElementById('nav-bar').scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 200);
+            setTimeout(() => { document.getElementById('nav-bar').scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 300);
         }
 
         function revealAnswer() {
@@ -446,10 +457,10 @@
             if (isReviewMode) reviewResults[reviewQueueIdx] = 'reveal';
             else { if (!roundResults[currentRoundIdx]) roundResults[currentRoundIdx] = {};
                 roundResults[currentRoundIdx][currentQIdx] = 'reveal'; }
-            saveData();
             document.getElementById('next-btn').disabled = false;
             updateNavButtons();
             renderDots();
+            setTimeout(() => { document.getElementById('nav-bar').scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 200);
         }
 
         function nextCard() {
@@ -502,7 +513,8 @@
 
         function flipCard() { if (isChecked) return;
             isFlipped = true;
-            document.getElementById('card-inner').classList.add('flipped'); }
+            document.getElementById('card-inner').classList.add('flipped');
+            setTimeout(() => { document.getElementById('card-back').scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 400); }
 
         function finishRound() {
             const round = rounds[currentRoundIdx];
@@ -512,16 +524,12 @@
             if (roundResults[currentRoundIdx]) { round.questions.forEach((q, i) => { if (roundResults[currentRoundIdx][i] === 'correct') correctCount++; if (roundResults[currentRoundIdx][i] === 'wrong' || roundResults[currentRoundIdx][i] === 'reveal') wrongList.push(i + 1); }); }
             const rate = Math.round(correctCount / total * 100);
             let popupHTML = `<h3>🎉 本輪完成！</h3><p>正確率：${correctCount}/${total}（${rate}%）</p>`;
-            if (wrongList.length > 0) { popupHTML += `<p>錯題：第${wrongList.join('、')}題（可在複習中心重練）</p>`; }
             popupHTML += `<button onclick="goNextRound()">▶ 進入下一輪</button>`;
             document.getElementById('round-popup').innerHTML = popupHTML;
             document.getElementById('round-overlay').classList.add('show');
         }
 
         function goNextRound() { document.getElementById('round-overlay').classList.remove('show');
-            completedRounds.push(currentRoundIdx); const today = new Date().toISOString().split('T')[0]; if (!reviewData[currentRoundIdx]) reviewData[currentRoundIdx] = {};
-            reviewData[currentRoundIdx].completedDate = today;
-            saveData();
             currentRoundIdx++;
             currentQIdx = 0; if (currentRoundIdx >= rounds.length) { showFinalStats(); } else { renderCard(); } }
 
@@ -534,17 +542,16 @@
                 totalQ += t;
                 html += `<p>${round.name}：${c}/${t}</p>`; });
             html += `<p style="font-weight:bold">總正確率：${totalCorrect}/${totalQ}（${Math.round(totalCorrect/totalQ*100)}%）</p>`;
-            html += `<p>通關日期：${new Date().toISOString().split('T')[0]}</p>`;
             html += '<button onclick="resetAll()">🔄 重新挑戰</button>';
-            html += '<button onclick="window.location.href=\'关键词触发-主页.html\'" style="margin-left:8px">🏠 返回主頁</button>';
+            html += '<button onclick="window.location.href=\'1.html\'" style="margin-left:8px">🏠 返回練習</button>';
             document.getElementById('final-popup').innerHTML = html;
             document.getElementById('final-overlay').classList.add('show');
         }
 
         function finishReview() { let correctCount = 0;
-            Object.values(reviewResults).forEach(v => { if (v === 'correct') correctCount++; }); const total = reviewQueue.length; const rate = Math.round(correctCount / total * 100); let html = `<h3>📝 錯題複習完成！</h3><p>正確率：${correctCount}/${total}（${rate}%）</p>`; if (correctCount < total) { html += '<p style="color:var(--gold)">仍有錯題未掌握，建議再次複習</p>';
+            Object.values(reviewResults).forEach(v => { if (v === 'correct') correctCount++; }); const total = reviewQueue.length; const rate = Math.round(correctCount / total * 100); let html = `<h3>📝 複習完成！</h3><p>正確率：${correctCount}/${total}（${rate}%）</p>`; if (correctCount < total) { html += '<p style="color:var(--gold)">仍有錯題未掌握</p>';
                 html += '<button onclick="retryReview()">🔄 再次複習</button>'; }
-            html += '<button onclick="window.location.href=\'关键词触发-主页.html\'" style="margin-left:8px">🏠 返回主頁</button>';
+            html += '<button onclick="window.location.href=\'1.html\'" style="margin-left:8px">🏠 返回練習</button>';
             localStorage.removeItem('songKwcReviewQueue');
             document.getElementById('final-popup').innerHTML = html;
             document.getElementById('final-overlay').classList.add('show'); }
@@ -553,15 +560,12 @@
             reviewQueue.forEach((item, i) => { if (reviewResults[i] !== 'correct') newQueue.push(item); });
             reviewQueue = newQueue;
             reviewResults = {};
-            reviewQueueIdx = 0; if (reviewQueue.length > 0) { renderCard(); } else { window.location.href = '关键词触发-主页.html'; } }
+            reviewQueueIdx = 0; if (reviewQueue.length > 0) { renderCard(); } else { window.location.href = '1.html'; } }
 
         function resetAll() { document.getElementById('final-overlay').classList.remove('show');
             currentRoundIdx = 0;
             currentQIdx = 0;
             roundResults = {};
-            completedRounds = [];
-            reviewData = {};
-            saveData();
             renderCard(); }
 
         document.getElementById('round-overlay').addEventListener('click', function(e) { if (e.target === this) this.classList.remove('show'); });
@@ -571,10 +575,11 @@
                 flipCard(); } });
 
         if (isReviewMode) { try { reviewQueue = JSON.parse(localStorage.getItem('songKwcReviewQueue') || '[]'); } catch(e) { reviewQueue = []; } if (reviewQueue.length === 0) { alert('暫無錯題需要複習！');
-                window.location.href = '关键词触发-主页.html'; } else { reviewQueueIdx = 0;
+                window.location.href = '1.html'; } else { reviewQueueIdx = 0;
                 reviewResults = {};
                 renderCard(); } } else { const saved = JSON.parse(localStorage.getItem('songKwcRoundResults2') || '{}'); if (Object.keys(saved).length > 0) roundResults = saved;
             renderCard(); }
     </script>
 </body>
 </html>
+```
