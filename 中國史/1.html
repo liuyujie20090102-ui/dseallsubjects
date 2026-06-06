@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-HK">
 <head>
@@ -16,7 +17,7 @@
             --gold: #8b6914;
             --gold-light: #c4a97d;
             --card-bg: rgba(255,253,248,0.75);
-            --card-border: rgba(180,160,130,0.25);
+            --card-border: rgba(180,160,130,0.3);
             --font-cn: "Noto Serif TC","PingFang SC","Microsoft YaHei","KaiTi",serif;
             --font-en: "Inter","Helvetica Neue",sans-serif;
         }
@@ -61,46 +62,41 @@
         .back-link{display:inline-block;color:var(--text-muted);text-decoration:none;font-size:14px;margin-bottom:24px;letter-spacing:1px;transition:color 0.3s}
         .back-link:hover{color:var(--gold)}
         .page-title{text-align:center;font-size:28px;font-weight:700;color:var(--text-primary);letter-spacing:4px;margin-bottom:32px}
-        .section{margin-bottom:4px}
-        .section-header{
+        .card-list{display:flex;flex-direction:column;gap:16px}
+        .card{
             display:flex;
             align-items:center;
-            justify-content:space-between;
-            padding:16px 18px;
-            cursor:pointer;
-            border-radius:12px;
-            transition:background 0.2s ease;
-            user-select:none;
-        }
-        .section-header:hover{background:rgba(180,160,130,0.08)}
-        .section-header .left{display:flex;align-items:baseline;gap:8px}
-        .section-title{font-size:17px;font-weight:600;color:var(--text-primary);letter-spacing:2px}
-        .section-period{font-size:13px;color:var(--text-muted);letter-spacing:1px}
-        .section-arrow{font-size:14px;color:var(--text-muted);transition:transform 0.3s ease}
-        .section.open .section-arrow{transform:rotate(90deg)}
-        .section-body{overflow:hidden;max-height:0;transition:max-height 0.35s ease}
-        .section.open .section-body{max-height:800px}
-        .section-body-inner{padding:2px 18px 12px;display:flex;flex-direction:column;gap:1px}
-        .sub-link{
-            display:block;
-            padding:7px 14px;
-            border-radius:8px;
+            gap:16px;
+            background:var(--card-bg);
+            backdrop-filter:blur(10px);
+            -webkit-backdrop-filter:blur(10px);
+            border:1px solid var(--card-border);
+            border-radius:16px;
+            padding:24px 22px;
             text-decoration:none;
-            color:var(--text-secondary);
-            font-size:15px;
-            letter-spacing:1px;
-            transition:background 0.2s ease,color 0.2s ease;
+            cursor:pointer;
+            box-shadow:0 2px 16px rgba(60,40,20,0.04);
+            transition:transform 0.3s ease,box-shadow 0.3s ease;
         }
-        .sub-link:hover{background:rgba(180,160,130,0.1);color:var(--text-primary)}
-        .sub-link.l2{padding-left:32px;font-size:14px}
-        .sub-link.l3{padding-left:46px;font-size:13px}
-        .sub-link .dot{color:var(--gold-light);margin-right:8px}
-        .divider{height:1px;background:rgba(180,160,130,0.15);margin:2px 0}
+        .card:hover:not(.disabled){
+            transform:translateY(-3px);
+            box-shadow:0 8px 32px rgba(60,40,20,0.06);
+        }
+        .card.disabled{
+            opacity:0.45;
+            cursor:default;
+            pointer-events:none;
+        }
+        .card-icon{font-size:28px;flex-shrink:0}
+        .card-info{display:flex;flex-direction:column;gap:2px}
+        .card-name{font-size:18px;font-weight:600;color:var(--text-primary);letter-spacing:2px}
+        .card-status{font-size:13px;color:var(--text-muted);letter-spacing:1px}
+        .card:not(.disabled) .card-status{color:var(--gold)}
         .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:32px}
         @media(max-width:480px){
             .page-title{font-size:22px}
-            .section-title{font-size:15px}
-            .sub-link{font-size:14px}
+            .card{padding:18px 16px}
+            .card-name{font-size:16px}
         }
     </style>
 </head>
@@ -111,82 +107,23 @@
     <div class="container">
         <a href="../西史.html" class="back-link">← 返回</a>
         <div class="page-title">中國史</div>
-
-        <!-- 晚清改革 -->
-        <div class="section open">
-            <div class="section-header" onclick="toggleSection(this)">
-                <div class="left">
-                    <span class="section-title">晚清改革</span>
-                    <span class="section-period">1901-1911</span>
+        <div class="card-list">
+            <a href="筆記目錄.html" class="card">
+                <span class="card-icon">📖</span>
+                <div class="card-info">
+                    <span class="card-name">筆記</span>
+                    <span class="card-status">進入</span>
                 </div>
-                <span class="section-arrow">▶</span>
-            </div>
-            <div class="section-body"><div class="section-body-inner">
-                <a href="晚清改革筆記.html#背景" class="sub-link"><span class="dot">·</span>背景</a>
-                <a href="晚清改革筆記.html#原因" class="sub-link"><span class="dot">·</span>推行原因</a>
-                <a href="晚清改革筆記.html#措施" class="sub-link"><span class="dot">·</span>改革措施</a>
-                <a href="晚清改革筆記.html#政治" class="sub-link l2"><span class="dot">·</span>政治方面</a>
-                <a href="晚清改革筆記.html#經濟" class="sub-link l2"><span class="dot">·</span>經濟方面</a>
-                <a href="晚清改革筆記.html#司法" class="sub-link l2"><span class="dot">·</span>司法方面</a>
-                <a href="晚清改革筆記.html#軍事" class="sub-link l2"><span class="dot">·</span>軍事方面</a>
-                <a href="晚清改革筆記.html#教育" class="sub-link l2"><span class="dot">·</span>教育方面</a>
-                <a href="晚清改革筆記.html#社會" class="sub-link l2"><span class="dot">·</span>社會方面</a>
-                <a href="晚清改革筆記.html#失敗原因" class="sub-link"><span class="dot">·</span>失敗原因</a>
-            </div></div>
-        </div>
-
-        <div class="divider"></div>
-
-        <!-- 辛亥革命 -->
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">
-                <div class="left">
-                    <span class="section-title">辛亥革命</span>
-                    <span class="section-period">1911</span>
+            </a>
+            <div class="card disabled">
+                <span class="card-icon">✏️</span>
+                <div class="card-info">
+                    <span class="card-name">練習</span>
+                    <span class="card-status">待建</span>
                 </div>
-                <span class="section-arrow">▶</span>
             </div>
-            <div class="section-body"><div class="section-body-inner">
-                <a href="辛亥革命筆記.html#原因" class="sub-link"><span class="dot">·</span>出現原因</a>
-                <a href="辛亥革命筆記.html#思想轉變" class="sub-link l2"><span class="dot">·</span>思想轉變</a>
-                <a href="辛亥革命筆記.html#清政府積弱" class="sub-link l2"><span class="dot">·</span>清政府積弱</a>
-                <a href="辛亥革命筆記.html#鐵路國有化" class="sub-link l2"><span class="dot">·</span>鐵路國有化</a>
-                <a href="辛亥革命筆記.html#孫中山" class="sub-link"><span class="dot">·</span>孫中山的影響</a>
-                <a href="辛亥革命筆記.html#三民主義" class="sub-link l2"><span class="dot">·</span>三民主義</a>
-                <a href="辛亥革命筆記.html#同盟會" class="sub-link l2"><span class="dot">·</span>同盟會宣言</a>
-                <a href="辛亥革命筆記.html#政治" class="sub-link"><span class="dot">·</span>政治方面</a>
-                <a href="辛亥革命筆記.html#經濟" class="sub-link"><span class="dot">·</span>經濟方面</a>
-                <a href="辛亥革命筆記.html#社會" class="sub-link"><span class="dot">·</span>社會方面</a>
-            </div></div>
         </div>
-
-        <div class="divider"></div>
-
-        <!-- 五四運動 -->
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">
-                <div class="left">
-                    <span class="section-title">五四運動</span>
-                    <span class="section-period">1915-1919</span>
-                </div>
-                <span class="section-arrow">▶</span>
-            </div>
-            <div class="section-body"><div class="section-body-inner">
-                <a href="五四運動筆記.html#背景" class="sub-link"><span class="dot">·</span>背景及經過</a>
-                <a href="五四運動筆記.html#人物" class="sub-link"><span class="dot">·</span>重要人物及主張</a>
-                <a href="五四運動筆記.html#遠因近因" class="sub-link"><span class="dot">·</span>遠因／近因</a>
-                <a href="五四運動筆記.html#特徵" class="sub-link"><span class="dot">·</span>特徵</a>
-                <a href="五四運動筆記.html#意義" class="sub-link"><span class="dot">·</span>對現代化國家的意義</a>
-            </div></div>
-        </div>
-
         <div class="footer">── Shelly Liu ──</div>
     </div>
-    <script>
-        function toggleSection(header){
-            const section=header.parentElement;
-            section.classList.toggle('open');
-        }
-    </script>
 </body>
 </html>
