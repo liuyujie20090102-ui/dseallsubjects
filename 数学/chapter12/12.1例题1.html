@@ -1,41 +1,129 @@
-<svg width="260" height="300" viewBox="0 0 260 300">
-  
-  <!-- 圆 -->
-  <circle cx="130" cy="140" r="120" fill="none" stroke="#5b8def" stroke-width="2"/>
-  
-  <!-- 四边形 ABCD -->
-  <polygon points="70,55 220,70 130,260 20,110" fill="rgba(91,141,239,0.06)" stroke="#5c5347" stroke-width="1.2"/>
-  
-  <!-- 对角线 BD -->
-  <line x1="220" y1="70" x2="20" y2="110" stroke="#a09880" stroke-width="0.8" stroke-dasharray="4 3"/>
-  
-  <!-- 角度标记 - x (∠BAD) 顶点A -->
-  <path d="M 82,60 A 15 15 0 0 1 65 70" fill="none" stroke="#5b8def" stroke-width="1.5"/>
-  <text x="90" y="62" font-size="12" fill="#2c2416" font-family="serif" font-style="italic">x</text>
-  
-  <!-- 角度标记 - 40° (∠ADB) 顶点D -->
-  <path d="M 28,105 A 12 12 0 0 0 22 118" fill="none" stroke="#5b8def" stroke-width="1.5"/>
-  <text x="8" y="110" font-size="11" fill="#2c2416">40°</text>
-  
-  <!-- 角度标记 - 20° (∠ABD) 顶点B -->
-  <path d="M 210,75 A 12 12 0 0 1 205 85" fill="none" stroke="#5b8def" stroke-width="1.5"/>
-  <text x="215" y="80" font-size="11" fill="#2c2416">20°</text>
-  
-  <!-- 角度标记 - y (∠BCD) 顶点C -->
-  <path d="M 123,248 A 16 16 0 0 1 138 252" fill="none" stroke="#5b8def" stroke-width="1.5"/>
-  <text x="118" y="268" font-size="12" fill="#2c2416" font-family="serif" font-style="italic">y</text>
-  
-  <!-- 顶点标注 -->
-  <circle cx="70" cy="55" r="2.5" fill="#2c2416"/>
-  <text x="55" y="48" font-size="13" font-weight="700" fill="#2c2416">A</text>
-  
-  <circle cx="220" cy="70" r="2.5" fill="#2c2416"/>
-  <text x="228" y="65" font-size="13" font-weight="700" fill="#2c2416">B</text>
-  
-  <circle cx="130" cy="260" r="2.5" fill="#2c2416"/>
-  <text x="130" y="292" text-anchor="middle" font-size="13" font-weight="700" fill="#2c2416">C</text>
-  
-  <circle cx="20" cy="110" r="2.5" fill="#2c2416"/>
-  <text x="5" y="105" font-size="13" font-weight="700" fill="#2c2416">D</text>
-  
-</svg>
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>例题 1 · 对角互补</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f7f4ed;
+            --text-primary: #2c2416;
+            --text-secondary: #5c5347;
+            --text-muted: #a09880;
+            --gold: #8b6914;
+            --card-bg: rgba(255,253,248,0.75);
+            --card-border: rgba(180,160,130,0.3);
+            --shadow-sm: 0 2px 16px rgba(60,40,20,0.04);
+            --font-cn: "Noto Serif TC","PingFang SC","Microsoft YaHei","KaiTi",serif;
+            --font-en: "Inter","Helvetica Neue",sans-serif;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{
+            background-color:var(--bg);
+            font-family:var(--font-cn);
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            padding:32px 20px 48px;
+            position:relative;
+            overflow-x:hidden;
+            -webkit-font-smoothing:antialiased;
+        }
+        body::before{
+            content:"";
+            position:fixed;top:0;left:0;width:100%;height:100%;
+            pointer-events:none;z-index:0;
+            background-image:
+                repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(139,119,80,0.012) 3px,rgba(139,119,80,0.012) 4px),
+                repeating-linear-gradient(90deg,transparent,transparent 5px,rgba(139,119,80,0.008) 5px,rgba(139,119,80,0.008) 6px);
+            opacity:0.7;
+        }
+        .mountains{position:fixed;bottom:0;left:0;width:100%;height:30%;pointer-events:none;z-index:0}
+        .mountain{position:absolute;bottom:0}
+        .m1{left:-8%;width:45%;height:55%;background:rgba(120,100,70,0.12);border-radius:55% 55% 0 0}
+        .m2{left:22%;width:50%;height:68%;background:rgba(100,80,55,0.16);border-radius:50% 48% 0 0}
+        .m3{right:-8%;width:42%;height:60%;background:rgba(80,60,40,0.2);border-radius:52% 52% 0 0}
+        .clouds{position:fixed;bottom:12%;left:0;width:100%;height:18%;pointer-events:none;z-index:0}
+        .cloud{position:absolute;background:rgba(255,252,245,0.7);border-radius:50%;filter:blur(28px)}
+        .c1{width:260px;height:50px;left:8%;bottom:30px;opacity:0.5}
+        .c2{width:220px;height:42px;right:12%;bottom:15px;opacity:0.4}
+        .c3{width:180px;height:35px;left:50%;bottom:8px;opacity:0.35;transform:translateX(-50%)}
+        .birds{position:fixed;top:12%;right:12%;pointer-events:none;z-index:0;opacity:0.3}
+        .bird{display:inline-block;font-size:13px;margin:0 5px;animation:birdFloat 6s ease-in-out infinite}
+        .bird:nth-child(2){animation-delay:1.5s;font-size:9px}
+        .bird:nth-child(3){animation-delay:3s;font-size:11px}
+        @keyframes birdFloat{0%,100%{transform:translateY(0) translateX(0)}25%{transform:translateY(-7px) translateX(3px)}50%{transform:translateY(-2px) translateX(8px)}75%{transform:translateY(-9px) translateX(3px)}}
+        .container{position:relative;z-index:1;width:100%;max-width:550px}
+        .back-link{display:inline-block;color:var(--text-muted);text-decoration:none;font-size:14px;margin-bottom:24px;letter-spacing:1px}
+        .back-link:hover{color:var(--gold)}
+        .page-title{font-size:20px;font-weight:700;color:var(--text-primary);letter-spacing:2px;margin-bottom:20px;text-align:center}
+        .svg-wrap{text-align:center;margin-bottom:16px}
+        .given-info{font-size:14px;color:var(--text-secondary);line-height:2;margin-bottom:20px;padding:12px 16px;background:rgba(255,253,248,0.6);border-radius:12px}
+        .given-info span{font-family:var(--font-en);color:var(--text-primary)}
+        .step-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px}
+        .step-table th{background:rgba(180,160,130,0.12);color:var(--text-primary);padding:10px 8px;text-align:center;font-weight:600;border:1px solid rgba(180,160,130,0.2);letter-spacing:1px}
+        .step-table td{padding:9px 8px;border:1px solid rgba(180,160,130,0.2);color:var(--text-secondary);text-align:center;line-height:1.6}
+        .step-table td:first-child{font-family:var(--font-en);font-weight:600;color:var(--text-primary);width:40px}
+        .step-table td:nth-child(2){text-align:left;padding-left:10px}
+        .step-table td:nth-child(3){font-family:var(--font-en);font-weight:500;color:var(--text-primary)}
+        .step-table td:nth-child(4){font-family:var(--font-en);font-size:11px;color:var(--text-muted)}
+        .answer-box{font-size:15px;color:var(--gold);font-weight:600;text-align:center;padding:12px;letter-spacing:2px}
+        .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:24px}
+        @media(max-width:480px){
+            .page-title{font-size:17px}
+            .step-table{font-size:12px}
+            .step-table td,.step-table th{padding:7px 5px}
+        }
+    </style>
+</head>
+<body>
+    <div class="mountains"><div class="mountain m1"></div><div class="mountain m2"></div><div class="mountain m3"></div></div>
+    <div class="clouds"><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div></div>
+    <div class="birds"><span class="bird">⩳</span><span class="bird">⩳</span><span class="bird">⩳</span></div>
+    <div class="container">
+        <a href="12.1例题主页.html" class="back-link">← 例题主页</a>
+        <div class="page-title">例题 1 · 对角互补</div>
+        
+        <div class="svg-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+                <circle cx="200" cy="200" r="150" fill="none" stroke="#5b8def" stroke-width="2"/>
+                <polygon points="161,55 330,125 200,350 59,251" fill="rgba(91,141,239,0.06)" stroke="#5c5347" stroke-width="2"/>
+                <line x1="59" y1="251" x2="330" y2="125" stroke="#a09880" stroke-width="1.5" stroke-dasharray="4 3"/>
+                <path d="M 145,69 A 25,25 0 0,0 182,65" fill="none" stroke="#5b8def" stroke-width="1.5"/>
+                <path d="M 183,329 A 25,25 0 0,1 215,326" fill="none" stroke="#5b8def" stroke-width="1.5"/>
+                <path d="M 85,242 A 30,30 0 0,1 73,226" fill="none" stroke="#5b8def" stroke-width="1.5"/>
+                <path d="M 293,129 A 40,40 0 0,1 296,144" fill="none" stroke="#5b8def" stroke-width="1.5"/>
+                <text x="155" y="40" font-family="Arial" font-size="20" fill="#2c2416" font-weight="700">A</text>
+                <text x="340" y="130" font-family="Arial" font-size="20" fill="#2c2416" font-weight="700">B</text>
+                <text x="200" y="385" font-family="Arial" font-size="20" fill="#2c2416" font-weight="700">C</text>
+                <text x="30" y="260" font-family="Arial" font-size="20" fill="#2c2416" font-weight="700">D</text>
+                <text x="165" y="95" font-family="Arial" font-size="18" fill="#2c2416" font-style="italic">x</text>
+                <text x="195" y="315" font-family="Arial" font-size="18" fill="#2c2416" font-style="italic">y</text>
+                <text x="15" y="210" font-family="Arial" font-size="16" fill="#2c2416">40°</text>
+                <text x="295" y="105" font-family="Arial" font-size="16" fill="#2c2416">20°</text>
+            </svg>
+        </div>
+
+        <div class="given-info">
+            已知：<span>∠ADB = 40°</span>，<span>∠ABD = 20°</span><br>
+            求：<span>x</span>，<span>y</span>
+        </div>
+
+        <table class="step-table">
+            <tr><th>步驟</th><th>說明</th><th>計算</th><th>Reason</th></tr>
+            <tr><td>1</td><td>x 在 △ABD 裡</td><td></td><td></td></tr>
+            <tr><td>2</td><td>三角形內角和 180°</td><td>x = 180 – 40 – 20 = 120</td><td>∠ sum of △</td></tr>
+            <tr><td>3</td><td>y 和 x 是對角</td><td></td><td></td></tr>
+            <tr><td>4</td><td>對角互補</td><td>y = 180 – 120 = 60</td><td>opp. ∠s，cyclic quad.</td></tr>
+        </table>
+
+        <div class="answer-box">答案：x = 120°，y = 60°</div>
+
+        <div class="footer">── Shelly Liu ──</div>
+    </div>
+</body>
+</html>
