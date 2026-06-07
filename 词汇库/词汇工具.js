@@ -1,6 +1,6 @@
 
 // ==========================================
-// 词汇工具.js — DSE 词汇库公共逻辑（完整版）
+// 词汇工具.js — DSE 词汇库公共逻辑（按字母分页版）
 // 所有主题共用此文件
 // ==========================================
 
@@ -47,78 +47,74 @@ function getSortedLetters(groups) {
     return Object.keys(groups).sort();
 }
 
-// ---------- 分页 ----------
+// ---------- 按字母分页 ----------
 
-const WORDS_PER_PAGE = 20;
-let currentPage = 1;
-let totalPages = 1;
+let currentLetter = 'A';
 let allWordsFlat = [];
 
-function paginate(wordList, page) {
-    const start = (page - 1) * WORDS_PER_PAGE;
-    return wordList.slice(start, start + WORDS_PER_PAGE);
-}
-
-function renderPagination(totalWords, containerId) {
-    totalPages = Math.ceil(totalWords / WORDS_PER_PAGE);
-    const container = document.getElementById(containerId);
-    if (!container || totalPages <= 1) return;
-    container.innerHTML = '';
-
-    const prevBtn = document.createElement('button');
-    prevBtn.textContent = '← 上一頁';
-    prevBtn.className = 'page-btn';
-    prevBtn.disabled = currentPage === 1;
-    prevBtn.onclick = function() {
-        if (currentPage > 1) { currentPage--; renderWordList(); }
-    };
-    container.appendChild(prevBtn);
-
-    const span = document.createElement('span');
-    span.textContent = ' 第 ' + currentPage + ' 頁 / 共 ' + totalPages + ' 頁 ';
-    span.style.cssText = 'color:#5c5347;font-size:14px;margin:0 12px;';
-    container.appendChild(span);
-
-    const nextBtn = document.createElement('button');
-    nextBtn.textContent = '下一頁 →';
-    nextBtn.className = 'page-btn';
-    nextBtn.disabled = currentPage === totalPages;
-    nextBtn.onclick = function() {
-        if (currentPage < totalPages) { currentPage++; renderWordList(); }
-    };
-    container.appendChild(nextBtn);
-}
-
-// ---------- 渲染词汇列表 ----------
-
-function renderWordList() {
+function renderWordListByLetter() {
     const container = document.getElementById('word-list');
     if (!container) return;
     container.innerHTML = '';
 
-    const pageWords = paginate(allWordsFlat, currentPage);
-    const groups = groupByFirstLetter(pageWords);
+    const groups = groupByFirstLetter(allWordsFlat);
     const sortedLetters = getSortedLetters(groups);
 
-    sortedLetters.forEach(function(letter) {
-        const letterDiv = document.createElement('div');
-        letterDiv.id = 'letter-' + letter;
-        letterDiv.style.cssText = 'font-size:18px;font-weight:700;color:#8b6914;margin:20px 0 8px;padding-left:4px;border-bottom:1px solid rgba(180,160,130,0.3);';
-        letterDiv.textContent = letter;
-        container.appendChild(letterDiv);
+    if (!groups[currentLetter]) {
+        currentLetter = sortedLetters[0];
+    }
 
-        groups[letter].forEach(function(item) {
-            const wordDiv = document.createElement('div');
-            wordDiv.style.cssText = 'padding:10px 14px;margin:4px 0;background:rgba(255,253,248,0.6);border-radius:8px;cursor:pointer;transition:background 0.2s;';
-            wordDiv.innerHTML = '<span style="font-weight:600;color:#2c2416;">' + item.英文 + '</span> — <span style="color:#5c5347;">' + item.中文 + '</span>';
-            wordDiv.onmouseenter = function() { wordDiv.style.background = 'rgba(196,169,125,0.12)'; };
-            wordDiv.onmouseleave = function() { wordDiv.style.background = 'rgba(255,253,248,0.6)'; };
-            wordDiv.onclick = function() { window.location.href = '词汇详情.html?id=' + encodeURIComponent(item.id); };
-            container.appendChild(wordDiv);
-        });
+    const letter = currentLetter;
+    const letterDiv = document.createElement('div');
+    letterDiv.id = 'letter-' + letter;
+    letterDiv.style.cssText = 'font-size:22px;font-weight:700;color:#8b6914;margin:16px 0 12px;padding-left:4px;border-bottom:2px solid rgba(180,160,130,0.4);';
+    letterDiv.textContent = letter;
+    container.appendChild(letterDiv);
+
+    groups[letter].forEach(function(item) {
+        const wordDiv = document.createElement('div');
+        wordDiv.style.cssText = 'padding:10px 14px;margin:4px 0;background:rgba(255,253,248,0.6);border-radius:8px;cursor:pointer;transition:background 0.2s;';
+        wordDiv.innerHTML = '<span style="font-weight:600;color:#2c2416;">' + item.英文 + '</span> — <span style="color:#5c5347;">' + item.中文 + '</span>';
+        wordDiv.onmouseenter = function() { wordDiv.style.background = 'rgba(196,169,125,0.12)'; };
+        wordDiv.onmouseleave = function() { wordDiv.style.background = 'rgba(255,253,248,0.6)'; };
+        wordDiv.onclick = function() { window.location.href = '词汇详情.html?id=' + encodeURIComponent(item.id); };
+        container.appendChild(wordDiv);
     });
 
-    renderPagination(allWordsFlat.length, 'pagination');
+    renderLetterPagination(sortedLetters);
+}
+
+// ---------- 字母翻页按钮 ----------
+
+function renderLetterPagination(sortedLetters) {
+    const container = document.getElementById('pagination');
+    if (!container || sortedLetters.length <= 1) return;
+    container.innerHTML = '';
+
+    const currentIdx = sortedLetters.indexOf(currentLetter);
+
+    const prevBtn = document.createElement('button');
+    prevBtn.textContent = '← 上一字母';
+    prevBtn.className = 'page-btn';
+    prevBtn.disabled = currentIdx === 0;
+    prevBtn.onclick = function() {
+        if (currentIdx > 0) { currentLetter = sortedLetters[currentIdx - 1]; renderWordListByLetter(); }
+    };
+    container.appendChild(prevBtn);
+
+    const span = document.createElement('span');
+    span.textContent = ' ' + currentLetter + ' ';
+    span.style.cssText = 'color:#8b6914;font-size:16px;font-weight:600;margin:0 12px;';
+    container.appendChild(span);
+
+    const nextBtn = document.createElement('button');
+    nextBtn.textContent = '下一字母 →';
+    nextBtn.className = 'page-btn';
+    nextBtn.disabled = currentIdx === sortedLetters.length - 1;
+    nextBtn.onclick = function() {
+        if (currentIdx < sortedLetters.length - 1) { currentLetter = sortedLetters[currentIdx + 1]; renderWordListByLetter(); }
+    };
+    container.appendChild(nextBtn);
 }
 
 // ---------- 渲染 A-Z 导航 ----------
@@ -140,15 +136,9 @@ function renderAZNav(containerId) {
         link.onmouseleave = function() { link.style.background = 'transparent'; };
         link.onclick = function(e) {
             e.preventDefault();
-            const index = allWordsFlat.findIndex(w => w.英文.charAt(0).toUpperCase() === letter);
-            if (index >= 0) {
-                currentPage = Math.floor(index / WORDS_PER_PAGE) + 1;
-                renderWordList();
-                setTimeout(function() {
-                    const target = document.getElementById('letter-' + letter);
-                    if (target) target.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-            }
+            currentLetter = letter;
+            renderWordListByLetter();
+            document.getElementById('word-list').scrollIntoView({ behavior: 'smooth' });
         };
         container.appendChild(link);
     });
@@ -184,9 +174,12 @@ function initWordList(rawData) {
         return a.英文.toLowerCase().localeCompare(b.英文.toLowerCase());
     });
     allWordsFlat = cleaned;
-    currentPage = 1;
 
-    renderWordList();
+    const groups = groupByFirstLetter(allWordsFlat);
+    const sortedLetters = getSortedLetters(groups);
+    currentLetter = sortedLetters[0];
+
+    renderWordListByLetter();
     setupAZToggle('az-toggle', 'az-nav');
     renderAZNav('az-nav');
 
@@ -194,3 +187,4 @@ function initWordList(rawData) {
     style.textContent = '.page-btn{padding:8px 16px;background:rgba(255,253,248,0.7);border:1px solid rgba(180,160,130,0.25);border-radius:20px;cursor:pointer;font-family:"Noto Serif TC",serif;font-size:13px;color:#5c5347;letter-spacing:1px;transition:all 0.3s;}.page-btn:hover{background:rgba(180,160,130,0.12);color:#2c2416;}.page-btn:disabled{opacity:0.4;cursor:default;}';
     document.head.appendChild(style);
 }
+
