@@ -71,7 +71,8 @@
         .text-block{font-size:16px;color:var(--text-secondary);line-height:2.2;letter-spacing:1px;margin-bottom:10px}
         .cause-list{list-style:none;padding:0}
         .cause-list li{font-size:16px;color:var(--text-secondary);line-height:2;letter-spacing:1px;padding:4px 0}
-        .cause-list li::before{content:"①";color:var(--gold);margin-right:8px}
+        .cause-list li::before{color:var(--gold);margin-right:8px}
+        .cause-list li:nth-child(1)::before{content:"①"}
         .cause-list li:nth-child(2)::before{content:"②"}
         .cause-list li:nth-child(3)::before{content:"③"}
         .cause-list li:nth-child(4)::before{content:"④"}
@@ -79,7 +80,6 @@
         .note-table{width:100%;border-collapse:collapse;margin:8px 0}
         .note-table td{padding:8px 10px;border:1px solid rgba(180,160,130,0.2);color:var(--text-secondary);font-size:15px;line-height:2;letter-spacing:1px;vertical-align:top}
         .note-table td:first-child{color:var(--gold);font-weight:600;text-align:center;width:60px;font-size:20px;background:rgba(180,160,130,0.04)}
-        .note-table .measure{color:var(--gold);font-weight:600}
         .nav-bar{display:flex;align-items:center;justify-content:center;gap:24px;padding:20px 0 0}
         .nav-btn{
             padding:8px 16px;
@@ -126,9 +126,7 @@
                     <strong>背景</strong><br>
                     1900年義和團之亂與八國聯軍之役後，清廷於1901年簽訂《辛丑條約》，需賠償4.5億兩、拆毁炮台、允許外國駐兵、設立使館區，並廢除總理衙門改設外務部。戰敗的屈辱促使慈禧不得不推行改革。
                 </div>
-                <div class="text-block">
-                    <strong>推行原因</strong>
-                </div>
+                <div class="text-block"><strong>推行原因</strong></div>
                 <ul class="cause-list">
                     <li>戰敗的恥辱：義和團與八國聯軍由慈禧引發，成為政治污點，藉改革挽回民心及建立政治形象</li>
                     <li>革命勢力增加，清廷欲透過改革鞏固統治</li>
@@ -260,11 +258,25 @@
             prevBtn.disabled=n===1;
             nextBtn.disabled=n===totalPages;
             currentPage=n;
+            window.location.hash='page'+n;
         }
 
         function changePage(dir){
             const newPage=currentPage+dir;
             if(newPage>=1&&newPage<=totalPages)showPage(newPage);
+        }
+
+        function getPageFromHash(){
+            const hash=window.location.hash;
+            const hashMap={
+                '#背景':1,'#原因':1,'#措施':2,
+                '#政治':2,'#經濟':3,'#司法':4,
+                '#軍事':5,'#教育':6,'#社會':7,
+                '#失敗原因':8
+            };
+            if(hashMap[hash])return hashMap[hash];
+            if(hash.startsWith('#page'))return parseInt(hash.replace('#page',''));
+            return 1;
         }
 
         document.addEventListener('touchstart',e=>{
@@ -280,6 +292,8 @@
                 else if(dx>40)changePage(-1);
             }
         });
+
+        showPage(getPageFromHash());
     </script>
 </body>
 </html>
