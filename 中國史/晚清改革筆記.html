@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-HK">
 <head>
@@ -99,285 +100,164 @@
         .page{display:none}
         .page.active{display:block}
 
-        /* Floating TOC */
         .floating-toc-btn{
-            position:fixed;
-            bottom:100px;
-            right:20px;
-            width:44px;
-            height:44px;
-            border-radius:50%;
-            background:var(--card-bg);
-            backdrop-filter:blur(10px);
-            -webkit-backdrop-filter:blur(10px);
-            border:1px solid var(--card-border);
-            cursor:pointer;
-            font-size:20px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            z-index:10;
-            box-shadow:0 2px 16px rgba(60,40,20,0.06);
-            transition:transform 0.3s ease;
-            color:var(--text-secondary);
+            position:fixed;bottom:100px;right:20px;width:44px;height:44px;border-radius:50%;
+            background:var(--card-bg);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+            border:1px solid var(--card-border);cursor:pointer;font-size:20px;
+            display:flex;align-items:center;justify-content:center;z-index:10;
+            box-shadow:0 2px 16px rgba(60,40,20,0.06);transition:transform 0.3s ease;color:var(--text-secondary);
         }
         .floating-toc-btn:hover{transform:scale(1.08)}
-        .toc-overlay{
-            position:fixed;top:0;left:0;width:100%;height:100%;
-            background:rgba(0,0,0,0.2);z-index:20;display:none;
-        }
+        .toc-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.2);z-index:20;display:none}
         .toc-overlay.show{display:block}
         .toc-popup{
-            position:fixed;bottom:160px;right:20px;
-            background:var(--card-bg);
-            backdrop-filter:blur(14px);
-            -webkit-backdrop-filter:blur(14px);
-            border:1px solid var(--card-border);
-            border-radius:16px;padding:18px 16px;
-            z-index:21;display:none;
-            box-shadow:0 4px 24px rgba(60,40,20,0.08);
-            min-width:180px;
+            position:fixed;bottom:160px;right:20px;background:var(--card-bg);
+            backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+            border:1px solid var(--card-border);border-radius:16px;padding:18px 16px;
+            z-index:21;display:none;box-shadow:0 4px 24px rgba(60,40,20,0.08);min-width:180px;
         }
         .toc-popup.show{display:block}
-        .toc-popup a{
-            display:block;padding:6px 10px;border-radius:8px;
-            text-decoration:none;color:var(--text-secondary);
-            font-size:14px;letter-spacing:1px;
-            transition:background 0.2s;
+        .toc-popup span{
+            display:block;padding:6px 10px;border-radius:8px;cursor:pointer;
+            color:var(--text-secondary);font-size:14px;letter-spacing:1px;transition:background 0.2s;
         }
-        .toc-popup a:hover{background:rgba(180,160,130,0.1);color:var(--text-primary)}
+        .toc-popup span:hover{background:rgba(180,160,130,0.1);color:var(--text-primary)}
 
         @media(max-width:480px){
-            .page-title{font-size:17px}
-            .note-table td{font-size:14px;padding:6px 8px}
-            .text-block{font-size:15px}
-            .cause-list li{font-size:15px}
-            .floating-toc-btn{bottom:90px;right:14px}
-            .toc-popup{bottom:150px;right:14px}
+            .page-title{font-size:17px}.note-table td{font-size:14px;padding:6px 8px}
+            .text-block{font-size:15px}.cause-list li{font-size:15px}
+            .floating-toc-btn{bottom:90px;right:14px}.toc-popup{bottom:150px;right:14px}
         }
     </style>
 </head>
 <body>
-    <div class="mountains"><div class="mountain m1"></div><div class="mountain m2"></div><div class="mountain m3"></div></div>
-    <div class="clouds"><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div></div>
-    <div class="birds"><span class="bird">⩳</span><span class="bird">⩳</span><span class="bird">⩳</span></div>
-    <div class="container">
-        <div class="top-bar">
-            <a href="筆記目錄.html" class="back-link">← 返回</a>
-            <span class="page-indicator-top" id="page-indicator-top">1 / 9</span>
-        </div>
-        <div class="page-title">晚清改革</div>
-
-        <!-- Page 1 -->
-        <div class="page active" data-page="1">
-            <div class="page-subtitle">背景 · 推行原因</div>
-            <div class="content-area">
-                <div class="text-block">
-                    <strong>背景</strong><br>
-                    1900年義和團之亂與八國聯軍之役後，清廷於1901年簽訂《辛丑條約》，需賠償4.5億兩、拆毁炮台、允許外國駐兵、設立使館區，並廢除總理衙門改設外務部。戰敗的屈辱促使慈禧不得不推行改革。
-                </div>
-                <div class="text-block"><strong>推行原因</strong></div>
-                <ul class="cause-list">
-                    <li>戰敗的恥辱：義和團與八國聯軍由慈禧引發，成為政治污點，藉改革挽回民心及建立政治形象</li>
-                    <li>革命勢力增加，清廷欲透過改革鞏固統治</li>
-                    <li>改革派興起，保守派支持</li>
-                    <li>效法明治維新，獲得西方認同</li>
-                    <li>慈禧痛恨革命多於改革</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Page 2: 政治 -->
-        <div class="page" data-page="2">
-            <div class="page-subtitle">改革措施 · 政治方面</div>
-            <div class="content-area">
-                <table class="note-table">
-                    <tr><td>▸<br>措施</td><td>① 成立督辦政務處，取消6部，另建11個新部門<br>② 設立外務部<br>③ 成立省諮議局，引入選舉制<br>④ 頒布《欽定憲法大綱》，宣布9年立憲，成立內閣（13名大臣僅4名漢人）</td></tr>
-                    <tr><td>▸<br>成效</td><td>▹ 引入西方制度，踏出現代化第一步<br>▹ 選舉制是史無前例突破</td></tr>
-                    <tr><td>▸<br>局限</td><td>▪ 憲法仍以皇帝為中心，無分享權力概念<br>▪ 官員貪污未改善<br>▪ 人民認為無誠意轉投革命</td></tr>
-                </table>
-            </div>
-        </div>
-
-        <!-- Page 3: 經濟 -->
-        <div class="page" data-page="3">
-            <div class="page-subtitle">改革措施 · 經濟方面</div>
-            <div class="content-area">
-                <table class="note-table">
-                    <tr><td>▸<br>措施</td><td>① 鼓勵民間開辦實業，成立農工商部和郵傳部<br>② 設立農業學院和工業學院<br>③ 開辦國營和私營銀行<br>④ 推行「鐵路國有化」，將鐵路權益出售給列強</td></tr>
-                    <tr><td>▸<br>成效</td><td>▹ 引入西方商業法則，建立金融體系<br>▹ 機械化生產走向工業化<br>▹ 建立現代交通網絡</td></tr>
-                    <tr><td>▸<br>局限</td><td>▪ 未廢不平等條約，外國商品低關稅進口<br>▪ 未脫傳統農業模式<br>▪ 鐵路國有化損害國家利益</td></tr>
-                </table>
-            </div>
-        </div>
-
-        <!-- Page 4: 司法 -->
-        <div class="page" data-page="4">
-            <div class="page-subtitle">改革措施 · 司法方面</div>
-            <div class="content-area">
-                <table class="note-table">
-                    <tr><td>▸<br>措施</td><td>① 成立全新司法制度取代刑部<br>② 起草商業法和新刑事法<br>③ 禁止虐囚逼供</td></tr>
-                    <tr><td>▸<br>成效</td><td>▹ 嘗試建立法治基礎和現代化司法制度</td></tr>
-                    <tr><td>▸<br>局限</td><td>▪ 仍以人治為主，憲法寫明「皇帝神聖不可侵犯」</td></tr>
-                </table>
-            </div>
-        </div>
-
-        <!-- Page 5: 軍事 -->
-        <div class="page" data-page="5">
-            <div class="page-subtitle">改革措施 · 軍事方面</div>
-            <div class="content-area">
-                <table class="note-table">
-                    <tr><td>▸<br>措施</td><td>① 裁減冗員，解散綠營兵，廢除武舉<br>② 設立練兵處，組織及訓練新軍<br>③ 成立軍事學院，派遣軍官留學海外<br>④ 1906年軍部取代兵部</td></tr>
-                    <tr><td>▸<br>成效</td><td>▹ 建立現代化海陸軍隊<br>▹ 改良武器，建立系統軍事培訓</td></tr>
-                    <tr><td>▸<br>局限</td><td>▪ 新軍由袁世凱掌兵培植親信<br>▪ 資金不足，容許地方增收稅項引起反感<br>▪ 部分留學生投向革命</td></tr>
-                </table>
-            </div>
-        </div>
-
-        <!-- Page 6: 教育 -->
-        <div class="page" data-page="6">
-            <div class="page-subtitle">改革措施 · 教育方面</div>
-            <div class="content-area">
-                <table class="note-table">
-                    <tr><td>▸<br>措施</td><td>① 成立全國學校制度（小學、中學、大學），以西方及日本制度為基礎<br>② 建立中西混合課程<br>③ 1902年取消八股文<br>④ 1905年廢除科舉</td></tr>
-                    <tr><td>▸<br>成效</td><td>▹ 建立現代化教育制度，引入西式普及教育<br>▹ 派遣留學生，知識分子湧現</td></tr>
-                    <tr><td>▸<br>局限</td><td>▪ 教師未熟悉西學，各地辦學條件不一<br>▪ 廢科舉令士紳不滿走向革命<br>▪ 部分留學生受西方思想影響投向革命</td></tr>
-                </table>
-            </div>
-        </div>
-
-        <!-- Page 7: 社會 -->
-        <div class="page" data-page="7">
-            <div class="page-subtitle">改革措施 · 社會方面</div>
-            <div class="content-area">
-                <table class="note-table">
-                    <tr><td>▸<br>措施</td><td>① 容許不纏足及禁止吸食鴉片<br>② 容許滿漢通婚</td></tr>
-                    <tr><td>▸<br>成效</td><td>▹ 扭轉不良社會風氣，實踐人道主義<br>▹ 提升人民質素及勞動力<br>▹ 突破傳統陋習</td></tr>
-                    <tr><td>▸<br>局限</td><td>▪ 男女不能同校，男女平等不為大眾接受<br>▪ 婚姻自由觀念仍未普及<br>▪ 婦女地位仍待提升</td></tr>
-                </table>
-            </div>
-        </div>
-
-        <!-- Page 8: 失敗原因1 -->
-        <div class="page" data-page="8">
-            <div class="page-subtitle">失敗原因</div>
-            <div class="content-area">
-                <table class="note-table">
-                    <tr><td>▸<br>缺乏領導人物</td><td>▪ 滿清貴族（奕劻、榮祿）貪污腐敗，庸碌無能<br>▪ 李鴻章、劉坤一等有經驗的大臣相繼去世<br>▪ 溥儀年幼，攝政的載灃欠領導能力，更迫走袁世凱<br>▪ 後期清廷無核心人物主持新政</td></tr>
-                    <tr><td>▸<br>吏治敗壞</td><td>▪ 官員中飽私囊，貪污受賄風氣嚴重<br>▪ 新政未能肅清吏治，民眾認為清廷腐敗無可救藥<br>▪ 轉而支持革命</td></tr>
-                </table>
-            </div>
-        </div>
-
-        <!-- Page 9: 失敗原因2 -->
-        <div class="page" data-page="9">
-            <div class="page-subtitle">失敗原因</div>
-            <div class="content-area">
-                <table class="note-table">
-                    <tr><td>▸<br>缺乏改革誠意</td><td>▪ 改革僅為鞏固滿清統治、削弱漢族勢力<br>▪ 9年成立「皇族內閣」被視為騙局<br>▪ 漢人意識到非真誠現代化，轉投革命</td></tr>
-                    <tr><td>▸<br>資金不足</td><td>▪ 巨額賠款令財政緊絀<br>▪ 陸軍編練、學校建設難以完成<br>▪ 收回鐵路權觸發辛亥革命</td></tr>
-                </table>
-            </div>
-        </div>
-
-        <div class="nav-bar">
-            <button class="nav-btn" id="prev-btn" onclick="changePage(-1)" disabled>◀ 上一頁</button>
-            <span class="page-num" id="page-num">1 / 9</span>
-            <button class="nav-btn" id="next-btn" onclick="changePage(1)">下一頁 ▶</button>
-        </div>
-        <div class="footer">── Shelly Liu ──</div>
+<div class="mountains"><div class="mountain m1"></div><div class="mountain m2"></div><div class="mountain m3"></div></div>
+<div class="clouds"><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div></div>
+<div class="birds"><span class="bird">⩳</span><span class="bird">⩳</span><span class="bird">⩳</span></div>
+<div class="container">
+    <div class="top-bar">
+        <a href="筆記目錄.html" class="back-link">← 返回</a>
+        <span class="page-indicator-top" id="page-indicator-top">1 / 9</span>
     </div>
+    <div class="page-title">晚清改革</div>
 
-    <!-- Floating TOC -->
-    <button class="floating-toc-btn" id="toc-btn" onclick="toggleTOC()" title="目錄">☰</button>
-    <div class="toc-overlay" id="toc-overlay" onclick="toggleTOC()"></div>
-    <div class="toc-popup" id="toc-popup">
-        <a href="晚清改革筆記.html#背景" onclick="jumpToPage(1)">背景 · 推行原因</a>
-        <a href="晚清改革筆記.html#政治" onclick="jumpToPage(2)">政治方面</a>
-        <a href="晚清改革筆記.html#經濟" onclick="jumpToPage(3)">經濟方面</a>
-        <a href="晚清改革筆記.html#司法" onclick="jumpToPage(4)">司法方面</a>
-        <a href="晚清改革筆記.html#軍事" onclick="jumpToPage(5)">軍事方面</a>
-        <a href="晚清改革筆記.html#教育" onclick="jumpToPage(6)">教育方面</a>
-        <a href="晚清改革筆記.html#社會" onclick="jumpToPage(7)">社會方面</a>
-        <a href="晚清改革筆記.html#失敗原因" onclick="jumpToPage(8)">失敗原因</a>
+    <div class="page active" data-page="1">
+        <div class="page-subtitle">背景 · 推行原因</div>
+        <div class="content-area">
+            <div class="text-block"><strong>背景</strong><br>1900年義和團之亂與八國聯軍之役後，清廷於1901年簽訂《辛丑條約》，需賠償4.5億兩、拆毁炮台、允許外國駐兵、設立使館區，並廢除總理衙門改設外務部。戰敗的屈辱促使慈禧不得不推行改革。</div>
+            <div class="text-block"><strong>推行原因</strong></div>
+            <ul class="cause-list">
+                <li>戰敗的恥辱：義和團與八國聯軍由慈禧引發，成為政治污點，藉改革挽回民心及建立政治形象</li>
+                <li>革命勢力增加，清廷欲透過改革鞏固統治</li>
+                <li>改革派興起，保守派支持</li>
+                <li>效法明治維新，獲得西方認同</li>
+                <li>慈禧痛恨革命多於改革</li>
+            </ul>
+        </div>
     </div>
+    <div class="page" data-page="2"><div class="page-subtitle">改革措施 · 政治方面</div><div class="content-area"><table class="note-table"><tr><td>▸<br>措施</td><td>① 成立督辦政務處，取消6部，另建11個新部門<br>② 設立外務部<br>③ 成立省諮議局，引入選舉制<br>④ 頒布《欽定憲法大綱》，宣布9年立憲，成立內閣（13名大臣僅4名漢人）</td></tr><tr><td>▸<br>成效</td><td>▹ 引入西方制度，踏出現代化第一步<br>▹ 選舉制是史無前例突破</td></tr><tr><td>▸<br>局限</td><td>▪ 憲法仍以皇帝為中心，無分享權力概念<br>▪ 官員貪污未改善<br>▪ 人民認為無誠意轉投革命</td></tr></table></div></div>
+    <div class="page" data-page="3"><div class="page-subtitle">改革措施 · 經濟方面</div><div class="content-area"><table class="note-table"><tr><td>▸<br>措施</td><td>① 鼓勵民間開辦實業，成立農工商部和郵傳部<br>② 設立農業學院和工業學院<br>③ 開辦國營和私營銀行<br>④ 推行「鐵路國有化」，將鐵路權益出售給列強</td></tr><tr><td>▸<br>成效</td><td>▹ 引入西方商業法則，建立金融體系<br>▹ 機械化生產走向工業化<br>▹ 建立現代交通網絡</td></tr><tr><td>▸<br>局限</td><td>▪ 未廢不平等條約，外國商品低關稅進口<br>▪ 未脫傳統農業模式<br>▪ 鐵路國有化損害國家利益</td></tr></table></div></div>
+    <div class="page" data-page="4"><div class="page-subtitle">改革措施 · 司法方面</div><div class="content-area"><table class="note-table"><tr><td>▸<br>措施</td><td>① 成立全新司法制度取代刑部<br>② 起草商業法和新刑事法<br>③ 禁止虐囚逼供</td></tr><tr><td>▸<br>成效</td><td>▹ 嘗試建立法治基礎和現代化司法制度</td></tr><tr><td>▸<br>局限</td><td>▪ 仍以人治為主，憲法寫明「皇帝神聖不可侵犯」</td></tr></table></div></div>
+    <div class="page" data-page="5"><div class="page-subtitle">改革措施 · 軍事方面</div><div class="content-area"><table class="note-table"><tr><td>▸<br>措施</td><td>① 裁減冗員，解散綠營兵，廢除武舉<br>② 設立練兵處，組織及訓練新軍<br>③ 成立軍事學院，派遣軍官留學海外<br>④ 1906年軍部取代兵部</td></tr><tr><td>▸<br>成效</td><td>▹ 建立現代化海陸軍隊<br>▹ 改良武器，建立系統軍事培訓</td></tr><tr><td>▸<br>局限</td><td>▪ 新軍由袁世凱掌兵培植親信<br>▪ 資金不足，容許地方增收稅項引起反感<br>▪ 部分留學生投向革命</td></tr></table></div></div>
+    <div class="page" data-page="6"><div class="page-subtitle">改革措施 · 教育方面</div><div class="content-area"><table class="note-table"><tr><td>▸<br>措施</td><td>① 成立全國學校制度（小學、中學、大學），以西方及日本制度為基礎<br>② 建立中西混合課程<br>③ 1902年取消八股文<br>④ 1905年廢除科舉</td></tr><tr><td>▸<br>成效</td><td>▹ 建立現代化教育制度，引入西式普及教育<br>▹ 派遣留學生，知識分子湧現</td></tr><tr><td>▸<br>局限</td><td>▪ 教師未熟悉西學，各地辦學條件不一<br>▪ 廢科舉令士紳不滿走向革命<br>▪ 部分留學生受西方思想影響投向革命</td></tr></table></div></div>
+    <div class="page" data-page="7"><div class="page-subtitle">改革措施 · 社會方面</div><div class="content-area"><table class="note-table"><tr><td>▸<br>措施</td><td>① 容許不纏足及禁止吸食鴉片<br>② 容許滿漢通婚</td></tr><tr><td>▸<br>成效</td><td>▹ 扭轉不良社會風氣，實踐人道主義<br>▹ 提升人民質素及勞動力<br>▹ 突破傳統陋習</td></tr><tr><td>▸<br>局限</td><td>▪ 男女不能同校，男女平等不為大眾接受<br>▪ 婚姻自由觀念仍未普及<br>▪ 婦女地位仍待提升</td></tr></table></div></div>
+    <div class="page" data-page="8"><div class="page-subtitle">失敗原因</div><div class="content-area"><table class="note-table"><tr><td>▸<br>缺乏領導人物</td><td>▪ 滿清貴族（奕劻、榮祿）貪污腐敗，庸碌無能<br>▪ 李鴻章、劉坤一等有經驗的大臣相繼去世<br>▪ 溥儀年幼，攝政的載灃欠領導能力，更迫走袁世凱<br>▪ 後期清廷無核心人物主持新政</td></tr><tr><td>▸<br>吏治敗壞</td><td>▪ 官員中飽私囊，貪污受賄風氣嚴重<br>▪ 新政未能肅清吏治，民眾認為清廷腐敗無可救藥<br>▪ 轉而支持革命</td></tr></table></div></div>
+    <div class="page" data-page="9"><div class="page-subtitle">失敗原因</div><div class="content-area"><table class="note-table"><tr><td>▸<br>缺乏改革誠意</td><td>▪ 改革僅為鞏固滿清統治、削弱漢族勢力<br>▪ 9年成立「皇族內閣」被視為騙局<br>▪ 漢人意識到非真誠現代化，轉投革命</td></tr><tr><td>▸<br>資金不足</td><td>▪ 巨額賠款令財政緊絀<br>▪ 陸軍編練、學校建設難以完成<br>▪ 收回鐵路權觸發辛亥革命</td></tr></table></div></div>
 
-    <script>
-        let currentPage=1;
-        const totalPages=9;
-        const pages=document.querySelectorAll('.page');
-        const prevBtn=document.getElementById('prev-btn');
-        const nextBtn=document.getElementById('next-btn');
-        const pageNum=document.getElementById('page-num');
-        const pageIndicatorTop=document.getElementById('page-indicator-top');
-        let touchStartX=0;
-        let touchStartY=0;
+    <div class="nav-bar">
+        <button class="nav-btn" id="prev-btn" onclick="changePage(-1)" disabled>◀ 上一頁</button>
+        <span class="page-num" id="page-num">1 / 9</span>
+        <button class="nav-btn" id="next-btn" onclick="changePage(1)">下一頁 ▶</button>
+    </div>
+    <div class="footer">── Shelly Liu ──</div>
+</div>
 
-        function showPage(n){
-            pages.forEach(p=>p.classList.remove('active'));
-            const target=document.querySelector(`[data-page="${n}"]`);
-            if(target)target.classList.add('active');
-            pageNum.textContent=n+' / '+totalPages;
-            pageIndicatorTop.textContent=n+' / '+totalPages;
-            prevBtn.disabled=n===1;
-            nextBtn.disabled=n===totalPages;
-            currentPage=n;
+<button class="floating-toc-btn" id="toc-btn" onclick="toggleTOC()" title="目錄">☰</button>
+<div class="toc-overlay" id="toc-overlay" onclick="toggleTOC()"></div>
+<div class="toc-popup" id="toc-popup">
+    <span onclick="jumpToPage(1)">背景 · 推行原因</span>
+    <span onclick="jumpToPage(2)">政治方面</span>
+    <span onclick="jumpToPage(3)">經濟方面</span>
+    <span onclick="jumpToPage(4)">司法方面</span>
+    <span onclick="jumpToPage(5)">軍事方面</span>
+    <span onclick="jumpToPage(6)">教育方面</span>
+    <span onclick="jumpToPage(7)">社會方面</span>
+    <span onclick="jumpToPage(8)">失敗原因</span>
+</div>
+
+<script>
+    let currentPage=1;
+    const totalPages=9;
+    const pages=document.querySelectorAll('.page');
+    const prevBtn=document.getElementById('prev-btn');
+    const nextBtn=document.getElementById('next-btn');
+    const pageNum=document.getElementById('page-num');
+    const pageIndicatorTop=document.getElementById('page-indicator-top');
+    let touchStartX=0;
+    let touchStartY=0;
+
+    function showPage(n){
+        pages.forEach(p=>p.classList.remove('active'));
+        const target=document.querySelector(`[data-page="${n}"]`);
+        if(target)target.classList.add('active');
+        pageNum.textContent=n+' / '+totalPages;
+        pageIndicatorTop.textContent=n+' / '+totalPages;
+        prevBtn.disabled=n===1;
+        nextBtn.disabled=n===totalPages;
+        currentPage=n;
+    }
+
+    function changePage(dir){
+        const newPage=currentPage+dir;
+        if(newPage>=1&&newPage<=totalPages)showPage(newPage);
+    }
+
+    function jumpToPage(n){
+        showPage(n);
+        toggleTOC();
+    }
+
+    function getPageFromHash(){
+        const hash=window.location.hash;
+        if(!hash)return -1;
+        const hashMap={
+            '#背景':1,'#原因':1,
+            '#政治':2,'#經濟':3,'#司法':4,
+            '#軍事':5,'#教育':6,'#社會':7,
+            '#失敗原因':8,'#措施':2
+        };
+        if(hashMap[hash])return hashMap[hash];
+        return -1;
+    }
+
+    document.addEventListener('touchstart',e=>{
+        touchStartX=e.touches[0].clientX;
+        touchStartY=e.touches[0].clientY;
+    },{passive:true});
+
+    document.addEventListener('touchend',e=>{
+        const dx=e.changedTouches[0].clientX-touchStartX;
+        const dy=e.changedTouches[0].clientY-touchStartY;
+        if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>50){
+            if(dx<-40)changePage(1);
+            else if(dx>40)changePage(-1);
         }
+    });
 
-        function changePage(dir){
-            const newPage=currentPage+dir;
-            if(newPage>=1&&newPage<=totalPages)showPage(newPage);
-        }
+    function toggleTOC(){
+        const overlay=document.getElementById('toc-overlay');
+        const popup=document.getElementById('toc-popup');
+        overlay.classList.toggle('show');
+        popup.classList.toggle('show');
+    }
 
-        function jumpToPage(n){
-            showPage(n);
-            toggleTOC();
-        }
+    const targetPage=getPageFromHash();
+    if(targetPage>0)showPage(targetPage);
 
-        function getPageFromHash(){
-            const hash=window.location.hash;
-            if(!hash)return 1;
-            const hashMap={
-                '#背景':1,'#原因':1,
-                '#政治':2,'#經濟':3,'#司法':4,
-                '#軍事':5,'#教育':6,'#社會':7,
-                '#失敗原因':8,'#措施':2
-            };
-            if(hashMap[hash])return hashMap[hash];
-            return 1;
-        }
-
-        document.addEventListener('touchstart',e=>{
-            touchStartX=e.touches[0].clientX;
-            touchStartY=e.touches[0].clientY;
-        },{passive:true});
-
-        document.addEventListener('touchend',e=>{
-            const dx=e.changedTouches[0].clientX-touchStartX;
-            const dy=e.changedTouches[0].clientY-touchStartY;
-            if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>50){
-                if(dx<-40)changePage(1);
-                else if(dx>40)changePage(-1);
-            }
-        });
-
-        window.addEventListener('hashchange',()=>{
-            showPage(getPageFromHash());
-        });
-
-        function toggleTOC(){
-            const overlay=document.getElementById('toc-overlay');
-            const popup=document.getElementById('toc-popup');
-            overlay.classList.toggle('show');
-            popup.classList.toggle('show');
-        }
-
-        window.addEventListener('load',()=>{
-            showPage(getPageFromHash());
-        });
-
-        showPage(getPageFromHash());
-    </script>
+    window.addEventListener('hashchange',()=>{
+        const tp=getPageFromHash();
+        if(tp>0)showPage(tp);
+    });
+</script>
 </body>
 </html>
