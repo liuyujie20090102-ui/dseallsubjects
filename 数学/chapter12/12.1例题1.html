@@ -15,8 +15,6 @@
             --text-muted: #a09880;
             --gold: #8b6914;
             --card-bg: rgba(255,253,248,0.75);
-            --card-border: rgba(180,160,130,0.3);
-            --shadow-sm: 0 2px 16px rgba(60,40,20,0.04);
             --font-cn: "Noto Serif TC","PingFang SC","Microsoft YaHei","KaiTi",serif;
             --font-en: "Inter","Helvetica Neue",sans-serif;
         }
@@ -61,7 +59,8 @@
         .back-link{display:inline-block;color:var(--text-muted);text-decoration:none;font-size:14px;margin-bottom:24px;letter-spacing:1px}
         .back-link:hover{color:var(--gold)}
         .page-title{font-size:20px;font-weight:700;color:var(--text-primary);letter-spacing:2px;margin-bottom:20px;text-align:center}
-        .svg-wrap{text-align:center;margin-bottom:16px}
+        .img-wrap{text-align:center;margin-bottom:16px}
+        .img-wrap img{max-width:100%;border-radius:12px;box-shadow:0 2px 12px rgba(60,40,20,0.06)}
         .given-info{font-size:14px;color:var(--text-secondary);line-height:2;margin-bottom:20px;padding:12px 16px;background:rgba(255,253,248,0.6);border-radius:12px}
         .given-info span{font-family:var(--font-en);color:var(--text-primary)}
         .step-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px}
@@ -88,24 +87,8 @@
         <a href="12.1例题主页.html" class="back-link">← 例题主页</a>
         <div class="page-title">例题 1 · 对角互补</div>
         
-        <div class="svg-wrap">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
-                <circle cx="200" cy="200" r="150" fill="none" stroke="#5b8def" stroke-width="2"/>
-                <polygon points="161,55 330,125 200,310 59,251" fill="rgba(91,141,239,0.06)" stroke="#5c5347" stroke-width="2"/>
-                <line x1="59" y1="251" x2="330" y2="125" stroke="#a09880" stroke-width="1.5" stroke-dasharray="4 3"/>
-                <path d="M 172,62 A 18,18 0 0,1 158,72" fill="none" stroke="#5b8def" stroke-width="1.5"/>
-                <path d="M 188,300 A 18,18 0 0,1 210,295" fill="none" stroke="#5b8def" stroke-width="1.5"/>
-                <path d="M 72,248 A 18,18 0 0,1 65,235" fill="none" stroke="#5b8def" stroke-width="1.5"/>
-                <path d="M 318,120 A 18,18 0 0,1 315,138" fill="none" stroke="#5b8def" stroke-width="1.5"/>
-                <text x="148" y="42" font-family="Arial" font-size="20" fill="#2c2416" font-weight="700">A</text>
-                <text x="340" y="130" font-family="Arial" font-size="20" fill="#2c2416" font-weight="700">B</text>
-                <text x="200" y="342" font-family="Arial" font-size="20" fill="#2c2416" font-weight="700">C</text>
-                <text x="30" y="260" font-family="Arial" font-size="20" fill="#2c2416" font-weight="700">D</text>
-                <text x="165" y="85" font-family="Arial" font-size="18" fill="#2c2416" font-style="italic">x</text>
-                <text x="198" y="285" font-family="Arial" font-size="18" fill="#2c2416" font-style="italic">y</text>
-                <text x="20" y="220" font-family="Arial" font-size="16" fill="#2c2416">40°</text>
-                <text x="300" y="108" font-family="Arial" font-size="16" fill="#2c2416">20°</text>
-            </svg>
+        <div class="img-wrap">
+            <img src="12.1例题1图片(1).png" alt="例题 1 图">
         </div>
 
         <div class="given-info">
