@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>單詞挑戰 · DSE 學習站</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f7f4ed;
+            --text-primary: #2c2416;
+            --text-secondary: #5c5347;
+            --text-muted: #a09880;
+            --gold: #8b6914;
+            --gold-light: #c4a97d;
+            --correct: #2e7d32;
+            --wrong: #c62828;
+            --card-bg: rgba(255,253,248,0.8);
+            --font-cn: "Noto Serif TC","PingFang SC","Microsoft YaHei","KaiTi",serif;
+            --font-en: "Inter","Helvetica Neue",sans-serif;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{
+            background-color:var(--bg);
+            font-family:var(--font-cn);
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            padding:32px 20px 48px;
+            position:relative;
+            overflow-x:hidden;
+            -webkit-font-smoothing:antialiased;
+        }
+        body::before{
+            content:"";
+            position:fixed;top:0;left:0;width:100%;height:100%;
+            pointer-events:none;z-index:0;
+            background-image:
+                repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(139,119,80,0.012) 3px,rgba(139,119,80,0.012) 4px),
+                repeating-linear-gradient(90deg,transparent,transparent 5px,rgba(139,119,80,0.008) 5px,rgba(139,119,80,0.008) 6px);
+            opacity:0.7;
+        }
+        .mountains{position:fixed;bottom:0;left:0;width:100%;height:30%;pointer-events:none;z-index:0}
+        .mountain{position:absolute;bottom:0}
+        .m1{left:-8%;width:45%;height:55%;background:rgba(120,100,70,0.12);border-radius:55% 55% 0 0}
+        .m2{left:22%;width:50%;height:68%;background:rgba(100,80,55,0.16);border-radius:50% 48% 0 0}
+        .m3{right:-8%;width:42%;height:60%;background:rgba(80,60,40,0.2);border-radius:52% 52% 0 0}
+        .clouds{position:fixed;bottom:12%;left:0;width:100%;height:18%;pointer-events:none;z-index:0}
+        .cloud{position:absolute;background:rgba(255,252,245,0.7);border-radius:50%;filter:blur(28px)}
+        .c1{width:260px;height:50px;left:8%;bottom:30px;opacity:0.5}
+        .c2{width:220px;height:42px;right:12%;bottom:15px;opacity:0.4}
+        .c3{width:180px;height:35px;left:50%;bottom:8px;opacity:0.35;transform:translateX(-50%)}
+        .birds{position:fixed;top:12%;right:12%;pointer-events:none;z-index:0;opacity:0.3}
+        .bird{display:inline-block;font-size:13px;margin:0 5px;animation:birdFloat 6s ease-in-out infinite}
+        .bird:nth-child(2){animation-delay:1.5s;font-size:9px}
+        .bird:nth-child(3){animation-delay:3s;font-size:11px}
+        @keyframes birdFloat{0%,100%{transform:translateY(0) translateX(0)}25%{transform:translateY(-7px) translateX(3px)}50%{transform:translateY(-2px) translateX(8px)}75%{transform:translateY(-9px) translateX(3px)}}
+        .container{position:relative;z-index:1;width:100%;max-width:650px}
+        .back-link{display:inline-block;color:var(--text-muted);text-decoration:none;font-size:14px;margin-bottom:24px;letter-spacing:1px}
+        .back-link:hover{color:var(--gold)}
+        .game-area{
+            background:rgba(255,253,248,0.75);backdrop-filter:blur(10px);
+            -webkit-backdrop-filter:blur(10px);
+            border:1px solid rgba(180,160,130,0.3);border-radius:16px;
+            padding:32px 24px;margin-bottom:24px;
+        }
+        .game-progress{text-align:center;font-size:15px;color:var(--gold);letter-spacing:3px;margin-bottom:24px}
+        .game-question{text-align:center;font-size:16px;color:var(--text-primary);margin-bottom:24px;line-height:2}
+        .slots{display:flex;justify-content:center;gap:16px;margin-bottom:28px;flex-wrap:wrap}
+        .slot{
+            min-width:90px;height:48px;background:rgba(255,253,248,0.8);border:2px dashed rgba(180,160,130,0.5);
+            border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+            font-size:15px;color:var(--text-primary);cursor:pointer;transition:all 0.2s;padding:4px 12px;
+        }
+        .slot.filled{background:rgba(139,105,20,0.08);border:2px solid var(--gold);font-weight:600}
+        .slot .meaning{font-size:11px;color:var(--text-muted);margin-top:2px}
+        .options{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:28px}
+        .opt{
+            padding:10px 18px;background:rgba(255,253,248,0.8);border:1px solid rgba(180,160,130,0.4);
+            border-radius:12px;font-size:14px;color:var(--text-primary);cursor:pointer;transition:all 0.2s;
+            text-align:center;min-width:80px;
+        }
+        .opt .opt-meaning{font-size:11px;color:var(--text-muted);margin-top:3px}
+        .opt:hover{background:rgba(180,160,130,0.08)}
+        .opt.selected{background:rgba(139,105,20,0.12);border-color:var(--gold);font-weight:600}
+        .opt.used{opacity:0.3;pointer-events:none}
+        .choice-list{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
+        .choice{
+            padding:14px 18px;background:rgba(255,253,248,0.8);border:1px solid rgba(180,160,130,0.4);
+            border-radius:12px;font-size:15px;color:#5c5347;cursor:pointer;transition:all 0.2s;
+        }
+        .choice:hover{background:rgba(180,160,130,0.08)}
+        .choice.correct{border-color:var(--correct);background:rgba(46,125,50,0.06)}
+        .choice.wrong{border-color:var(--wrong);background:rgba(198,40,40,0.04)}
+        .feedback{text-align:center;font-size:15px;margin:16px 0;line-height:2;min-height:24px;color:var(--text-secondary)}
+        .action-row{display:flex;justify-content:center;gap:16px;margin-top:20px}
+        .action-btn{
+            padding:12px 24px;background:rgba(255,253,248,0.7);border:1px solid rgba(180,160,130,0.25);
+            border-radius:24px;cursor:pointer;font-family:var(--font-cn);font-size:14px;color:#5c5347;
+            letter-spacing:1px;transition:all 0.3s;
+        }
+        .action-btn:hover{background:rgba(180,160,130,0.12);color:#2c2416}
+        .action-btn.primary{background:var(--gold);color:#fff;border:none}
+        .action-btn.primary:hover{background:#6b4f0f}
+        .summary-box{text-align:center;line-height:2.4;font-size:15px;color:#5c5347}
+        .summary-box .big{font-size:24px;font-weight:700;color:var(--text-primary);margin-bottom:8px}
+        .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:40px}
+        @media(max-width:480px){.game-area{padding:20px 14px}}
+    </style>
+</head>
+<body>
+    <div class="mountains"><div class="mountain m1"></div><div class="mountain m2"></div><div class="mountain m3"></div></div>
+    <div class="clouds"><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div></div>
+    <div class="birds"><span class="bird">⩳</span><span class="bird">⩳</span><span class="bird">⩳</span></div>
+    <div class="container">
+        <a href="词汇详情.html" class="back-link" id="back-link">← 返回詳情</a>
+        <div id="game-content"></div>
+        <div class="footer">── Shelly Liu ──</div>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const wordId = params.get('id');
+        document.getElementById('back-link').href = '词汇详情.html?id=' + encodeURIComponent(wordId || '');
+
+        const dataFiles = ['论证数据.js'];
+        let currentWord = null;
+        let gameState = { level: 1, correct: 0, selectedOpt: null, slots: [], formIndex: 0 };
+
+        function findWordById(id) {
+            if (typeof 论证词汇数据 !== 'undefined') {
+                const found = 论证词汇数据.find(item => item.id === id);
+                if (found) return found;
+            }
+            return null;
+        }
+
+        function startGame() {
+            const word = findWordById(wordId);
+            if (!word) {
+                document.getElementById('game-content').innerHTML = '<div class="game-area"><div class="feedback">找不到詞彙</div></div>';
+                return;
+            }
+            currentWord = word;
+            gameState = { level: 1, correct: 0, selectedOpt: null, slots: [], formIndex: 0 };
+            renderLevel();
+        }
+
+        function renderLevel() {
+            const container = document.getElementById('game-content');
+            const lv = gameState.level;
+            const dots = ['●','●','●','●','●'];
+            for (let i = 0; i < 5; i++) dots[i] = i < lv-1 ? '●' : (i === lv-1 ? '●' : '○');
+            const progress = dots.join('') + '  第 ' + lv + ' 關';
+
+            let html = '<div class="game-area">';
+            html += '<div class="game-progress">' + progress + '</div>';
+
+            if (lv === 1) html += renderLevel1();
+            else if (lv === 2) html += renderLevel2();
+            else if (lv === 3) html += renderLevel3();
+            else if (lv === 4) html += renderLevel4();
+            else if (lv === 5) html += renderLevel5();
+            else html += renderSummary();
+
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function renderLevel1() {
+            if (!currentWord.词根拆解) { gameState.level++; renderLevel(); return ''; }
+            const data = currentWord.词根拆解;
+            gameState.slots = new Array(data.部件.length).fill(null);
+            const pool = data.部件.map((p, i) => ({ text: p, meaning: data.含义[i], used: false }));
+            pool.sort(() => Math.random() - 0.5);
+            gameState._l1pool = pool;
+
+            let html = '<div class="game-question">' + data.提示 + '</div>';
+            html += '<div class="slots">';
+            for (let i = 0; i < gameState.slots.length; i++) {
+                html += '<div class="slot" id="slot-' + i + '" onclick="clickSlot(' + i + ')">？</div>';
+            }
+            html += '</div>';
+            html += '<div class="options">';
+            pool.forEach((p, i) => {
+                html += '<div class="opt" id="opt-' + i + '" onclick="clickOpt(' + i + ')">' + p.text + '<div class="opt-meaning">' + p.meaning + '</div></div>';
+            });
+            html += '</div>';
+            html += '<div class="action-row"><button class="action-btn" onclick="checkLevel1()">提交</button><button class="action-btn" onclick="skipLevel1()">不會</button></div>';
+            return html;
+        }
+
+        function clickSlot(idx) {
+            const pool = gameState._l1pool;
+            if (gameState.slots[idx] !== null) {
+                pool[gameState.slots[idx]].used = false;
+                document.getElementById('opt-' + gameState.slots[idx]).classList.remove('used');
+                gameState.slots[idx] = null;
+            }
+            if (gameState.selectedOpt !== null) {
+                gameState.slots[idx] = gameState.selectedOpt;
+                pool[gameState.selectedOpt].used = true;
+                document.getElementById('opt-' + gameState.selectedOpt).classList.add('used');
+                gameState.selectedOpt = null;
+            }
+            refreshSlots();
+        }
+
+        function clickOpt(idx) {
+            if (gameState._l1pool[idx].used) return;
+            document.querySelectorAll('.opt.selected').forEach(el => el.classList.remove('selected'));
+            gameState.selectedOpt = idx;
+            document.getElementById('opt-' + idx).classList.add('selected');
+            const empty = gameState.slots.findIndex(s => s === null);
+            if (empty >= 0) {
+                gameState.slots[empty] = idx;
+                gameState._l1pool[idx].used = true;
+                document.getElementById('opt-' + idx).classList.add('used');
+                gameState.selectedOpt = null;
+                refreshSlots();
+            }
+        }
+
+        function refreshSlots() {
+            const pool = gameState._l1pool;
+            for (let i = 0; i < gameState.slots.length; i++) {
+                const el = document.getElementById('slot-' + i);
+                if (gameState.slots[i] !== null) {
+                    el.innerHTML = pool[gameState.slots[i]].text + '<div class="meaning">' + pool[gameState.slots[i]].meaning + '</div>';
+                    el.classList.add('filled');
+                } else {
+                    el.innerHTML = '？';
+                    el.classList.remove('filled');
+                }
+            }
+        }
+
+        function checkLevel1() {
+            const data = currentWord.词根拆解;
+            const pool = gameState._l1pool;
+            let ok = gameState.slots.length === data.部件.length;
+            for (let i = 0; i < gameState.slots.length; i++) {
+                if (gameState.slots[i] === null || pool[gameState.slots[i]].text !== data.部件[i]) { ok = false; break; }
+            }
+            const fb = document.createElement('div'); fb.className = 'feedback';
+            const row = document.querySelector('.action-row');
+            if (ok) {
+                gameState.correct++;
+                fb.innerHTML = '✅ 正確！<br>' + data.解释;
+                row.innerHTML = '<button class="action-btn primary" onclick="nextLevel()">下一關 →</button>';
+            } else {
+                fb.innerHTML = '❌ 順序不對，點擊已填入的槽位可移除重排。';
+            }
+            document.querySelector('.game-area').appendChild(fb);
+        }
+
+        function skipLevel1() {
+            const data = currentWord.词根拆解;
+            const fb = document.createElement('div'); fb.className = 'feedback';
+            fb.innerHTML = '💡 正確答案：' + data.部件.join(' — ') + '<br>' + data.解释;
+            document.querySelector('.game-area').appendChild(fb);
+            document.querySelector('.action-row').innerHTML = '<button class="action-btn primary" onclick="nextLevel()">下一關 →</button>';
+        }
+
+        function nextLevel() { gameState.level++; renderLevel(); }
+
+        function renderLevel2() {
+            if (!currentWord.家族词 || currentWord.家族词.length < 2) { gameState.level++; renderLevel(); return ''; }
+            const family = currentWord.家族词;
+            const target = family[gameState.formIndex % family.length];
+            let html = '<div class="game-question">「' + currentWord.英文 + '」的 <b>' + target.形式 + '</b> 是什麼？</div>';
+            html += '<div class="choice-list">';
+            const choices = [target];
+            const others = family.filter(f => f.词 !== target.词);
+            while (choices.length < 4 && others.length > 0) {
+                choices.push(others.splice(Math.floor(Math.random() * others.length), 1)[0]);
+            }
+            choices.sort(() => Math.random() - 0.5);
+            choices.forEach(c => {
+                html += '<div class="choice" onclick="checkChoice(this,\'' + target.词 + '\',\'lv2\')">' + c.词 + ' <span style="color:#a09880;font-size:13px">(' + (c.中文||'') + ')</span></div>';
+            });
+            html += '</div>';
+            html += '<div class="action-row" id="lv2-actions" style="display:none"><button class="action-btn primary" onclick="nextLevel()">下一關 →</button></div>';
+            return html;
+        }
+
+        function renderLevel3() {
+            if (!currentWord.近义词 || currentWord.近义词.length === 0) { gameState.level++; renderLevel(); return ''; }
+            const target = currentWord.近义词[Math.floor(Math.random() * currentWord.近义词.length)];
+            return renderChoiceList(target.词, target.中文, 'lv3', '近義詞');
+        }
+
+        function renderLevel4() {
+            if (!currentWord.反义词 || currentWord.反义词.length === 0) { gameState.level++; renderLevel(); return ''; }
+            const target = currentWord.反义词[Math.floor(Math.random() * currentWord.反义词.length)];
+            return renderChoiceList(target.词, target.中文, 'lv4', '反義詞');
+        }
+
+        function renderChoiceList(correctEn, correctCn, lvId, type) {
+            let html = '<div class="game-question">哪個是 <b>' + currentWord.英文 + '</b> 的' + type + '？</div>';
+            html += '<div class="choice-list">';
+            const choices = [{ en: correctEn, cn: correctCn }];
+            const distractors = ['brilliant','fragile','eager','humble','gloomy','hollow','rapid','dull','vivid','rigid','timid','valid'];
+            while (choices.length < 4) {
+                const d = distractors.splice(Math.floor(Math.random() * distractors.length), 1)[0];
+                choices.push({ en: d, cn: d });
+            }
+            choices.sort(() => Math.random() - 0.5);
+            choices.forEach(c => {
+                html += '<div class="choice" onclick="checkChoice(this,\'' + correctEn + '\',\'' + lvId + '\')">' + c.en + ' <span style="color:#a09880;font-size:13px">(' + c.cn + ')</span></div>';
+            });
+            html += '</div>';
+            html += '<div class="action-row" id="' + lvId + '-actions" style="display:none"><button class="action-btn primary" onclick="nextLevel()">下一關 →</button></div>';
+            return html;
+        }
+
+        function renderLevel5() {
+            if (!currentWord.搭配 || currentWord.搭配.length === 0) { gameState.level++; renderLevel(); return ''; }
+            const target = currentWord.搭配[Math.floor(Math.random() * currentWord.搭配.length)];
+            let html = '<div class="game-question">哪個是 <b>' + currentWord.英文 + '</b> 真正的常用搭配？</div>';
+            html += '<div class="choice-list">';
+            const choices = [{ en: target.英文, cn: target.中文 }];
+            const fakes = [
+                { en: 'strongly ' + currentWord.英文, cn: '强烈' + currentWord.中文 },
+                { en: 'deeply ' + currentWord.英文, cn: '深度' + currentWord.中文 },
+                { en: 'completely ' + currentWord.英文, cn: '完全' + currentWord.中文 },
+                { en: 'widely ' + currentWord.英文, cn: '广泛' + currentWord.中文 }
+            ];
+            while (choices.length < 4) choices.push(fakes.shift());
+            choices.sort(() => Math.random() - 0.5);
+            choices.forEach(c => {
+                html += '<div class="choice" onclick="checkChoice(this,\'' + target.英文 + '\',\'lv5\')">' + c.en + ' <span style="color:#a09880;font-size:13px">(' + c.cn + ')</span></div>';
+            });
+            html += '</div>';
+            html += '<div class="action-row" id="lv5-actions" style="display:none"><button class="action-btn primary" onclick="showSummary()">查看結果 →</button></div>';
+            return html;
+        }
+
+        function checkChoice(el, correct, lvId) {
+            const all = el.parentElement.querySelectorAll('.choice');
+            all.forEach(c => c.style.pointerEvents = 'none');
+            if (el.textContent.trim().startsWith(correct)) { el.classList.add('correct'); gameState.correct++; }
+            else { el.classList.add('wrong'); all.forEach(c => { if (c.textContent.trim().startsWith(correct)) c.classList.add('correct'); }); }
+            document.getElementById(lvId + '-actions').style.display = 'flex';
+        }
+
+        function showSummary() { gameState.level = 6; renderLevel(); }
+
+        function renderSummary() {
+            let html = '<div class="summary-box">';
+            html += '<div class="big">🏆 通關</div>';
+            html += '<div>' + currentWord.英文 + ' —— ' + currentWord.中文 + '</div>';
+            html += '<div>闖過 ' + gameState.correct + ' / 5 關</div><br>';
+            if (currentWord.词根拆解) {
+                html += '<div>詞根：' + currentWord.词根拆解.部件.join(' — ') + '</div>';
+                html += '<div>' + currentWord.词根拆解.解释 + '</div>';
+            }
+            if (currentWord.家族词) html += '<div>家族：' + currentWord.家族词.map(f => f.词).join(' / ') + '</div>';
+            if (currentWord.近义词) html += '<div>近義：' + currentWord.近义词.slice(0,3).map(s => s.词).join(', ') + '</div>';
+            if (currentWord.反义词) html += '<div>反義：' + currentWord.反义词.slice(0,3).map(s => s.词).join(', ') + '</div>';
+            html += '</div>';
+            html += '<div class="action-row">';
+            html += '<button class="action-btn" onclick="window.location.href=\'词汇详情.html?id=' + encodeURIComponent(wordId) + '\'">📖 返回詳情</button>';
+            html += '<button class="action-btn primary" onclick="startGame()">🔄 重新闖關</button>';
+            html += '</div>';
+            return html;
+        }
+
+        function loadDataFiles(files, callback) {
+            let loaded = 0;
+            files.forEach(file => {
+                const script = document.createElement('script');
+                script.src = file;
+                script.onload = () => { loaded++; if (loaded === files.length) callback(); };
+                script.onerror = () => { loaded++; if (loaded === files.length) callback(); };
+                document.head.appendChild(script);
+            });
+        }
+
+        loadDataFiles(dataFiles, startGame);
+    </script>
+</body>
+</html>
