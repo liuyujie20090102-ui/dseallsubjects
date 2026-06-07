@@ -111,7 +111,7 @@
         <a href="1.html" class="back-link">← 返回</a>
         <div class="page-title">中國史 · 筆記</div>
 
-        <div class="section">
+        <div class="section" data-section="wanqing">
             <div class="section-header" onclick="toggleSection(this)">
                 <div class="left">
                     <span class="section-title">晚清改革</span>
@@ -135,7 +135,7 @@
 
         <div class="divider"></div>
 
-        <div class="section">
+        <div class="section" data-section="xinhai">
             <div class="section-header" onclick="toggleSection(this)">
                 <div class="left">
                     <span class="section-title">辛亥革命</span>
@@ -159,7 +159,7 @@
 
         <div class="divider"></div>
 
-        <div class="section">
+        <div class="section" data-section="wusi">
             <div class="section-header" onclick="toggleSection(this)">
                 <div class="left">
                     <span class="section-title">五四運動</span>
@@ -182,7 +182,29 @@
         function toggleSection(header){
             const section=header.parentElement;
             section.classList.toggle('open');
+            saveState();
         }
+
+        function saveState(){
+            const sections=document.querySelectorAll('.section');
+            const openSections=[];
+            sections.forEach(s=>{
+                if(s.classList.contains('open'))openSections.push(s.dataset.section);
+            });
+            localStorage.setItem('cn-history-toc-open',JSON.stringify(openSections));
+        }
+
+        function loadState(){
+            const saved=localStorage.getItem('cn-history-toc-open');
+            if(!saved)return;
+            const openSections=JSON.parse(saved);
+            openSections.forEach(id=>{
+                const section=document.querySelector(`[data-section="${id}"]`);
+                if(section)section.classList.add('open');
+            });
+        }
+
+        loadState();
     </script>
 </body>
 </html>
