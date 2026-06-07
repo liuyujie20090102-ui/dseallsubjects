@@ -85,6 +85,8 @@
             width:32px;height:40px;border-bottom:2px solid var(--gold);text-align:center;
             font-size:20px;color:var(--text-primary);margin:0 2px;display:inline-flex;align-items:flex-end;justify-content:center;
         }
+        .blank.correct-fill{color:var(--correct);font-weight:600}
+        .blank.wrong-fill{color:var(--wrong);font-weight:600}
         .letter-pool{display:flex;justify-content:center;gap:8px;margin-bottom:24px;flex-wrap:wrap}
         .letter-btn{
             width:38px;height:38px;background:rgba(255,253,248,0.8);border:1px solid rgba(180,160,130,0.4);
@@ -115,6 +117,7 @@
         .match-item.matched-0{border-color:#8b6914;background:rgba(139,105,20,0.1)}
         .match-item.matched-1{border-color:#2e7d32;background:rgba(46,125,50,0.08)}
         .match-item.matched-2{border-color:#5c6bc0;background:rgba(92,107,192,0.08)}
+        .match-item.wrong-flash{border-color:var(--wrong);background:rgba(198,40,40,0.1)}
         .feedback{text-align:center;font-size:15px;margin:16px 0;line-height:2;min-height:24px;color:var(--text-secondary)}
         .action-row{display:flex;justify-content:center;gap:16px;margin-top:20px;flex-wrap:wrap}
         .action-btn{
@@ -241,7 +244,7 @@
         }
         function nextLevel() { gameState.level++; renderLevel(); }
 
-        // ========== 第2关 ==========
+        // ========== 第2关：家族词填空 ==========
         function renderLevel2() {
             if (!currentWord.家族词 || currentWord.家族词.length < 2) { setTimeout(() => { gameState.level++; renderLevel(); }, 800); return `<div class="game-question">此詞暫無足夠家族詞數據，自動跳過...</div>`; }
             const family = currentWord.家族词; const target = family[gameState.formIndex % family.length]; gameState.formIndex++;
@@ -259,12 +262,15 @@
             return html;
         }
         function addHintLetters() {
-            if (gameState._lv2hintLevel >= 3) return;
-            const count = gameState._lv2hintLevel === 0 ? 3 : gameState._lv2hintLevel === 1 ? 4 : 5;
-            for (let i = 0; i < count && gameState._lv2extras.length > 0; i++) { gameState.availableLetters.push({ letter: gameState._lv2extras.shift(), used: false, id: gameState.availableLetters.length }); }
-            gameState._lv2hintLevel++; if (gameState._lv2hintLevel >= 3) document.getElementById('hint-btn').style.display = 'none';
-            const container = document.getElementById('letter-pool'); container.innerHTML = '';
-            gameState.availableLetters.forEach((l, i) => { container.innerHTML += `<div class="letter-btn ${l.used ? 'used' : ''}" id="lbtn-${i}" onclick="clickLetter(${i})">${l.letter}</div>`; });
+            // 找到第一个空着的空格，自动填入正确答案
+            for (let i = 1; i < gameState.blanks.length - 1; i++) {
+                if (!gameState.blanks[i]) {
+                    gameState.blanks[i] = gameState._lv2answer[i];
+                    const el = document.getElementById(`blank-${i}`);
+                    if (el) { el.textContent = gameState._lv2answer[i]; el.classList.add('correct-fill'); }
+                    return;
+                }
+            }
         }
         function clickBlank(idx) {
             if (gameState.blanks[idx]) return;
@@ -278,27 +284,41 @@
         function refreshBlanks2() { for (let i = 0; i < gameState.blanks.length; i++) { const el = document.getElementById(`blank-${i}`); if (el) el.textContent = gameState.blanks[i] || ''; } }
         function checkLevel2() {
             const built = gameState.blanks.join(''); const fb = document.createElement('div'); fb.className = 'feedback'; const row = document.querySelector('.action-row');
-            if (built === gameState._lv2answer) { gameState.correct++; fb.innerHTML = `✅ 正確！答案是 <b>${gameState._lv2answer}</b>`; row.innerHTML = `<button class="action-btn primary" onclick="nextLevel()">下一關 →</button>`; }
-            else { fb.innerHTML = `❌ 拼寫不對，再試試。`; }
+            if (built === gameState._lv2answer) {
+                gameState.correct++;
+                fb.innerHTML = `✅ 正確！答案是 <b>${gameState._lv2answer}</b>`;
+                row.innerHTML = `<button class="action-btn primary" onclick="nextLevel()">下一關 →</button>`;
+            } else {
+                // 自动填入正确答案
+                for (let i = 0; i < gameState._lv2answer.length; i++) {
+                    gameState.blanks[i] = gameState._lv2answer[i];
+                    const el = document.getElementById(`blank-${i}`);
+                    if (el) { el.textContent = gameState._lv2answer[i]; el.classList.add('wrong-fill'); }
+                }
+                fb.innerHTML = `❌ 正確答案是 <b>${gameState._lv2answer}</b>`;
+                row.innerHTML = `<button class="action-btn primary" onclick="nextLevel()">下一關 →</button>`;
+            }
             document.querySelector('.game-area').appendChild(fb);
         }
         function skipLevel2() {
+            for (let i = 0; i < gameState._lv2answer.length; i++) {
+                gameState.blanks[i] = gameState._lv2answer[i];
+                const el = document.getElementById(`blank-${i}`);
+                if (el) { el.textContent = gameState._lv2answer[i]; el.classList.add('correct-fill'); }
+            }
             const fb = document.createElement('div'); fb.className = 'feedback'; fb.innerHTML = `💡 正確答案：<b>${gameState._lv2answer}</b>`;
             document.querySelector('.game-area').appendChild(fb); document.querySelector('.action-row').innerHTML = `<button class="action-btn primary" onclick="nextLevel()">下一關 →</button>`;
         }
 
-        // ========== 第3关：近义词 ==========
+        // ========== 第3关 ==========
         function renderLevel3() {
             if (!currentWord.近义词 || currentWord.近义词.length === 0) { setTimeout(() => { gameState.level++; renderLevel(); }, 800); return `<div class="game-question">此詞暫無近義詞數據，自動跳過...</div>`; }
             return renderChoiceList(currentWord.近义词[Math.floor(Math.random() * currentWord.近义词.length)], 'lv3', '近義詞');
         }
-
-        // ========== 第4关：反义词 ==========
         function renderLevel4() {
             if (!currentWord.反义词 || currentWord.反义词.length === 0) { setTimeout(() => { gameState.level++; renderLevel(); }, 800); return `<div class="game-question">此詞暫無反義詞數據，自動跳過...</div>`; }
             return renderChoiceList(currentWord.反义词[Math.floor(Math.random() * currentWord.反义词.length)], 'lv4', '反義詞');
         }
-
         function renderChoiceList(target, lvId, type) {
             let html = `<div class="game-question">哪個是 <b>${currentWord.英文}</b> 的${type}？</div><div class="choice-list">`;
             const choices = [target];
@@ -313,7 +333,6 @@
             html += `</div><div class="action-row" id="${lvId}-actions" style="display:none"><button class="action-btn primary" onclick="nextLevel()">下一關 →</button></div>`;
             return html;
         }
-
         function checkChoiceReveal(el, en, cn, lvId) {
             const all = el.parentElement.querySelectorAll('.choice'); all.forEach(c => { c.style.pointerEvents = 'none'; c.classList.add('show-cn'); });
             if (en === gameState[`_${lvId}answer`]) { el.classList.add('correct'); gameState.correct++; }
@@ -321,7 +340,7 @@
             document.getElementById(`${lvId}-actions`).style.display = 'flex';
         }
 
-        // ========== 第5关：搭配配对 ==========
+        // ========== 第5关：配对 ==========
         function renderLevel5() {
             if (!currentWord.搭配 || currentWord.搭配.length < 2) { setTimeout(() => { gameState.level++; renderLevel(); }, 800); return `<div class="game-question">此詞暫無足夠搭配數據，自動跳過...</div>`; }
             const colls = [...currentWord.搭配]; colls.sort(() => Math.random() - 0.5); const selected = colls.slice(0, 3);
@@ -333,13 +352,11 @@
             html += `<div class="action-row" id="lv5-actions" style="display:none"><button class="action-btn primary" onclick="showSummary()">查看結果 →</button></div>`;
             return html;
         }
-
         function clickMatchEN(idx) {
             if (document.getElementById(`men-${idx}`).classList.contains('matched')) return;
             document.querySelectorAll('.match-item.selected').forEach(el => el.classList.remove('selected'));
             gameState._lv5selectedEN = idx; document.getElementById(`men-${idx}`).classList.add('selected');
         }
-
         function clickMatchCN(idx) {
             if (gameState._lv5selectedEN === null) return;
             if (document.getElementById(`mcn-${idx}`).classList.contains('matched')) return;
@@ -349,14 +366,28 @@
                 const colorClass = `matched-${gameState._lv5matched}`;
                 enEl.classList.add('matched', colorClass); cnEl.classList.add('matched', colorClass);
                 gameState._lv5matched++; gameState.correct++;
-                if (gameState._lv5matched === 3) document.getElementById('lv5-actions').style.display = 'flex';
+                if (gameState._lv5matched === 3) {
+                    setTimeout(() => { document.getElementById('lv5-actions').style.display = 'flex'; }, 100);
+                }
+            } else {
+                // 配对错误：红闪 + 显示正确配对
+                enEl.classList.add('wrong-flash'); cnEl.classList.add('wrong-flash');
+                // 显示正确答案
+                const correctCN = correctPair ? correctPair.中文 : gameState._lv5cn.find((cn, i) => gameState._lv5pairs.find(p => p.英文 === gameState._lv5en[enIdx] && p.中文 === cn));
+                const correctCNIdx = gameState._lv5cn.findIndex(cn => cn === (correctPair ? correctPair.中文 : ''));
+                if (correctCNIdx >= 0) {
+                    document.getElementById(`men-${enIdx}`).classList.add('matched', `matched-${gameState._lv5matched}`);
+                    document.getElementById(`mcn-${correctCNIdx}`).classList.add('matched', `matched-${gameState._lv5matched}`);
+                    gameState._lv5matched++; gameState.correct++;
+                }
+                if (gameState._lv5matched === 3) {
+                    setTimeout(() => { document.getElementById('lv5-actions').style.display = 'flex'; }, 100);
+                }
             }
             gameState._lv5selectedEN = null; document.querySelectorAll('.match-item.selected').forEach(el => el.classList.remove('selected'));
         }
 
-        // ========== 通关 ==========
         function showSummary() { gameState.level = 6; renderLevel(); }
-
         function renderSummary() {
             let html = `<div class="summary-box"><div class="big">🏆 通關</div><div>${currentWord.英文} —— ${currentWord.中文}</div><div>闖過 ${gameState.correct} 關</div><br>`;
             if (currentWord.词根拆解) { html += `<div>詞根：${currentWord.词根拆解.部件.join(' — ')}</div><div>${currentWord.词根拆解.解释}</div>`; }
