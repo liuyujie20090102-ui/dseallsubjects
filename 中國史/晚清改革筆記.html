@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-HK">
 <head>
@@ -67,7 +68,6 @@
         .page-title{text-align:center;font-size:20px;font-weight:700;color:var(--text-primary);letter-spacing:3px;margin-bottom:6px}
         .page-subtitle{text-align:center;font-size:14px;color:var(--text-muted);letter-spacing:2px;margin-bottom:20px}
         .content-area{flex:1}
-        .section-heading{text-align:center;font-size:16px;color:var(--text-secondary);letter-spacing:2px;margin-bottom:6px}
         .text-block{font-size:16px;color:var(--text-secondary);line-height:2.2;letter-spacing:1px;margin-bottom:10px}
         .cause-list{list-style:none;padding:0}
         .cause-list li{font-size:16px;color:var(--text-secondary);line-height:2;letter-spacing:1px;padding:4px 0}
@@ -80,6 +80,8 @@
         .note-table{width:100%;border-collapse:collapse;margin:8px 0}
         .note-table td{padding:8px 10px;border:1px solid rgba(180,160,130,0.2);color:var(--text-secondary);font-size:15px;line-height:2;letter-spacing:1px;vertical-align:top}
         .note-table td:first-child{color:var(--gold);font-weight:600;text-align:center;width:60px;font-size:20px;background:rgba(180,160,130,0.04)}
+        .appendix-link{display:block;text-align:center;color:var(--gold);text-decoration:none;font-size:14px;letter-spacing:1px;padding:8px;margin-top:16px;transition:color 0.3s}
+        .appendix-link:hover{color:var(--text-primary)}
         .nav-bar{display:flex;align-items:center;justify-content:center;gap:24px;padding:20px 0 0}
         .nav-btn{
             padding:8px 16px;
@@ -99,11 +101,62 @@
         .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:12px}
         .page{display:none}
         .page.active{display:block}
+
+        /* Floating TOC */
+        .floating-toc-btn{
+            position:fixed;
+            bottom:100px;
+            right:20px;
+            width:44px;
+            height:44px;
+            border-radius:50%;
+            background:var(--card-bg);
+            backdrop-filter:blur(10px);
+            -webkit-backdrop-filter:blur(10px);
+            border:1px solid var(--card-border);
+            cursor:pointer;
+            font-size:20px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            z-index:10;
+            box-shadow:0 2px 16px rgba(60,40,20,0.06);
+            transition:transform 0.3s ease;
+            color:var(--text-secondary);
+        }
+        .floating-toc-btn:hover{transform:scale(1.08)}
+        .toc-overlay{
+            position:fixed;top:0;left:0;width:100%;height:100%;
+            background:rgba(0,0,0,0.2);z-index:20;display:none;
+        }
+        .toc-overlay.show{display:block}
+        .toc-popup{
+            position:fixed;bottom:160px;right:20px;
+            background:var(--card-bg);
+            backdrop-filter:blur(14px);
+            -webkit-backdrop-filter:blur(14px);
+            border:1px solid var(--card-border);
+            border-radius:16px;padding:18px 16px;
+            z-index:21;display:none;
+            box-shadow:0 4px 24px rgba(60,40,20,0.08);
+            min-width:180px;
+        }
+        .toc-popup.show{display:block}
+        .toc-popup a{
+            display:block;padding:6px 10px;border-radius:8px;
+            text-decoration:none;color:var(--text-secondary);
+            font-size:14px;letter-spacing:1px;
+            transition:background 0.2s;
+        }
+        .toc-popup a:hover{background:rgba(180,160,130,0.1);color:var(--text-primary)}
+
         @media(max-width:480px){
             .page-title{font-size:17px}
             .note-table td{font-size:14px;padding:6px 8px}
             .text-block{font-size:15px}
             .cause-list li{font-size:15px}
+            .floating-toc-btn{bottom:90px;right:14px}
+            .toc-popup{bottom:150px;right:14px}
         }
     </style>
 </head>
@@ -135,6 +188,7 @@
                     <li>慈禧痛恨革命多於改革</li>
                 </ul>
             </div>
+            <a href="晚清改革時間線.html" class="appendix-link">附錄：時間線</a>
         </div>
 
         <!-- Page 2: 政治 -->
@@ -147,6 +201,7 @@
                     <tr><td>▸<br>局限</td><td>▪ 憲法仍以皇帝為中心，無分享權力概念<br>▪ 官員貪污未改善<br>▪ 人民認為無誠意轉投革命</td></tr>
                 </table>
             </div>
+            <a href="晚清改革時間線.html" class="appendix-link">附錄：時間線</a>
         </div>
 
         <!-- Page 3: 經濟 -->
@@ -159,6 +214,7 @@
                     <tr><td>▸<br>局限</td><td>▪ 未廢不平等條約，外國商品低關稅進口<br>▪ 未脫傳統農業模式<br>▪ 鐵路國有化損害國家利益</td></tr>
                 </table>
             </div>
+            <a href="晚清改革時間線.html" class="appendix-link">附錄：時間線</a>
         </div>
 
         <!-- Page 4: 司法 -->
@@ -171,6 +227,7 @@
                     <tr><td>▸<br>局限</td><td>▪ 仍以人治為主，憲法寫明「皇帝神聖不可侵犯」</td></tr>
                 </table>
             </div>
+            <a href="晚清改革時間線.html" class="appendix-link">附錄：時間線</a>
         </div>
 
         <!-- Page 5: 軍事 -->
@@ -183,6 +240,7 @@
                     <tr><td>▸<br>局限</td><td>▪ 新軍由袁世凱掌兵培植親信<br>▪ 資金不足，容許地方增收稅項引起反感<br>▪ 部分留學生投向革命</td></tr>
                 </table>
             </div>
+            <a href="晚清改革時間線.html" class="appendix-link">附錄：時間線</a>
         </div>
 
         <!-- Page 6: 教育 -->
@@ -195,6 +253,7 @@
                     <tr><td>▸<br>局限</td><td>▪ 教師未熟悉西學，各地辦學條件不一<br>▪ 廢科舉令士紳不滿走向革命<br>▪ 部分留學生受西方思想影響投向革命</td></tr>
                 </table>
             </div>
+            <a href="晚清改革時間線.html" class="appendix-link">附錄：時間線</a>
         </div>
 
         <!-- Page 7: 社會 -->
@@ -207,6 +266,7 @@
                     <tr><td>▸<br>局限</td><td>▪ 男女不能同校，男女平等不為大眾接受<br>▪ 婚姻自由觀念仍未普及<br>▪ 婦女地位仍待提升</td></tr>
                 </table>
             </div>
+            <a href="晚清改革時間線.html" class="appendix-link">附錄：時間線</a>
         </div>
 
         <!-- Page 8: 失敗原因1 -->
@@ -218,6 +278,7 @@
                     <tr><td>▸<br>吏治敗壞</td><td>▪ 官員中飽私囊，貪污受賄風氣嚴重<br>▪ 新政未能肅清吏治，民眾認為清廷腐敗無可救藥<br>▪ 轉而支持革命</td></tr>
                 </table>
             </div>
+            <a href="晚清改革時間線.html" class="appendix-link">附錄：時間線</a>
         </div>
 
         <!-- Page 9: 失敗原因2 -->
@@ -229,6 +290,7 @@
                     <tr><td>▸<br>資金不足</td><td>▪ 巨額賠款令財政緊絀<br>▪ 陸軍編練、學校建設難以完成<br>▪ 收回鐵路權觸發辛亥革命</td></tr>
                 </table>
             </div>
+            <a href="晚清改革時間線.html" class="appendix-link">附錄：時間線</a>
         </div>
 
         <div class="nav-bar">
@@ -238,6 +300,22 @@
         </div>
         <div class="footer">── Shelly Liu ──</div>
     </div>
+
+    <!-- Floating TOC -->
+    <button class="floating-toc-btn" id="toc-btn" onclick="toggleTOC()" title="目錄">☰</button>
+    <div class="toc-overlay" id="toc-overlay" onclick="toggleTOC()"></div>
+    <div class="toc-popup" id="toc-popup">
+        <a href="晚清改革筆記.html#背景" onclick="toggleTOC()">背景 · 推行原因</a>
+        <a href="晚清改革筆記.html#政治" onclick="toggleTOC()">政治方面</a>
+        <a href="晚清改革筆記.html#經濟" onclick="toggleTOC()">經濟方面</a>
+        <a href="晚清改革筆記.html#司法" onclick="toggleTOC()">司法方面</a>
+        <a href="晚清改革筆記.html#軍事" onclick="toggleTOC()">軍事方面</a>
+        <a href="晚清改革筆記.html#教育" onclick="toggleTOC()">教育方面</a>
+        <a href="晚清改革筆記.html#社會" onclick="toggleTOC()">社會方面</a>
+        <a href="晚清改革筆記.html#失敗原因" onclick="toggleTOC()">失敗原因</a>
+        <a href="晚清改革時間線.html" onclick="toggleTOC()">附錄：時間線</a>
+    </div>
+
     <script>
         let currentPage=1;
         const totalPages=9;
@@ -258,7 +336,6 @@
             prevBtn.disabled=n===1;
             nextBtn.disabled=n===totalPages;
             currentPage=n;
-            window.location.hash='page'+n;
         }
 
         function changePage(dir){
@@ -268,14 +345,14 @@
 
         function getPageFromHash(){
             const hash=window.location.hash;
+            if(!hash)return 1;
             const hashMap={
-                '#背景':1,'#原因':1,'#措施':2,
+                '#背景':1,'#原因':1,
                 '#政治':2,'#經濟':3,'#司法':4,
                 '#軍事':5,'#教育':6,'#社會':7,
-                '#失敗原因':8
+                '#失敗原因':8,'#措施':2
             };
             if(hashMap[hash])return hashMap[hash];
-            if(hash.startsWith('#page'))return parseInt(hash.replace('#page',''));
             return 1;
         }
 
@@ -292,6 +369,17 @@
                 else if(dx>40)changePage(-1);
             }
         });
+
+        window.addEventListener('hashchange',()=>{
+            showPage(getPageFromHash());
+        });
+
+        function toggleTOC(){
+            const overlay=document.getElementById('toc-overlay');
+            const popup=document.getElementById('toc-popup');
+            overlay.classList.toggle('show');
+            popup.classList.toggle('show');
+        }
 
         showPage(getPageFromHash());
     </script>
