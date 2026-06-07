@@ -1,1 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>元代 · 筆記</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f7f4ed;
+            --text-primary: #2c2416;
+            --text-secondary: #5c5347;
+            --text-muted: #a09880;
+            --gold: #8b6914;
+            --gold-light: #c4a97d;
+            --ink-light: rgba(60,40,20,0.06);
+            --mountain-far: rgba(120,100,70,0.12);
+            --mountain-mid: rgba(100,80,55,0.16);
+            --mountain-near: rgba(80,60,40,0.2);
+            --cloud: rgba(255,252,245,0.7);
+            --card-bg: rgba(255,253,248,0.85);
+            --font-cn: "Noto Serif TC","PingFang SC","Microsoft YaHei","KaiTi",serif;
+            --font-en: "Inter","Helvetica Neue",sans-serif;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{
+            background-color:var(--bg);
+            font-family:var(--font-cn);
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            padding:32px 20px 80px;
+            position:relative;
+            overflow-x:hidden;
+            -webkit-font-smoothing:antialiased;
+        }
+        body::before{
+            content:"";
+            position:fixed;top:0;left:0;width:100%;height:100%;
+            pointer-events:none;z-index:0;
+            background-image:
+                repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(139,119,80,0.012) 3px,rgba(139,119,80,0.012) 4px),
+                repeating-linear-gradient(90deg,transparent,transparent 5px,rgba(139,119,80,0.008) 5px,rgba(139,119,80,0.008) 6px);
+            opacity:0.7;
+        }
+        .mountains{position:fixed;bottom:0;left:0;width:100%;height:30%;pointer-events:none;z-index:0}
+        .mountain{position:absolute;bottom:0}
+        .m1{left:-8%;width:45%;height:55%;background:var(--mountain-far);border-radius:55% 55% 0 0}
+        .m2{left:22%;width:50%;height:68%;background:var(--mountain-mid);border-radius:50% 48% 0 0}
+        .m3{right:-8%;width:42%;height:60%;background:var(--mountain-near);border-radius:52% 52% 0 0}
+        .clouds{position:fixed;bottom:12%;left:0;width:100%;height:18%;pointer-events:none;z-index:0}
+        .cloud{position:absolute;background:var(--cloud);border-radius:50%;filter:blur(28px)}
+        .c1{width:260px;height:50px;left:8%;bottom:30px;opacity:0.5}
+        .c2{width:220px;height:42px;right:12%;bottom:15px;opacity:0.4}
+        .c3{width:180px;height:35px;left:50%;bottom:8px;opacity:0.35;transform:translateX(-50%)}
+        .birds{position:fixed;top:12%;right:12%;pointer-events:none;z-index:0;opacity:0.3}
+        .bird{display:inline-block;font-size:13px;margin:0 5px;animation:birdFloat 6s ease-in-out infinite}
+        .bird:nth-child(2){animation-delay:1.5s;font-size:9px}
+        .bird:nth-child(3){animation-delay:3s;font-size:11px}
+        @keyframes birdFloat{0%,100%{transform:translateY(0) translateX(0)}25%{transform:translateY(-7px) translateX(3px)}50%{transform:translateY(-2px) translateX(8px)}75%{transform:translateY(-9px) translateX(3px)}}
 
+        .container{position:relative;z-index:1;width:100%;max-width:650px}
+        .top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px}
+        .back-link{color:var(--text-muted);text-decoration:none;font-size:14px;letter-spacing:1px;transition:color 0.3s}
+        .back-link:hover{color:var(--text-primary)}
+        .page-indicator{font-family:var(--font-en);font-size:13px;color:var(--text-muted);letter-spacing:1px}
+
+        .page-card{
+            background:var(--card-bg);
+            backdrop-filter:blur(8px);
+            -webkit-backdrop-filter:blur(8px);
+            border:1px solid rgba(180,160,130,0.2);
+            border-radius:16px;
+            padding:40px 32px;
+            box-shadow:0 2px 20px rgba(60,40,20,0.04);
+        }
+
+        .note-title{text-align:center;font-size:24px;font-weight:700;color:var(--text-primary);letter-spacing:3px;margin-bottom:24px}
+        .section-label{text-align:center;font-size:16px;font-weight:600;color:var(--text-muted);letter-spacing:3px;margin-bottom:20px}
+        .item-title{font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:14px;letter-spacing:1px;padding-bottom:8px;border-bottom:1px solid var(--ink-light)}
+        .content{font-size:16.5px;color:var(--text-secondary);line-height:2.4;letter-spacing:0.5px}
+        .content p{margin-bottom:10px}
+        .content ul{list-style:none;padding-left:0;margin-bottom:14px}
+        .content ul li{padding:5px 0 5px 20px;position:relative;line-height:2.2}
+        .content ul li::before{content:"·";position:absolute;left:4px;color:var(--gold-light);font-weight:bold;font-size:18px}
+        .content ul li.sub{padding-left:36px}
+        .content ul li.sub::before{content:"·";left:18px;color:var(--text-muted);font-size:14px}
+        .content ul li.sub2{padding-left:48px}
+        .content ul li.sub2::before{content:"·";left:32px;color:var(--text-muted);font-size:12px}
+        .content strong{color:var(--text-primary);font-weight:600}
+        .content table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+        .content table th{background:rgba(180,160,130,0.15);color:var(--text-primary);padding:10px 12px;text-align:center;font-weight:600;border:1px solid rgba(180,160,130,0.2)}
+        .content table td{padding:9px 12px;border:1px solid rgba(180,160,130,0.2);color:var(--text-secondary);line-height:1.7}
+        .content table td:first-child{font-weight:600;color:var(--text-primary);text-align:center;background:rgba(180,160,130,0.05)}
+        .content img{width:100%;max-width:500px;display:block;margin:20px auto;border-radius:12px;border:1px solid rgba(180,160,130,0.2);background:rgba(255,253,248,0.5);padding:12px}
+
+        .nav-bar{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:12px}
+        .nav-btn{padding:10px 22px;background:rgba(255,253,248,0.7);border:1px solid rgba(180,160,130,0.25);border-radius:20px;cursor:pointer;font-family:var(--font-cn);font-size:14px;color:var(--text-secondary);letter-spacing:1px;transition:all 0.3s}
+        .nav-btn:hover{background:rgba(180,160,130,0.12);color:var(--text-primary)}
+        .nav-btn:disabled{opacity:0.3;cursor:default;pointer-events:none}
+
+        .toc-btn{position:fixed;bottom:24px;right:24px;width:48px;height:48px;border-radius:50%;background:rgba(255,253,248,0.85);border:1px solid rgba(180,160,130,0.3);box-shadow:0 2px 16px rgba(60,40,20,0.1);cursor:pointer;z-index:20;font-size:22px;display:flex;align-items:center;justify-content:center;transition:all 0.3s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+        .toc-btn:hover{background:rgba(255,253,248,1);box-shadow:0 4px 24px rgba(60,40,20,0.15)}
+        .toc-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.3);z-index:30;justify-content:center;align-items:flex-end}
+        .toc-overlay.show{display:flex}
+        .toc-panel{background:#fffdf7;border-radius:20px 20px 0 0;width:100%;max-width:500px;max-height:60vh;overflow-y:auto;padding:20px 24px 32px;box-shadow:0 -4px 24px rgba(0,0,0,0.1);animation:slideUp 0.3s ease;position:relative}
+        @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+        .toc-panel .toc-header{display:flex;justify-content:center;margin-bottom:6px}
+        .toc-panel .toc-handle{width:40px;height:4px;border-radius:2px;background:var(--text-muted);opacity:0.4}
+        .toc-panel .toc-title{text-align:center;font-size:16px;font-weight:700;color:var(--text-primary);letter-spacing:2px;margin:12px 0 16px}
+        .toc-item{display:block;padding:7px 8px;font-size:14px;color:var(--text-secondary);text-decoration:none;border-radius:6px;cursor:pointer;transition:all 0.2s;letter-spacing:0.5px;line-height:1.8}
+        .toc-item:hover{background:rgba(180,160,130,0.1);color:var(--text-primary)}
+        .toc-item.active{background:rgba(139,105,20,0.1);color:var(--gold);font-weight:600}
+        .toc-item.toc-l1{font-weight:600;color:var(--text-primary);margin-top:8px;font-size:15px}
+        .toc-item.toc-l2{padding-left:20px}
+        .toc-item.toc-l3{padding-left:36px;font-size:13px}
+        .toc-item.toc-appendix{padding-left:20px;font-style:italic;color:var(--text-muted)}
+
+        .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:24px}
+
+        @media(max-width:480px){
+            .page-card{padding:24px 16px}
+            .item-title{font-size:16px}
+            .content{font-size:15px}
+            .content table{font-size:12px}
+            .nav-btn{padding:8px 14px;font-size:13px}
+            .toc-btn{bottom:16px;right:16px;width:42px;height:42px;font-size:20px}
+            .toc-panel{max-height:55vh;padding:16px 18px 24px}
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mountains"><div class="mountain m1"></div><div class="mountain m2"></div><div class="mountain m3"></div></div>
+    <div class="clouds"><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div></div>
+    <div class="birds"><span class="bird">⩳</span><span class="bird">⩳</span><span class="bird">⩳</span></div>
+
+    <div class="container">
+        <div class="top-bar">
+            <a href="1.html" class="back-link">← 返回元朝</a>
+            <span class="page-indicator" id="page-indicator">1 / 12</span>
+        </div>
+        <div class="page-card"><div id="page-content"></div></div>
+        <div class="nav-bar">
+            <button class="nav-btn" id="prev-btn" onclick="prevPage()">← 上一頁</button>
+            <button class="nav-btn" id="next-btn" onclick="nextPage()">下一頁 →</button>
+        </div>
+        <div class="footer">── Shelly Liu ──</div>
+    </div>
+
+    <div class="toc-btn" onclick="openToc()">📂</div>
+    <div class="toc-overlay" id="toc-overlay" onclick="closeToc(event)">
+        <div class="toc-panel" id="toc-panel" onclick="event.stopPropagation()">
+            <div class="toc-header"><div class="toc-handle"></div></div>
+            <div class="toc-title">── 目錄 ──</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+
+    <script>
+        const pages = [
+            // 1. 背景
+            `<div class="note-title">🏯 元代中央集權</div>
+             <div class="section-label">── 背景 ──</div>
+             <div class="content">
+             <ul>
+             <li>公元1271年，<strong>忽必烈</strong>稱帝，改國號為<strong>元</strong>，是為元世祖</li>
+             <li>公元1279年，蒙古軍南下滅南宋，整個中國首次被邊疆民族統治</li>
+             </ul>
+             </div>`,
+
+            // 2. 设立行省的背景
+            `<div class="section-label">── 一、行中書省制 ──</div>
+             <div class="item-title">設立行省的背景</div>
+             <div class="content">
+             <p><strong>領土遼闊</strong></p>
+             <ul><li>元朝疆域廣大，中書省難以直接管理邊遠地區，故需設立地方最高行政機關，加強中央統治</li></ul>
+             <p><strong>承襲制度</strong></p>
+             <table>
+             <tr><th>階段</th><th>內容</th></tr>
+             <tr><td>金朝</td><td>朝廷派尚書省官員出征或處理地方大事，在各地臨時設置行尚書省，簡稱行省</td></tr>
+             <tr><td>元初</td><td>承襲金制，初期為臨時委派性質</td></tr>
+             <tr><td>元世祖時</td><td>尚書省併入中書省，行尚書省改稱行中書省，轉為常設，亦簡稱行省</td></tr>
+             </table>
+             <p><strong>民族高壓管制</strong></p>
+             <ul><li>統一後，蒙古人面對人口龐大的漢族深感管制困難，為有效鎮壓南方漢人反抗力量，確保蒙古貴族對地方資源的控制，設行中書省作為地方最高行政機構</li></ul>
+             </div>`,
+
+            // 3. 腹里
+            `<div class="item-title">中央直轄區域（腹里）</div>
+             <div class="content">
+             <ul>
+             <li>元朝將<strong>大都</strong>（今北京）及鄰近的河北、山東、山西劃為腹里</li>
+             <li>不設行省，由<strong>中書省直接管轄</strong></li>
+             </ul>
+             <p><strong>好處</strong></p>
+             <ul>
+             <li>確保首都周邊穩定</li>
+             <li>直接掌控國家經濟政治資源</li>
+             <li>防範地方勢力威脅中央</li>
+             </ul>
+             <p style="color:var(--text-muted);font-size:14px">* 腹里之外設行省，行省非獨立機構，是中央中書省在地方的延伸</p>
+             </div>`,
+
+            // 4. 行省划分·犬牙交错
+            `<div class="section-label">── 行省制概況 ──</div>
+             <div class="item-title">行省劃分：犬牙交錯</div>
+             <div class="content">
+             <ul>
+             <li>元代採取<strong>犬牙交錯</strong>而非山川形便的劃分方式</li>
+             <li class="sub">山川形便：行政區配合自然地理的做法</li>
+             <li>將自然地理差異極大的地區合為一個行省，人為造成犬牙交錯</li>
+             <li>→ 打破山川險阻，跨越自然屏障</li>
+             <li>例子：江漢撥歸陝西而非四川，使四川失去秦嶺天險</li>
+             </ul>
+             <p><strong>好處</strong></p>
+             <ul>
+             <li>使地方勢力無險可守，從地理上徹底消除地方割據、脫離中央的可能性</li>
+             <li>朝廷更易控制行省</li>
+             </ul>
+             </div>`,
+
+            // 5. 行省编制
+            `<div class="item-title">行省編制</div>
+             <div class="content">
+             <p><strong>行省長官</strong></p>
+             <ul>
+             <li>設丞相或平章政事為最高長官，多由<strong>蒙古貴族或色目人</strong>擔任，兼掌軍政</li>
+             <li>下設左丞、右丞、參知政事等職官</li>
+             </ul>
+             <p><strong>地方長官：達魯花赤</strong></p>
+             <ul>
+             <li>行省之下的路、州、縣分設達魯花赤為最高長官，由蒙古人或門第高貴的色目人擔任，<strong>嚴禁漢人出任</strong></li>
+             <li>達魯花赤：管理者，元代監控地方的眼睛，職位至高無上</li>
+             </ul>
+             <p><strong>副手</strong></p>
+             <ul>
+             <li>路設總管、州設州尹、縣設縣尹，主理各級地方事務</li>
+             </ul>
+             <p><strong>好處</strong></p>
+             <ul><li>透過用人權塑造民族階級，確保政權始終掌握在蒙古人自己手中，防範漢人與南人奪權或反叛</li></ul>
+             </div>`,
+
+            // 6. 行省权力
+            `<div class="item-title">行省權力</div>
+             <div class="content">
+             <p>元朝行省負有防範漢人反抗的任務，故行省長官權力頗大，集軍政財大權於一身</p>
+             <table>
+             <tr><th>權力</th><th>內容</th></tr>
+             <tr><td>政權</td><td>管理戶籍、民政、賑災及修築水利，如大運河維護</td></tr>
+             <tr><td>軍權</td><td>兼理兵甲、屯田與驛傳，行省長官通常兼任軍事職務，負責地方駐兵</td></tr>
+             <tr><td>財權</td><td>徵收地方錢糧賦稅，負責漕運，將物資運往大都</td></tr>
+             </table>
+             <p style="color:var(--text-muted);font-size:14px">* 行省等於中央派駐地方的分署，相當於一個流動的中央政府，故職權頗大</p>
+             <p><strong>好處：</strong>行使權力無所不包，能迅速調動地方資源進行大規模建設或應對軍事威脅，行政效率極高</p>
+             </div>`,
+
+            // 7. 行省权力受限
+            `<div class="item-title">行省權力受限</div>
+             <div class="content">
+             <p>行省權力大而不專，受中央多項制衡：</p>
+             <table>
+             <tr><th>限制類型</th><th>內容</th></tr>
+             <tr><td>行政限制</td><td>受中央中書省約束，重要政務須經丞相、平章政事等官員合議後才能施行，防止專權、互相牽制</td></tr>
+             <tr><td>軍權限制</td><td>無銓選軍官的權力；雖有調兵權，但須獲朝廷授予領兵虎符，重大調兵（千人以上）仍需中央批准</td></tr>
+             <tr><td>財權限制</td><td>行政長官只能批准小額撥款，經費較多須經中書省批准，並須將七成歲入上供中央</td></tr>
+             <tr><td>司法限制</td><td>遇大獄、需用重刑或遇疑難案件，均須上報朝廷，不得擅自誅殺或結案</td></tr>
+             <tr><td>合議制</td><td>內部實行合議制，通常由丞相、左右丞、參知政事等六七人組成，處理重大政務需共同簽名上報</td></tr>
+             <tr><td>用人限制</td><td>行省長官會同中書省派遣的使者一起銓選地方官員，避免結黨營私</td></tr>
+             </table>
+             <p><strong>好處：</strong>行省長官雖職權甚大，但元廷透過程式進行嚴密限制，避免其專權獨大，演變成唐末式的獨立割據藩鎮</p>
+             </div>`,
+
+            // 8. 对地方严密监察
+            `<div class="item-title">對地方嚴密監察</div>
+             <div class="content">
+             <p>朝廷把全國分為三大監察區，以行省為重要監察對象：</p>
+             <table>
+             <tr><th>監察機構</th><th>監察範圍</th><th>性質</th></tr>
+             <tr><td>中央御史台</td><td>大都附近的腹里及河南、遼陽二行省</td><td>中央</td></tr>
+             <tr><td>江南行御史台（南台）</td><td>江浙、江西、湖廣等行省</td><td>地方</td></tr>
+             <tr><td>陝西行御史台（西台）</td><td>陝西、四川、甘肅、雲南等行省</td><td>地方</td></tr>
+             </table>
+             <ul>
+             <li>朝廷亦在22道監察區加設<strong>肅政廉訪使</strong>，定期巡查各省，監督行省官員</li>
+             <li class="sub">廉訪使司負責監察路、州、縣官員</li>
+             </ul>
+             <p><strong>好處：</strong>可及時揭發地方官的貪腐行為，確保行省運作符合中央要求</p>
+             </div>`,
+
+            // 9. 图片
+            `<div class="item-title">附：元代地方政制示意圖</div>
+             <div class="content">
+             <img src="../erfu1.png" alt="元代地方政制示意圖">
+             </div>`,
+
+            // 10. 政区划分，层级管理
+            `<div class="item-title">政區劃分，層級管理</div>
+             <div class="content">
+             <ul>
+             <li>全國劃分中書省直轄區（腹里）及各個行省</li>
+             <li class="sub">省下分路、州、縣，層級分明</li>
+             <li>例如：嶺北、遼陽、雲南、江浙等行省</li>
+             </ul>
+             <p><strong>好處：</strong>層級分明，確保命令能由中央迅速傳達到最基層的縣級單位</p>
+             </div>`,
+
+            // 11. 正面影响
+            `<div class="section-label">── 影響：正面 ──</div>
+             <div class="content">
+             <p><strong>1. 加強中央集權，維持大一統</strong></p>
+             <ul>
+             <li>行省作為中央委派機構，將遼闊疆域納入中央有效管制</li>
+             <li>犬牙交錯劃分、集體決策互相牽制、嚴密監察，防止地方權力過大</li>
+             <li>自唐末藩鎮割據以來的分裂隱患被徹底消除</li>
+             </ul>
+             <p><strong>2. 奠定後世基礎</strong></p>
+             <ul>
+             <li>行省制度被明、清全盤繼承，成為地方最高行政區劃</li>
+             <li>現代中國「省」級行政區劃及大致邊界，基本在元代基礎上發展而來</li>
+             <li class="sub">例子：廣東省、江西省</li>
+             </ul>
+             <p><strong>3. 促進民族融合</strong></p>
+             <ul>
+             <li>遼闊行省疆域將蒙古、色目、漢人、南人置於同一行政框架下管理，打破民族聚居界限</li>
+             </ul>
+             </div>`,
+
+            // 12. 负面影响
+            `<div class="section-label">── 影響：負面 ──</div>
+             <div class="content">
+             <p><strong>1. 行政效率低下</strong></p>
+             <ul>
+             <li>為防範專權實行集體決策，加上省、路、府、州、縣層級繁多，導致行政效率低下，冗官充斥</li>
+             </ul>
+             <p><strong>2. 地方空虛</strong></p>
+             <ul>
+             <li>元廷透過沉重賦稅與大運河漕運，將江南等地財富大量搜刮至腹地，導致地方經濟枯竭</li>
+             </ul>
+             </div>`
+        ];
+
+        const tocItems = [
+            {label:"一、背景",level:1,page:0},
+            {label:"背景",level:2,page:0},
+            {label:"二、行中書省制",level:1,page:1},
+            {label:"設立行省的背景",level:2,page:1},
+            {label:"三、中央直轄區域（腹里）",level:1,page:2},
+            {label:"腹里",level:2,page:2},
+            {label:"四、行省制概況",level:1,page:3},
+            {label:"行省劃分·犬牙交錯",level:2,page:3},
+            {label:"行省編制",level:2,page:4},
+            {label:"行省權力",level:2,page:5},
+            {label:"行省權力受限",level:2,page:6},
+            {label:"對地方嚴密監察",level:2,page:7},
+            {label:"附：元代地方政制示意圖",level:"appendix",page:8},
+            {label:"五、政區劃分，層級管理",level:1,page:9},
+            {label:"政區劃分，層級管理",level:2,page:9},
+            {label:"六、影響",level:1,page:10},
+            {label:"正面影響",level:2,page:10},
+            {label:"負面影響",level:2,page:11}
+        ];
+
+        let currentPage = 0;
+        const totalPages = pages.length;
+
+        function renderPage() {
+            document.getElementById('page-content').innerHTML = pages[currentPage];
+            document.getElementById('page-indicator').textContent = (currentPage + 1) + ' / ' + totalPages;
+            document.getElementById('prev-btn').disabled = currentPage === 0;
+            document.getElementById('next-btn').disabled = currentPage === totalPages - 1;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (document.getElementById('toc-overlay').classList.contains('show')) renderToc();
+        }
+
+        function renderToc() {
+            const tocContent = document.getElementById('toc-content');
+            tocContent.innerHTML = '';
+            tocItems.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'toc-item';
+                if (item.level === 1) div.classList.add('toc-l1');
+                if (item.level === 2) div.classList.add('toc-l2');
+                if (item.level === 'appendix') div.classList.add('toc-appendix');
+                if (item.page === currentPage) div.classList.add('active');
+                div.textContent = item.label;
+                div.onclick = () => { currentPage = item.page; renderPage(); closeTocDirect(); };
+                tocContent.appendChild(div);
+            });
+        }
+
+        function nextPage() { if (currentPage < totalPages - 1) { currentPage++; renderPage(); } }
+        function prevPage() { if (currentPage > 0) { currentPage--; renderPage(); } }
+
+        function openToc() { document.getElementById('toc-overlay').classList.add('show'); document.body.classList.add('toc-open'); renderToc(); }
+        function closeToc(e) { if (e && e.target !== document.getElementById('toc-overlay')) return; document.getElementById('toc-overlay').classList.remove('show'); document.body.classList.remove('toc-open'); }
+        function closeTocDirect() { document.getElementById('toc-overlay').classList.remove('show'); document.body.classList.remove('toc-open'); }
+
+        document.addEventListener('keydown', function(e) {
+            if (document.body.classList.contains('toc-open')) return;
+            if (e.key === 'ArrowRight') nextPage();
+            if (e.key === 'ArrowLeft') prevPage();
+        });
+
+        let touchStartX = 0, touchStartY = 0;
+        document.addEventListener('touchstart', function(e) { if (document.body.classList.contains('toc-open')) return; touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; });
+        document.addEventListener('touchend', function(e) { if (document.body.classList.contains('toc-open')) return; const diffX = touchStartX - e.changedTouches[0].clientX; const diffY = touchStartY - e.changedTouches[0].clientY; if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 80) { if (diffX > 0) nextPage(); else prevPage(); } });
+
+        renderPage();
+    </script>
+</body>
+</html>
