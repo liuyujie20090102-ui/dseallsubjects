@@ -1,1 +1,108 @@
-
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寫作庫 · DSE 學習站</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f7f4ed;
+            --text-primary: #2c2416;
+            --text-secondary: #5c5347;
+            --text-muted: #a09880;
+            --gold: #8b6914;
+            --gold-light: #c4a97d;
+            --card-bg: rgba(255,253,248,0.8);
+            --font-cn: "Noto Serif TC","PingFang SC","Microsoft YaHei","KaiTi",serif;
+            --font-en: "Inter","Helvetica Neue",sans-serif;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{
+            background-color:var(--bg);
+            font-family:var(--font-cn);
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            padding:32px 20px 48px;
+            position:relative;
+            overflow-x:hidden;
+            -webkit-font-smoothing:antialiased;
+        }
+        body::before{
+            content:"";position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;
+            background-image:
+                repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(139,119,80,0.012) 3px,rgba(139,119,80,0.012) 4px),
+                repeating-linear-gradient(90deg,transparent,transparent 5px,rgba(139,119,80,0.008) 5px,rgba(139,119,80,0.008) 6px);
+            opacity:0.7;
+        }
+        .mountains{position:fixed;bottom:0;left:0;width:100%;height:30%;pointer-events:none;z-index:0}
+        .mountain{position:absolute;bottom:0}
+        .m1{left:-8%;width:45%;height:55%;background:rgba(120,100,70,0.12);border-radius:55% 55% 0 0}
+        .m2{left:22%;width:50%;height:68%;background:rgba(100,80,55,0.16);border-radius:50% 48% 0 0}
+        .m3{right:-8%;width:42%;height:60%;background:rgba(80,60,40,0.2);border-radius:52% 52% 0 0}
+        .clouds{position:fixed;bottom:12%;left:0;width:100%;height:18%;pointer-events:none;z-index:0}
+        .cloud{position:absolute;background:rgba(255,252,245,0.7);border-radius:50%;filter:blur(28px)}
+        .c1{width:260px;height:50px;left:8%;bottom:30px;opacity:0.5}
+        .c2{width:220px;height:42px;right:12%;bottom:15px;opacity:0.4}
+        .c3{width:180px;height:35px;left:50%;bottom:8px;opacity:0.35;transform:translateX(-50%)}
+        .birds{position:fixed;top:12%;right:12%;pointer-events:none;z-index:0;opacity:0.3}
+        .bird{display:inline-block;font-size:13px;margin:0 5px;animation:birdFloat 6s ease-in-out infinite}
+        .bird:nth-child(2){animation-delay:1.5s;font-size:9px}
+        .bird:nth-child(3){animation-delay:3s;font-size:11px}
+        @keyframes birdFloat{0%,100%{transform:translateY(0) translateX(0)}25%{transform:translateY(-7px) translateX(3px)}50%{transform:translateY(-2px) translateX(8px)}75%{transform:translateY(-9px) translateX(3px)}}
+        .container{position:relative;z-index:1;width:100%;max-width:480px;display:flex;flex-direction:column;align-items:center}
+        .back-link{display:inline-block;color:var(--text-muted);text-decoration:none;font-size:14px;margin-bottom:24px;letter-spacing:1px;align-self:flex-start}
+        .back-link:hover{color:var(--gold)}
+        .page-title{text-align:center;font-size:28px;font-weight:700;color:var(--text-primary);letter-spacing:4px;margin-bottom:48px}
+        .menu{display:flex;flex-direction:column;gap:20px;width:100%;max-width:320px}
+        .menu a, .menu .disabled-card{
+            display:flex;align-items:center;justify-content:center;gap:12px;
+            background:rgba(255,253,248,0.75);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+            border:1px solid rgba(180,160,130,0.3);border-radius:16px;padding:28px 24px;
+            text-decoration:none;color:var(--text-primary);font-size:18px;font-weight:600;
+            letter-spacing:3px;cursor:pointer;box-shadow:0 2px 16px rgba(60,40,20,0.04);
+            transition:transform 0.3s ease,box-shadow 0.3s ease;
+        }
+        .menu a:hover{transform:translateY(-3px);box-shadow:0 6px 24px rgba(60,40,20,0.06)}
+        .menu .disabled-card{opacity:0.45;cursor:default;pointer-events:none}
+        .menu .disabled-card:hover{transform:none;box-shadow:0 2px 16px rgba(60,40,20,0.04)}
+        .menu-icon{font-size:22px}
+        .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:48px}
+        @media(max-width:480px){
+            .page-title{font-size:22px}
+            .menu a,.menu .disabled-card{font-size:16px;padding:24px 20px;letter-spacing:2px}
+        }
+    </style>
+</head>
+<body>
+    <div class="mountains"><div class="mountain m1"></div><div class="mountain m2"></div><div class="mountain m3"></div></div>
+    <div class="clouds"><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div></div>
+    <div class="birds"><span class="bird">⩳</span><span class="bird">⩳</span><span class="bird">⩳</span></div>
+    <div class="container">
+        <a href="../英文.html" class="back-link">← 返回英文</a>
+        <div class="page-title">寫 作 庫</div>
+        <div class="menu">
+            <a href="Guide.html">
+                <span class="menu-icon">📝</span>Guide 寫作
+            </a>
+            <div class="disabled-card">
+                <span class="menu-icon">✉️</span>Letter 寫作（待建）
+            </div>
+            <div class="disabled-card">
+                <span class="menu-icon">🎤</span>Speech 寫作（待建）
+            </div>
+            <div class="disabled-card">
+                <span class="menu-icon">📄</span>Article 寫作（待建）
+            </div>
+            <div class="disabled-card">
+                <span class="menu-icon">📝</span>Blog Post 寫作（待建）
+            </div>
+        </div>
+        <div class="footer">── Shelly Liu ──</div>
+    </div>
+</body>
+</html>
