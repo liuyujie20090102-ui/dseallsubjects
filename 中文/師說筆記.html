@@ -75,7 +75,6 @@
         .page-title{text-align:center;font-size:28px;font-weight:700;color:var(--text-primary);letter-spacing:4px;margin-bottom:6px}
         .page-subtitle{text-align:center;font-size:13px;color:var(--text-muted);letter-spacing:2px;margin-bottom:32px}
 
-        /* 章節標題 */
         .section-title{
             font-size:20px;font-weight:700;color:var(--text-primary);
             text-align:center;letter-spacing:3px;
@@ -84,14 +83,8 @@
             border-bottom:1px solid rgba(180,160,130,0.25);
         }
         .section-title:first-of-type{margin-top:0}
-
-        /* 子標題 */
         .sub-title{font-size:16px;font-weight:600;color:var(--text-primary);margin:20px 0 10px;letter-spacing:1px}
-
-        /* 段落文字 */
         .text-block{color:var(--text-secondary);line-height:2;font-size:15px;margin-bottom:12px;letter-spacing:0.5px}
-
-        /* 卡片容器 */
         .content-card{
             background:rgba(255,253,248,0.6);
             border:1px solid rgba(180,160,130,0.2);
@@ -99,8 +92,6 @@
             padding:20px 22px;
             margin:12px 0;
         }
-
-        /* 列表 */
         .list{list-style:none;padding-left:0}
         .list li{padding:4px 0 4px 18px;position:relative;line-height:1.9;color:var(--text-secondary);font-size:14px}
         .list li::before{content:"·";position:absolute;left:4px;color:var(--gold-light);font-weight:bold;font-size:16px}
@@ -125,7 +116,7 @@
         .verse-trans{
             display:none;
             font-size:14px;color:var(--text-secondary);
-            padding:8px 14px 8px 32px;
+            padding:8px 14px 8px 14px;
             letter-spacing:0.5px;line-height:1.7;
         }
         .verse-trans.show{display:block}
@@ -190,7 +181,7 @@
         .tone-quote{font-size:14px;color:var(--text-primary);letter-spacing:0.5px;margin-bottom:6px;line-height:1.6}
         .tone-effect{font-size:12px;color:var(--text-muted);letter-spacing:0.5px}
 
-        /* 浮動目錄按鈕 */
+        /* 浮動目錄 */
         .toc-btn{
             position:fixed;bottom:28px;right:20px;
             width:48px;height:48px;
@@ -207,8 +198,6 @@
             transition:transform 0.3s ease,box-shadow 0.3s ease;
         }
         .toc-btn:hover{transform:scale(1.08);box-shadow:0 6px 24px rgba(60,40,20,0.15)}
-
-        /* 目錄面板 */
         .toc-panel{
             position:fixed;bottom:88px;right:20px;
             width:220px;max-height:60vh;
@@ -281,7 +270,6 @@
         <div class="page-title">師說 · 筆記</div>
         <div class="page-subtitle">韓愈 ·《昌黎先生集》</div>
 
-        <!-- 一、篇章基本資料 -->
         <div class="section-title" id="s1">一、篇章基本資料</div>
         <div class="content-card">
             <div class="text-block"><b>出處：</b>《昌黎先生集》</div>
@@ -290,383 +278,101 @@
             <div class="text-block"><b>寫作背景：</b>唐代士族子弟可憑門蔭出仕，不需學習，社會出現「恥學於師」的風氣。韓愈時任國子監四門博士，親身感受此歪風，於是寫作本文。</div>
         </div>
 
-        <!-- 二、課文原文及語譯 -->
         <div class="section-title" id="s2">二、課文原文及語譯</div>
 
         <div class="sub-title">第1段</div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>古之學者必有師。</div>
-            <div class="verse-trans">古代求學的人一定有老師。</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>師者，所以傳道、受業、解惑也。</div>
-            <div class="verse-trans">老師，是用來傳授道理、教授學業、解答疑惑的。</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>人非生而知之者，孰能無惑？</div>
-            <div class="verse-trans">人不是生下來就懂得知識和道理的，誰能沒有疑惑？</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>惑而不從師，其為惑也終不解矣。</div>
-            <div class="verse-trans">有疑惑卻不跟從老師學習，那些成為疑惑的問題就始終不能解決。</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>生乎吾前，其聞道也固先乎吾，吾從而師之；</div>
-            <div class="verse-trans">出生在我之前的人，他懂得道理本來就比我早，我跟從他並且以他為師。</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>生乎吾後，其聞道也亦先乎吾，吾從而師之。</div>
-            <div class="verse-trans">出生在我之後的人，他懂得道理也比我早，我也跟從他並且以他為師。</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>吾師道也，夫庸知其年之先後生於吾乎？</div>
-            <div class="verse-trans">我學習的是道理，哪裏需要知道他的年齡比我大還是比我小呢？</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>是故無貴無賤，無長無少，道之所存，師之所存也。</div>
-            <div class="verse-trans">所以，不論地位高貴還是低賤，不論年長還是年少，道理存在的地方，就是老師存在的地方。</div>
-        </div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>古之學者必有師。</div><div class="verse-trans">古代求學的人一定有老師。</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>師者，所以傳道、受業、解惑也。</div><div class="verse-trans">老師，是用來傳授道理、教授學業、解答疑惑的。</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>人非生而知之者，孰能無惑？</div><div class="verse-trans">人不是生下來就懂得知識和道理的，誰能沒有疑惑？</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>惑而不從師，其為惑也終不解矣。</div><div class="verse-trans">有疑惑卻不跟從老師學習，那些成為疑惑的問題就始終不能解決。</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>生乎吾前，其聞道也固先乎吾，吾從而師之；</div><div class="verse-trans">出生在我之前的人，他懂得道理本來就比我早，我跟從他並且以他為師。</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>生乎吾後，其聞道也亦先乎吾，吾從而師之。</div><div class="verse-trans">出生在我之後的人，他懂得道理也比我早，我也跟從他並且以他為師。</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>吾師道也，夫庸知其年之先後生於吾乎？</div><div class="verse-trans">我學習的是道理，哪裏需要知道他的年齡比我大還是比我小呢？</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>是故無貴無賤，無長無少，道之所存，師之所存也。</div><div class="verse-trans">所以，不論地位高貴還是低賤，不論年長還是年少，道理存在的地方，就是老師存在的地方。</div></div>
 
         <div class="sub-title">第2段</div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>嗟乎！師道之不傳也久矣！欲人之無惑也難矣！</div>
-            <div class="verse-trans">唉！從師學習的風尚不流傳已經很久了！想要人們沒有疑惑也難了！</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>古之聖人，其出人也遠矣，猶且從師而問焉；</div>
-            <div class="verse-trans">古代的聖人，他們的學問才智超出一般人很遠，尚且跟從老師學習並向老師請教。</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>今之眾人，其下聖人也亦遠矣，而恥學於師。</div>
-            <div class="verse-trans">現在的一般人，他們的學問才智低於聖人很遠，卻以向老師學習為恥。</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>是故聖益聖，愚益愚。</div>
-            <div class="verse-trans">所以聖人更加聖明，愚人更加愚昧。</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>聖人之所以為聖，愚人之所以為愚，其皆出於此乎！</div>
-            <div class="verse-trans">聖人成為聖人的原因，愚人成為愚人的原因，大概都是由於這樣吧！</div>
-        </div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>嗟乎！師道之不傳也久矣！欲人之無惑也難矣！</div><div class="verse-trans">唉！從師學習的風尚不流傳已經很久了！想要人們沒有疑惑也難了！</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>古之聖人，其出人也遠矣，猶且從師而問焉；</div><div class="verse-trans">古代的聖人，他們的學問才智超出一般人很遠，尚且跟從老師學習並向老師請教。</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>今之眾人，其下聖人也亦遠矣，而恥學於師。</div><div class="verse-trans">現在的一般人，他們的學問才智低於聖人很遠，卻以向老師學習為恥。</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>是故聖益聖，愚益愚。</div><div class="verse-trans">所以聖人更加聖明，愚人更加愚昧。</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>聖人之所以為聖，愚人之所以為愚，其皆出於此乎！</div><div class="verse-trans">聖人成為聖人的原因，愚人成為愚人的原因，大概都是由於這樣吧！</div></div>
 
         <div class="sub-title">第3段</div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>愛其子，擇師而教之；於其身也，則恥師焉，惑矣！</div>
-            <div class="verse-trans">人們疼愛自己的孩子，挑選老師來教育他；對於他們自己，卻以跟從老師學習為恥，真是糊塗啊！</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>彼童子之師，授之書而習其句讀者，非吾所謂傳其道、解其惑者也。</div>
-            <div class="verse-trans">那些孩子的老師，是教授孩子讀書並且使他們熟習書中文句停頓的人，不是我所說的傳授道理、解答疑惑的老師。</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>句讀之不知，惑之不解，或師焉，或不焉，小學而大遺，吾未見其明也。</div>
-            <div class="verse-trans">不懂得文句停頓，不能解決疑惑，有的人跟從老師學習，有的人卻不跟從老師學習，學習了小知識卻遺漏了大道理，我看不出他們的明智之處。</div>
-        </div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>愛其子，擇師而教之；於其身也，則恥師焉，惑矣！</div><div class="verse-trans">人們疼愛自己的孩子，挑選老師來教育他；對於他們自己，卻以跟從老師學習為恥，真是糊塗啊！</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>彼童子之師，授之書而習其句讀者，非吾所謂傳其道、解其惑者也。</div><div class="verse-trans">那些孩子的老師，是教授孩子讀書並且使他們熟習書中文句停頓的人，不是我所說的傳授道理、解答疑惑的老師。</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>句讀之不知，惑之不解，或師焉，或不焉，小學而大遺，吾未見其明也。</div><div class="verse-trans">不懂得文句停頓，不能解決疑惑，有的人跟從老師學習，有的人卻不跟從老師學習，學習了小知識卻遺漏了大道理，我看不出他們的明智之處。</div></div>
 
         <div class="sub-title">第4段</div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>巫、醫、樂師、百工之人，不恥相師；</div>
-            <div class="verse-trans">巫師、醫師、樂師及各種工匠這些人，不以互相學習為恥。</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>士大夫之族，曰師、曰弟子云者，則羣聚而笑之。</div>
-            <div class="verse-trans">士大夫這類人，聽到有人稱呼「老師」、稱呼「弟子」等等時，就成羣聚集在一起嘲笑他們。</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>問之，則曰：「彼與彼年相若也，道相似也。」</div>
-            <div class="verse-trans">有人問他們，他們就說：「那個人與那個人年紀差不多，道德學問也差不多。」</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>位卑則足羞，官盛則近諛。</div>
-            <div class="verse-trans">向地位低微的人學習就足以感到羞恥，向官位顯赫的人學習就認為自己近於諂媚。</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>嗚呼！師道之不復，可知矣。</div>
-            <div class="verse-trans">唉！從師學習的風尚不能恢復，由此就可以知道了。</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>巫、醫、樂師、百工之人，君子不齒，今其智乃反不能及，其可怪也歟！</div>
-            <div class="verse-trans">巫師、醫師、樂師及各種工匠這些人，士大夫不屑與他們同列，現在士大夫的智慧竟然反而比不上他們，真是令人奇怪啊！</div>
-        </div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>巫、醫、樂師、百工之人，不恥相師；</div><div class="verse-trans">巫師、醫師、樂師及各種工匠這些人，不以互相學習為恥。</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>士大夫之族，曰師、曰弟子云者，則羣聚而笑之。</div><div class="verse-trans">士大夫這類人，聽到有人稱呼「老師」、稱呼「弟子」等等時，就成羣聚集在一起嘲笑他們。</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>問之，則曰：「彼與彼年相若也，道相似也。」</div><div class="verse-trans">有人問他們，他們就說：「那個人與那個人年紀差不多，道德學問也差不多。」</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>位卑則足羞，官盛則近諛。</div><div class="verse-trans">向地位低微的人學習就足以感到羞恥，向官位顯赫的人學習就認為自己近於諂媚。</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>嗚呼！師道之不復，可知矣。</div><div class="verse-trans">唉！從師學習的風尚不能恢復，由此就可以知道了。</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>巫、醫、樂師、百工之人，君子不齒，今其智乃反不能及，其可怪也歟！</div><div class="verse-trans">巫師、醫師、樂師及各種工匠這些人，士大夫不屑與他們同列，現在士大夫的智慧竟然反而比不上他們，真是令人奇怪啊！</div></div>
 
         <div class="sub-title">第5段</div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>聖人無常師。</div>
-            <div class="verse-trans">聖人沒有固定的老師。</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>孔子師郯子、萇弘、師襄、老聃。</div>
-            <div class="verse-trans">孔子以郯子、萇弘、師襄、老聃為師。</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>郯子之徒，其賢不及孔子。</div>
-            <div class="verse-trans">郯子這些人，他們的賢德比不上孔子。</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>孔子曰：「三人行，則必有我師。」</div>
-            <div class="verse-trans">孔子說：「幾個人同行，就一定可以有作為我老師的人。」</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>是故弟子不必不如師，師不必賢於弟子；</div>
-            <div class="verse-trans">因此學生不一定比不上老師，老師不一定比學生賢能。</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>聞道有先後，術業有專攻，如是而已。</div>
-            <div class="verse-trans">懂得道理有先後，學問技藝各自有專門研究，就像這樣罷了。</div>
-        </div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>聖人無常師。</div><div class="verse-trans">聖人沒有固定的老師。</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>孔子師郯子、萇弘、師襄、老聃。</div><div class="verse-trans">孔子以郯子、萇弘、師襄、老聃為師。</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>郯子之徒，其賢不及孔子。</div><div class="verse-trans">郯子這些人，他們的賢德比不上孔子。</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>孔子曰：「三人行，則必有我師。」</div><div class="verse-trans">孔子說：「幾個人同行，就一定可以有作為我老師的人。」</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>是故弟子不必不如師，師不必賢於弟子；</div><div class="verse-trans">因此學生不一定比不上老師，老師不一定比學生賢能。</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>聞道有先後，術業有專攻，如是而已。</div><div class="verse-trans">懂得道理有先後，學問技藝各自有專門研究，就像這樣罷了。</div></div>
 
         <div class="sub-title">第6段</div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>李氏子蟠，年十七，好古文，六藝經傳，皆通習之；</div>
-            <div class="verse-trans">李家有個孩子叫蟠，十七歲，愛好古文，六藝的原文和注解，都能通曉熟習。</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>不拘於時，學於余。</div>
-            <div class="verse-trans">他不受時俗的風氣所拘限，向我學習。</div>
-        </div>
-        <div class="verse-block">
-            <div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>余嘉其能行古道，作《師說》以貽之。</div>
-            <div class="verse-trans">我讚許他能遵行古人從師學習之道，撰寫了這篇《師說》來贈送給他。</div>
-        </div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>李氏子蟠，年十七，好古文，六藝經傳，皆通習之；</div><div class="verse-trans">李家有個孩子叫蟠，十七歲，愛好古文，六藝的原文和注解，都能通曉熟習。</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>不拘於時，學於余。</div><div class="verse-trans">他不受時俗的風氣所拘限，向我學習。</div></div>
+        <div class="verse-block"><div class="verse-original" onclick="toggleVerse(this)"><span class="verse-arrow">▶</span>余嘉其能行古道，作《師說》以貽之。</div><div class="verse-trans">我讚許他能遵行古人從師學習之道，撰寫了這篇《師說》來贈送給他。</div></div>
 
-        <!-- 三、內容要點 -->
         <div class="section-title" id="s3">三、內容要點</div>
-
         <div class="sub-title">1. 中心論點</div>
-        <div class="content-card">
-            <div class="text-block" style="font-size:16px;color:var(--text-primary);text-align:center;margin-bottom:4px;">古之學者必有師。</div>
-            <div class="text-block" style="text-align:center;margin-bottom:0;">從師學習是必要的，古代求學的人一定有老師。</div>
-        </div>
-
+        <div class="content-card"><div class="text-block" style="font-size:16px;color:var(--text-primary);text-align:center;margin-bottom:4px;">古之學者必有師。</div><div class="text-block" style="text-align:center;margin-bottom:0;">從師學習是必要的，古代求學的人一定有老師。</div></div>
         <div class="sub-title">2. 老師的職責</div>
-        <div class="grid-4" style="grid-template-columns:repeat(3,1fr)">
-            <div class="mini-card">
-                <div class="mc-num">傳道</div>
-                <div class="mc-desc">傳授道理<br>（儒家之道）</div>
-            </div>
-            <div class="mini-card">
-                <div class="mc-num">受業</div>
-                <div class="mc-desc">教授學業知識<br>（六藝經傳）</div>
-            </div>
-            <div class="mini-card">
-                <div class="mc-num">解惑</div>
-                <div class="mc-desc">解答疑惑</div>
-            </div>
-        </div>
-
+        <div class="grid-4" style="grid-template-columns:repeat(3,1fr)"><div class="mini-card"><div class="mc-num">傳道</div><div class="mc-desc">傳授道理<br>（儒家之道）</div></div><div class="mini-card"><div class="mc-num">受業</div><div class="mc-desc">教授學業知識<br>（六藝經傳）</div></div><div class="mini-card"><div class="mc-num">解惑</div><div class="mc-desc">解答疑惑</div></div></div>
         <div class="sub-title">3. 擇師的原則</div>
-        <div class="content-card">
-            <div class="text-block" style="font-size:16px;color:var(--text-primary);text-align:center;margin-bottom:10px;">無貴無賤，無長無少，道之所存，師之所存也。</div>
-            <ul class="list">
-                <li>不考慮年齡和社會地位</li>
-                <li>只考慮對方是否懂得道理</li>
-                <li>有道即為師</li>
-            </ul>
-        </div>
-
+        <div class="content-card"><div class="text-block" style="font-size:16px;color:var(--text-primary);text-align:center;margin-bottom:10px;">無貴無賤，無長無少，道之所存，師之所存也。</div><ul class="list"><li>不考慮年齡和社會地位</li><li>只考慮對方是否懂得道理</li><li>有道即為師</li></ul></div>
         <div class="sub-title">4. 士大夫恥學於師的原因</div>
-        <div class="grid-4">
-            <div class="mini-card">
-                <div class="mc-num">①</div>
-                <div class="mc-title">年齡相若</div>
-                <div class="mc-desc">彼此年紀差不多，道德學問也差不多，覺得不必互相學習。</div>
-            </div>
-            <div class="mini-card">
-                <div class="mc-num">②</div>
-                <div class="mc-title">恥於下問</div>
-                <div class="mc-desc">自恃身分，覺得向地位比自己低的人請教是可恥的。</div>
-            </div>
-            <div class="mini-card">
-                <div class="mc-num">③</div>
-                <div class="mc-title">怕被說諂媚</div>
-                <div class="mc-desc">向官位顯赫的人請教，又怕被人批評是在奉承巴結。</div>
-            </div>
-            <div class="mini-card">
-                <div class="mc-num">④</div>
-                <div class="mc-title">社會風氣</div>
-                <div class="mc-desc">當時士大夫聽到有人以師徒相稱，就會聚在一起嘲笑，人們怕被恥笑而不敢從師。</div>
-            </div>
-        </div>
-
+        <div class="grid-4"><div class="mini-card"><div class="mc-num">①</div><div class="mc-title">年齡相若</div><div class="mc-desc">彼此年紀差不多，道德學問也差不多，覺得不必互相學習。</div></div><div class="mini-card"><div class="mc-num">②</div><div class="mc-title">恥於下問</div><div class="mc-desc">自恃身分，覺得向地位比自己低的人請教是可恥的。</div></div><div class="mini-card"><div class="mc-num">③</div><div class="mc-title">怕被說諂媚</div><div class="mc-desc">向官位顯赫的人請教，又怕被人批評是在奉承巴結。</div></div><div class="mini-card"><div class="mc-num">④</div><div class="mc-title">社會風氣</div><div class="mc-desc">當時士大夫聽到有人以師徒相稱，就會聚在一起嘲笑，人們怕被恥笑而不敢從師。</div></div></div>
         <div class="sub-title">5. 從師學習的效果</div>
         <div class="text-block">解決疑難、明白經傳的內容、傳承儒家思想。</div>
-
         <div class="sub-title">6. 寫作緣由</div>
-        <ul class="list">
-            <li>讚揚弟子李蟠「能行古道」（遵行古人從師學習之道）</li>
-            <li>批評當時士大夫恥於從師的風氣</li>
-        </ul>
+        <ul class="list"><li>讚揚弟子李蟠「能行古道」（遵行古人從師學習之道）</li><li>批評當時士大夫恥於從師的風氣</li></ul>
 
-        <!-- 四、寫作手法分析 -->
         <div class="section-title" id="s4">四、寫作手法分析</div>
-
         <div class="sub-title">1. 結構層次</div>
-        <div class="grid-4">
-            <div class="mini-card">
-                <div class="mc-num">立論</div>
-                <div class="mc-title">第1段</div>
-                <div class="mc-desc">提出中心論點，指出老師的作用和從師的必要</div>
-            </div>
-            <div class="mini-card">
-                <div class="mc-num">反面論證</div>
-                <div class="mc-title">第2-4段</div>
-                <div class="mc-desc">三組對比批評當時恥於從師的風氣</div>
-            </div>
-            <div class="mini-card">
-                <div class="mc-num">正面論證</div>
-                <div class="mc-title">第5段</div>
-                <div class="mc-desc">以孔子為例，論證從師的重要</div>
-            </div>
-            <div class="mini-card">
-                <div class="mc-num">結論</div>
-                <div class="mc-title">第6段</div>
-                <div class="mc-desc">交代寫作緣由，嘉許李蟠</div>
-            </div>
-        </div>
-
+        <div class="grid-4"><div class="mini-card"><div class="mc-num">立論</div><div class="mc-title">第1段</div><div class="mc-desc">提出中心論點，指出老師的作用和從師的必要</div></div><div class="mini-card"><div class="mc-num">反面論證</div><div class="mc-title">第2-4段</div><div class="mc-desc">三組對比批評當時恥於從師的風氣</div></div><div class="mini-card"><div class="mc-num">正面論證</div><div class="mc-title">第5段</div><div class="mc-desc">以孔子為例，論證從師的重要</div></div><div class="mini-card"><div class="mc-num">結論</div><div class="mc-title">第6段</div><div class="mc-desc">交代寫作緣由，嘉許李蟠</div></div></div>
         <div class="sub-title">2. 三組對比</div>
-        <div class="grid-4">
-            <div class="mini-card">
-                <div class="mc-num">古今對比</div>
-                <div class="mc-title">古之聖人 vs 今之眾人</div>
-                <div class="mc-desc">聖人尚且從師，一般人更應從師</div>
-            </div>
-            <div class="mini-card">
-                <div class="mc-num">自身對比</div>
-                <div class="mc-title">為子擇師 vs 自身恥師</div>
-                <div class="mc-desc">本末倒置，小學而大遺</div>
-            </div>
-            <div class="mini-card">
-                <div class="mc-num">社會階層對比</div>
-                <div class="mc-title">百工之人 vs 士大夫</div>
-                <div class="mc-desc">士大夫才智反不及百工之人</div>
-            </div>
-        </div>
-
+        <div class="grid-4"><div class="mini-card"><div class="mc-num">古今對比</div><div class="mc-title">古之聖人 vs 今之眾人</div><div class="mc-desc">聖人尚且從師，一般人更應從師</div></div><div class="mini-card"><div class="mc-num">自身對比</div><div class="mc-title">為子擇師 vs 自身恥師</div><div class="mc-desc">本末倒置，小學而大遺</div></div><div class="mini-card"><div class="mc-num">社會階層對比</div><div class="mc-title">百工之人 vs 士大夫</div><div class="mc-desc">士大夫才智反不及百工之人</div></div></div>
         <div class="sub-title">3. 論證手法</div>
-        <div class="grid-4">
-            <div class="mini-card">
-                <div class="mc-num">舉例論證</div>
-                <div class="mc-desc">以孔子為例，證明聖人也要從師</div>
-            </div>
-            <div class="mini-card">
-                <div class="mc-num">引用論證</div>
-                <div class="mc-desc">引用孔子名言「三人行，則必有我師」</div>
-            </div>
-            <div class="mini-card">
-                <div class="mc-num">對比論證</div>
-                <div class="mc-desc">通過三組對比突顯從師的重要</div>
-            </div>
-            <div class="mini-card">
-                <div class="mc-num">正反論證</div>
-                <div class="mc-desc">正面孔子從師，反面士大夫恥學</div>
-            </div>
-        </div>
-
+        <div class="grid-4"><div class="mini-card"><div class="mc-num">舉例論證</div><div class="mc-desc">以孔子為例，證明聖人也要從師</div></div><div class="mini-card"><div class="mc-num">引用論證</div><div class="mc-desc">引用孔子名言「三人行，則必有我師」</div></div><div class="mini-card"><div class="mc-num">對比論證</div><div class="mc-desc">通過三組對比突顯從師的重要</div></div><div class="mini-card"><div class="mc-num">正反論證</div><div class="mc-desc">正面孔子從師，反面士大夫恥學</div></div></div>
         <div class="sub-title">4. 前後呼應</div>
-        <div class="echo-card">
-            <span class="echo-left">「師道之不傳也久矣」</span>
-            <span class="echo-arrow-sym">→</span>
-            <span class="echo-right">「古之學者必有師」</span>
-        </div>
-        <div class="echo-card">
-            <span class="echo-left">「非吾所謂傳其道、解其惑者也」</span>
-            <span class="echo-arrow-sym">→</span>
-            <span class="echo-right">「傳道、受業、解惑也」</span>
-        </div>
-        <div class="echo-card">
-            <span class="echo-left">「彼與彼年相若也」</span>
-            <span class="echo-arrow-sym">→</span>
-            <span class="echo-right">「無長無少」</span>
-        </div>
-        <div class="echo-card">
-            <span class="echo-left">「位卑則足羞，官盛則近諛」</span>
-            <span class="echo-arrow-sym">→</span>
-            <span class="echo-right">「無貴無賤」</span>
-        </div>
-        <div class="echo-card">
-            <span class="echo-left">孔子從師的事例</span>
-            <span class="echo-arrow-sym">→</span>
-            <span class="echo-right">「古之學者必有師」</span>
-        </div>
-        <div class="echo-card">
-            <span class="echo-left">「能行古道」</span>
-            <span class="echo-arrow-sym">→</span>
-            <span class="echo-right">「古之學者必有師」</span>
-        </div>
-
+        <div class="echo-card"><span class="echo-left">「師道之不傳也久矣」</span><span class="echo-arrow-sym">→</span><span class="echo-right">「古之學者必有師」</span></div>
+        <div class="echo-card"><span class="echo-left">「非吾所謂傳其道、解其惑者也」</span><span class="echo-arrow-sym">→</span><span class="echo-right">「傳道、受業、解惑也」</span></div>
+        <div class="echo-card"><span class="echo-left">「彼與彼年相若也」</span><span class="echo-arrow-sym">→</span><span class="echo-right">「無長無少」</span></div>
+        <div class="echo-card"><span class="echo-left">「位卑則足羞，官盛則近諛」</span><span class="echo-arrow-sym">→</span><span class="echo-right">「無貴無賤」</span></div>
+        <div class="echo-card"><span class="echo-left">孔子從師的事例</span><span class="echo-arrow-sym">→</span><span class="echo-right">「古之學者必有師」</span></div>
+        <div class="echo-card"><span class="echo-left">「能行古道」</span><span class="echo-arrow-sym">→</span><span class="echo-right">「古之學者必有師」</span></div>
         <div class="sub-title">5. 語氣靈活</div>
-        <div class="tone-grid">
-            <div class="tone-card">
-                <div class="tone-type">感嘆</div>
-                <div class="tone-quote">「嗟乎！師道之不傳也久矣！」</div>
-                <div class="tone-effect">表達強烈慨嘆</div>
-            </div>
-            <div class="tone-card">
-                <div class="tone-type">反問</div>
-                <div class="tone-quote">「夫庸知其年之先後生於吾乎？」</div>
-                <div class="tone-effect">強調從師不須顧慮年齡</div>
-            </div>
-            <div class="tone-card">
-                <div class="tone-type">陳述</div>
-                <div class="tone-quote">「小學而大遺，吾未見其明也。」</div>
-                <div class="tone-effect">以確切語氣指出愚昧</div>
-            </div>
-            <div class="tone-card">
-                <div class="tone-type">感嘆</div>
-                <div class="tone-quote">「今其智乃反不能及，其可怪也歟！」</div>
-                <div class="tone-effect">引起反思</div>
-            </div>
-        </div>
+        <div class="tone-grid"><div class="tone-card"><div class="tone-type">感嘆</div><div class="tone-quote">「嗟乎！師道之不傳也久矣！」</div><div class="tone-effect">表達強烈慨嘆</div></div><div class="tone-card"><div class="tone-type">反問</div><div class="tone-quote">「夫庸知其年之先後生於吾乎？」</div><div class="tone-effect">強調從師不須顧慮年齡</div></div><div class="tone-card"><div class="tone-type">陳述</div><div class="tone-quote">「小學而大遺，吾未見其明也。」</div><div class="tone-effect">以確切語氣指出愚昧</div></div><div class="tone-card"><div class="tone-type">感嘆</div><div class="tone-quote">「今其智乃反不能及，其可怪也歟！」</div><div class="tone-effect">引起反思</div></div></div>
 
-        <!-- 五、古漢語知識 -->
         <div class="section-title" id="s5">五、古漢語知識</div>
-
         <div class="sub-title">字詞表</div>
-        <div class="grid-4">
-            <div class="mini-card"><div class="mc-num">師</div><div class="mc-desc">老師（名詞）<br>學習（動詞）<br>以…為師（動詞）</div></div>
-            <div class="mini-card"><div class="mc-num">道</div><div class="mc-desc">道理、知識（名詞）<br>風尚（名詞）</div></div>
-            <div class="mini-card"><div class="mc-num">惑</div><div class="mc-desc">疑惑（名詞）<br>糊塗（形容詞）</div></div>
-            <div class="mini-card"><div class="mc-num">恥</div><div class="mc-desc">以……為恥（動詞）</div></div>
-            <div class="mini-card"><div class="mc-num">庸</div><div class="mc-desc">哪用（副詞）</div></div>
-            <div class="mini-card"><div class="mc-num">讀</div><div class="mc-desc">停頓（名詞）</div></div>
-            <div class="mini-card"><div class="mc-num">小學</div><div class="mc-desc">句讀等基本知識</div></div>
-            <div class="mini-card"><div class="mc-num">大遺</div><div class="mc-desc">放棄了大道理</div></div>
-        </div>
-
+        <div class="grid-4"><div class="mini-card"><div class="mc-num">師</div><div class="mc-desc">老師（名詞）<br>學習（動詞）<br>以…為師（動詞）</div></div><div class="mini-card"><div class="mc-num">道</div><div class="mc-desc">道理、知識（名詞）<br>風尚（名詞）</div></div><div class="mini-card"><div class="mc-num">惑</div><div class="mc-desc">疑惑（名詞）<br>糊塗（形容詞）</div></div><div class="mini-card"><div class="mc-num">恥</div><div class="mc-desc">以……為恥（動詞）</div></div><div class="mini-card"><div class="mc-num">庸</div><div class="mc-desc">哪用（副詞）</div></div><div class="mini-card"><div class="mc-num">讀</div><div class="mc-desc">停頓（名詞）</div></div><div class="mini-card"><div class="mc-num">小學</div><div class="mc-desc">句讀等基本知識</div></div><div class="mini-card"><div class="mc-num">大遺</div><div class="mc-desc">放棄了大道理</div></div></div>
         <div class="sub-title">句式表</div>
-        <div class="grid-4">
-            <div class="mini-card"><div class="mc-num">判斷句</div><div class="mc-desc">師者，所以傳道、受業、解惑也。<br><br>「……者，……也」</div></div>
-            <div class="mini-card"><div class="mc-num">被動句</div><div class="mc-desc">不拘於時。<br><br>「於」表被動</div></div>
-            <div class="mini-card"><div class="mc-num">省略句</div><div class="mc-desc">吾從而師之。<br><br>省略賓語「之」</div></div>
-            <div class="mini-card"><div class="mc-num">倒裝句</div><div class="mc-desc">而恥學於師。<br><br>「學於師」即「於師學」</div></div>
-        </div>
+        <div class="grid-4"><div class="mini-card"><div class="mc-num">判斷句</div><div class="mc-desc">師者，所以傳道、受業、解惑也。<br><br>「……者，……也」</div></div><div class="mini-card"><div class="mc-num">被動句</div><div class="mc-desc">不拘於時。<br><br>「於」表被動</div></div><div class="mini-card"><div class="mc-num">省略句</div><div class="mc-desc">吾從而師之。<br><br>省略賓語「之」</div></div><div class="mini-card"><div class="mc-num">倒裝句</div><div class="mc-desc">而恥學於師。<br><br>「學於師」即「於師學」</div></div></div>
 
-        <!-- 六、文化知識 -->
         <div class="section-title" id="s6">六、文化知識</div>
-
         <div class="sub-title">六藝</div>
         <div class="text-block">兩種說法：</div>
-        <ul class="list">
-            <li>說法一：禮、樂、射、御、書、數（技能）</li>
-            <li>說法二：《詩》、《書》、《禮》、《易》、《樂》、《春秋》（六經）</li>
-        </ul>
-
+        <ul class="list"><li>說法一：禮、樂、射、御、書、數（技能）</li><li>說法二：《詩》、《書》、《禮》、《易》、《樂》、《春秋》（六經）</li></ul>
         <div class="sub-title">古文運動</div>
         <div class="text-block">魏晉南北朝以來，駢文盛行，文壇崇尚綺靡文風，忽略內容深度。韓愈與柳宗元主張恢復秦漢時期自然質樸的散文風格，宣揚「文以載道」。</div>
 
         <div class="footer">── Shelly Liu ──</div>
     </div>
 
-    <!-- 浮動目錄按鈕 -->
     <div class="toc-btn" id="tocBtn" onclick="toggleToc()">📑</div>
-
-    <!-- 目錄面板 -->
     <div class="toc-panel" id="tocPanel">
-        <div class="toc-header">
-            目錄
-            <button class="toc-close" onclick="toggleToc()">✕</button>
-        </div>
+        <div class="toc-header">目錄<button class="toc-close" onclick="toggleToc()">✕</button></div>
         <a class="toc-item" href="#s1" onclick="toggleToc()">一、篇章基本資料</a>
         <a class="toc-item" href="#s2" onclick="toggleToc()">二、課文原文及語譯</a>
         <a class="toc-item" href="#s3" onclick="toggleToc()">三、內容要點</a>
@@ -676,30 +382,9 @@
     </div>
 
     <script>
-        function toggleToc(){
-            document.getElementById('tocPanel').classList.toggle('show');
-        }
-        document.addEventListener('click',function(e){
-            const panel=document.getElementById('tocPanel');
-            const btn=document.getElementById('tocBtn');
-            if(!panel.contains(e.target) && e.target!==btn){
-                panel.classList.remove('show');
-            }
-        });
-        function toggleVerse(el){
-            const arrow=el.querySelector('.verse-arrow');
-            const trans=el.nextElementSibling;
-            if(trans.classList.contains('show')){
-                trans.classList.remove('show');
-                arrow.classList.remove('open');
-                arrow.textContent='▶';
-            }else{
-                trans.classList.add('show');
-                arrow.classList.add('open');
-                arrow.textContent='▼';
-            }
-        }
+        function toggleToc(){document.getElementById('tocPanel').classList.toggle('show')}
+        document.addEventListener('click',function(e){const p=document.getElementById('tocPanel');const b=document.getElementById('tocBtn');if(!p.contains(e.target)&&e.target!==b)p.classList.remove('show')});
+        function toggleVerse(el){const arrow=el.querySelector('.verse-arrow');const trans=el.nextElementSibling;if(trans.classList.contains('show')){trans.classList.remove('show');arrow.classList.remove('open');arrow.textContent='▶'}else{trans.classList.add('show');arrow.classList.add('open');arrow.textContent='▼'}}
     </script>
-
 </body>
 </html>
