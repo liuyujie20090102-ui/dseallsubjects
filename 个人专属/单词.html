@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-HK">
 <head>
@@ -16,6 +15,8 @@
             --text-muted: #a09880;
             --gold: #8b6914;
             --gold-light: #c4a97d;
+            --correct: #2e7d32;
+            --wrong: #c62828;
             --font-cn: "Noto Serif TC","PingFang SC","Microsoft YaHei","KaiTi",serif;
             --font-en: "Inter","Helvetica Neue",sans-serif;
         }
@@ -54,21 +55,81 @@
         .bird:nth-child(2){animation-delay:1.5s;font-size:9px}
         .bird:nth-child(3){animation-delay:3s;font-size:11px}
         @keyframes birdFloat{0%,100%{transform:translateY(0) translateX(0)}25%{transform:translateY(-7px) translateX(3px)}50%{transform:translateY(-2px) translateX(8px)}75%{transform:translateY(-9px) translateX(3px)}}
-        .container{position:relative;z-index:1;width:100%;max-width:480px;display:flex;flex-direction:column;align-items:center}
-        .back-link{display:inline-block;color:var(--text-muted);text-decoration:none;font-size:14px;margin-bottom:24px;letter-spacing:1px;align-self:flex-start}
+        .container{position:relative;z-index:1;width:100%;max-width:650px}
+        .back-link{display:inline-block;color:var(--text-muted);text-decoration:none;font-size:14px;margin-bottom:24px;letter-spacing:1px}
         .back-link:hover{color:var(--gold)}
-        .page-title{text-align:center;font-size:28px;font-weight:700;color:var(--text-primary);letter-spacing:4px;margin-bottom:36px}
-        .word-list{width:100%;max-width:320px;display:flex;flex-direction:column;gap:12px}
-        .word-item{
-            display:block;padding:16px 20px;
+        .page-title{text-align:center;font-size:28px;font-weight:700;color:var(--text-primary);letter-spacing:4px;margin-bottom:12px}
+        .page-subtitle{text-align:center;font-size:13px;color:var(--text-muted);letter-spacing:2px;margin-bottom:36px}
+        .word-card{
             background:rgba(255,253,248,0.75);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-            border:1px solid rgba(180,160,130,0.3);border-radius:12px;
-            text-decoration:none;color:var(--text-primary);font-size:16px;letter-spacing:1px;
-            transition:all 0.2s;
+            border:1px solid rgba(180,160,130,0.3);border-radius:16px;padding:28px 24px;margin-bottom:28px;
         }
-        .word-item:hover{background:rgba(180,160,130,0.08);transform:translateX(4px)}
-        .word-en{font-weight:600}
-        .word-zh{font-size:13px;color:var(--text-muted);margin-left:8px}
+        .word-en{text-align:center;font-family:var(--font-en);font-size:28px;font-weight:700;color:var(--text-primary);letter-spacing:2px;margin-bottom:6px}
+        .word-zh{text-align:center;font-size:16px;color:var(--gold);letter-spacing:2px;margin-bottom:24px}
+        .section{margin-bottom:24px}
+        .section-title{font-size:14px;font-weight:600;color:var(--text-primary);letter-spacing:2px;margin-bottom:10px;padding-left:8px;border-left:3px solid var(--gold-light)}
+        table{width:100%;border-collapse:collapse;margin:8px 0;font-size:14px}
+        th{background:rgba(180,160,130,0.15);color:#2c2416;padding:8px 10px;text-align:center;font-weight:600;border:1px solid rgba(180,160,130,0.2);font-size:13px}
+        td{padding:7px 10px;border:1px solid rgba(180,160,130,0.2);color:#5c5347;line-height:1.7;font-size:13px}
+        td:first-child{font-weight:600;color:#2c2416;text-align:center;background:rgba(180,160,130,0.05)}
+        .例句-box{background:rgba(255,253,248,0.6);border-left:3px solid var(--gold-light);padding:12px 16px;border-radius:0 8px 8px 0;color:#5c5347;line-height:1.8;font-size:14px;font-style:italic}
+
+        .practice-section{margin-top:24px;padding-top:24px;border-top:2px solid rgba(180,160,130,0.3)}
+        .practice-title{font-size:16px;font-weight:600;color:var(--text-primary);letter-spacing:2px;margin-bottom:16px}
+        .practice-card{
+            background:rgba(255,253,248,0.75);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+            border:1px solid rgba(180,160,130,0.3);border-radius:14px;padding:20px;margin-bottom:16px;
+        }
+        .practice-q{font-size:14px;color:var(--text-primary);margin-bottom:12px;line-height:1.8}
+        .slots{display:flex;justify-content:center;gap:10px;margin-bottom:12px}
+        .slot{
+            min-width:60px;height:38px;background:rgba(255,253,248,0.8);border:2px dashed rgba(180,160,130,0.5);
+            border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;
+        }
+        .slot.filled{background:rgba(139,105,20,0.08);border:2px solid var(--gold);font-weight:600}
+        .opts{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+        .opt-btn{
+            padding:6px 14px;background:rgba(255,253,248,0.8);border:1px solid rgba(180,160,130,0.4);
+            border-radius:8px;font-size:13px;cursor:pointer;transition:all 0.2s;
+        }
+        .opt-btn:hover{background:rgba(180,160,130,0.1)}
+        .opt-btn.selected{background:rgba(139,105,20,0.15);border-color:var(--gold);font-weight:600}
+        .opt-btn.used{opacity:0.3;pointer-events:none}
+        .blank-row{display:flex;justify-content:center;gap:4px;margin-bottom:12px}
+        .blank{
+            width:26px;height:32px;border-bottom:2px solid var(--gold);text-align:center;
+            font-size:16px;color:var(--text-primary);margin:0 1px;display:inline-flex;align-items:flex-end;justify-content:center;
+        }
+        .letter-pool{display:flex;justify-content:center;gap:4px;flex-wrap:wrap;margin-bottom:12px}
+        .lbtn{
+            width:30px;height:30px;background:rgba(255,253,248,0.8);border:1px solid rgba(180,160,130,0.4);
+            border-radius:6px;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+        }
+        .lbtn:hover{background:rgba(180,160,130,0.1)}
+        .lbtn.selected{background:rgba(139,105,20,0.2);border-color:var(--gold)}
+        .lbtn.used{opacity:0.3;pointer-events:none}
+        .choice-list{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+        .choice-item{
+            padding:10px 14px;background:rgba(255,253,248,0.8);border:1px solid rgba(180,160,130,0.4);
+            border-radius:8px;font-size:13px;cursor:pointer;transition:all 0.2s;
+        }
+        .choice-item:hover{background:rgba(180,160,130,0.08)}
+        .choice-item.correct{border-color:var(--correct);background:rgba(46,125,50,0.06)}
+        .choice-item.wrong{border-color:var(--wrong);background:rgba(198,40,40,0.04)}
+        .form-tabs{display:flex;gap:6px;margin-bottom:10px}
+        .form-tab{
+            padding:5px 12px;background:rgba(255,253,248,0.7);border:1px solid rgba(180,160,130,0.3);
+            border-radius:14px;font-size:12px;cursor:pointer;
+        }
+        .form-tab.active{background:rgba(139,105,20,0.12);border-color:var(--gold);font-weight:600}
+        .btn{
+            padding:6px 14px;background:rgba(255,253,248,0.7);border:1px solid rgba(180,160,130,0.25);
+            border-radius:18px;cursor:pointer;font-family:var(--font-cn);font-size:12px;color:#5c5347;
+            letter-spacing:1px;transition:all 0.3s;margin:2px;
+        }
+        .btn:hover{background:rgba(180,160,130,0.12);color:#2c2416}
+        .btn.primary{background:var(--gold);color:#fff;border:none}
+        .feedback{margin-top:8px;font-size:13px;min-height:18px;color:var(--text-secondary)}
         .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:40px}
     </style>
 </head>
@@ -79,12 +140,198 @@
     <div class="container">
         <a href="词汇积累.html" class="back-link">← 返回詞彙積累</a>
         <div class="page-title">單 詞</div>
-        <div class="word-list">
-            <a href="fast-reflex.html" class="word-item">
-                <span class="word-en">fast reflex</span><span class="word-zh">— 快速反應</span>
-            </a>
+        <div class="page-subtitle">個人詞彙積累 · 含練習</div>
+
+        <!-- ==================== fast reflex ==================== -->
+        <div class="word-card" id="fast-reflex">
+            <div class="word-en">fast reflex</div>
+            <div class="word-zh">快速反應</div>
+
+            <div class="section"><div class="section-title">家族詞</div>
+                <table><tr><th>形式</th><th>詞</th><th>中文</th></tr>
+                <tr><td>noun 名詞</td><td>reflex</td><td>反射；本能反應</td></tr>
+                <tr><td>adj 形容詞</td><td>reflexive</td><td>反射性的</td></tr>
+                <tr><td>adv 副詞</td><td>reflexively</td><td>本能地</td></tr></table>
+            </div>
+
+            <div class="section"><div class="section-title">詞根拆解</div>
+                <table><tr><th>詞根</th><th>含義</th><th>例詞</th><th>拆解</th></tr>
+                <tr><td>flect- / flex-</td><td>彎曲</td><td>reflex</td><td>re-（回）+ flex（彎曲）→ 反射</td></tr>
+                <tr><td></td><td></td><td>reflect</td><td>re-（回）+ flect（彎曲）→ 反思</td></tr>
+                <tr><td></td><td></td><td>flexible</td><td>flex（彎曲）+ ible（能夠）→ 靈活的</td></tr></table>
+            </div>
+
+            <div class="section"><div class="section-title">近義詞</div>
+                <table><tr><th>詞</th><th>中文</th><th>使用場景</th></tr>
+                <tr><td>reaction</td><td>反應</td><td>日常通用</td></tr>
+                <tr><td>response</td><td>回應</td><td>對刺激的回應</td></tr>
+                <tr><td>instinct</td><td>本能</td><td>天生的反應</td></tr></table>
+            </div>
+
+            <div class="section"><div class="section-title">反義詞</div>
+                <table><tr><th>詞</th><th>中文</th><th>使用場景</th></tr>
+                <tr><td>deliberation</td><td>深思熟慮</td><td>經過思考的行動</td></tr></table>
+            </div>
+
+            <div class="section"><div class="section-title">固定搭配</div>
+                <table><tr><th>搭配</th><th>中文</th></tr>
+                <tr><td>fast reflex</td><td>快速反應</td></tr>
+                <tr><td>have quick reflexes</td><td>反應很快</td></tr>
+                <tr><td>a reflex action</td><td>反射動作</td></tr>
+                <tr><td>sharpen one's reflexes</td><td>提高反應能力</td></tr></table>
+            </div>
+
+            <div class="section"><div class="section-title">例句</div>
+                <div class="例句-box">A goalkeeper needs fast reflexes to save the ball.<br>守門員需要快速反應來撲救。</div>
+            </div>
+
+            <!-- 练习 -->
+            <div class="practice-section">
+                <div class="practice-title">📝 練習</div>
+
+                <div class="practice-card">
+                    <div class="practice-q"><b>1. 詞根拆解</b>：把詞根按正確順序排列</div>
+                    <div class="slots" id="ex1-slots">
+                        <div class="slot" onclick="clickSlot1(0)">？</div>
+                        <div class="slot" onclick="clickSlot1(1)">？</div>
+                    </div>
+                    <div class="opts" id="ex1-opts">
+                        <div class="opt-btn" onclick="clickOpt1(0)">re-（回）</div>
+                        <div class="opt-btn" onclick="clickOpt1(1)">flex（彎曲）</div>
+                    </div>
+                    <div><button class="btn primary" onclick="checkEx1()">提交</button></div>
+                    <div class="feedback" id="ex1-fb"></div>
+                </div>
+
+                <div class="practice-card">
+                    <div class="practice-q"><b>2. 家族詞填空</b></div>
+                    <div class="form-tabs">
+                        <div class="form-tab active" onclick="switchForm(0)">名詞</div>
+                        <div class="form-tab" onclick="switchForm(1)">形容詞</div>
+                        <div class="form-tab" onclick="switchForm(2)">副詞</div>
+                    </div>
+                    <div id="ex2-label" style="font-size:13px;color:var(--text-muted);margin-bottom:8px;">當前：名詞（反射）</div>
+                    <div class="blank-row" id="ex2-blanks"></div>
+                    <div class="letter-pool" id="ex2-letters"></div>
+                    <div><button class="btn" onclick="addHint2()">+ 提示</button> <button class="btn primary" onclick="checkEx2()">提交</button></div>
+                    <div class="feedback" id="ex2-fb"></div>
+                </div>
+
+                <div class="practice-card">
+                    <div class="practice-q"><b>3. 搭配選擇</b>：哪個是真正的常用搭配？</div>
+                    <div class="choice-list" id="ex3-choices">
+                        <div class="choice-item" onclick="checkEx3(this,0)">A. sharpen one's reflexes — 提高反應能力</div>
+                        <div class="choice-item" onclick="checkEx3(this,1)">B. strengthen one's reflexes — 增強反應</div>
+                        <div class="choice-item" onclick="checkEx3(this,2)">C. fasten one's reflexes — 加快反應</div>
+                        <div class="choice-item" onclick="checkEx3(this,3)">D. quicken one's reflexes — 加快反應</div>
+                    </div>
+                    <div class="feedback" id="ex3-fb"></div>
+                </div>
+            </div>
         </div>
+
+        <!-- ==================== 以后新词加在这里 ==================== -->
+
         <div class="footer">── Shelly Liu ──</div>
     </div>
+
+    <script>
+        // ===== 第1题 =====
+        let ex1slots = [null,null];
+        let ex1selected = null;
+        const ex1opts = ['re-','flex'];
+        function clickSlot1(i){
+            if(ex1slots[i]!==null){document.querySelectorAll('#ex1-opts .opt-btn')[ex1slots[i]].classList.remove('used');ex1slots[i]=null;}
+            if(ex1selected!==null){ex1slots[i]=ex1selected;document.querySelectorAll('#ex1-opts .opt-btn')[ex1selected].classList.add('used');ex1selected=null;}
+            refreshEx1();
+        }
+        function clickOpt1(i){
+            if(document.querySelectorAll('#ex1-opts .opt-btn')[i].classList.contains('used'))return;
+            document.querySelectorAll('#ex1-opts .opt-btn').forEach(e=>e.classList.remove('selected'));
+            ex1selected=i;document.querySelectorAll('#ex1-opts .opt-btn')[i].classList.add('selected');
+            const empty=ex1slots.findIndex(s=>s===null);
+            if(empty>=0){ex1slots[empty]=i;document.querySelectorAll('#ex1-opts .opt-btn')[i].classList.add('used');ex1selected=null;refreshEx1();}
+        }
+        function refreshEx1(){
+            for(let i=0;i<2;i++){
+                const el=document.getElementById('ex1-slots').children[i];
+                if(ex1slots[i]!==null){el.textContent=ex1opts[ex1slots[i]];el.classList.add('filled');}
+                else{el.textContent='？';el.classList.remove('filled');}
+            }
+        }
+        function checkEx1(){
+            const fb=document.getElementById('ex1-fb');
+            if(ex1slots[0]===0&&ex1slots[1]===1){fb.innerHTML='✅ 正確！re-（回）+ flex（彎曲）→ 反射';}
+            else{fb.innerHTML='❌ 再試試。正確答案：re- + flex';}
+        }
+
+        // ===== 第2题 =====
+        const forms=[{name:'名詞',word:'reflex',cn:'反射'},{name:'形容詞',word:'reflexive',cn:'反射性的'},{name:'副詞',word:'reflexively',cn:'本能地'}];
+        let currentForm=0;
+        let ex2blanks=[];
+        let ex2selectedLetter=null;
+        function switchForm(i){
+            currentForm=i;
+            document.querySelectorAll('.form-tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));
+            document.getElementById('ex2-label').textContent='當前：'+forms[i].name+'（'+forms[i].cn+'）';
+            initEx2();
+        }
+        function initEx2(){
+            const w=forms[currentForm].word;
+            ex2blanks=new Array(w.length).fill('');
+            ex2blanks[0]=w[0];ex2blanks[w.length-1]=w[w.length-1];
+            ex2selectedLetter=null;
+            const inner=w.slice(1,-1).split('');
+            const pool=[...inner];pool.sort(()=>Math.random()-0.5);
+            const container=document.getElementById('ex2-blanks');
+            container.innerHTML='';
+            for(let i=0;i<w.length;i++){
+                const d=document.createElement('div');d.className='blank';
+                d.textContent=ex2blanks[i]||'';d.onclick=()=>clickBlank2(i);
+                container.appendChild(d);
+            }
+            const lp=document.getElementById('ex2-letters');
+            lp.innerHTML='';
+            pool.forEach((l,i)=>{const d=document.createElement('div');d.className='lbtn';d.textContent=l;d.onclick=()=>clickLetter2(i);lp.appendChild(d);});
+            document.getElementById('ex2-fb').innerHTML='';
+        }
+        function clickBlank2(i){
+            if(ex2blanks[i]||ex2selectedLetter===null)return;
+            const lp=document.getElementById('ex2-letters').children;
+            ex2blanks[i]=lp[ex2selectedLetter].textContent;
+            lp[ex2selectedLetter].classList.add('used');
+            ex2selectedLetter=null;
+            refreshEx2();
+        }
+        function clickLetter2(i){
+            if(document.getElementById('ex2-letters').children[i].classList.contains('used'))return;
+            document.querySelectorAll('.lbtn.selected').forEach(e=>e.classList.remove('selected'));
+            ex2selectedLetter=i;
+            document.getElementById('ex2-letters').children[i].classList.add('selected');
+        }
+        function refreshEx2(){
+            const container=document.getElementById('ex2-blanks').children;
+            for(let i=0;i<ex2blanks.length;i++)container[i].textContent=ex2blanks[i]||'';
+        }
+        function addHint2(){
+            for(let i=1;i<ex2blanks.length-1;i++){
+                if(!ex2blanks[i]){ex2blanks[i]=forms[currentForm].word[i];refreshEx2();return;}
+            }
+        }
+        function checkEx2(){
+            const fb=document.getElementById('ex2-fb');
+            if(ex2blanks.join('')===forms[currentForm].word){fb.innerHTML='✅ 正確！';}
+            else{fb.innerHTML='❌ 正確答案是：'+forms[currentForm].word;}
+        }
+        switchForm(0);
+
+        // ===== 第3题 =====
+        function checkEx3(el,idx){
+            const all=document.querySelectorAll('#ex3-choices .choice-item');
+            all.forEach(c=>c.style.pointerEvents='none');
+            if(idx===0){el.classList.add('correct');document.getElementById('ex3-fb').innerHTML='✅ 正確！sharpen one\'s reflexes 是標準搭配。';}
+            else{el.classList.add('wrong');all[0].classList.add('correct');document.getElementById('ex3-fb').innerHTML='❌ 正確答案是 A。';}
+        }
+    </script>
 </body>
 </html>
